@@ -40,7 +40,7 @@ export default function ChatInput({ onSend, disabled, placeholder }) {
           onKeyDown={handleKeyDown}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          placeholder={placeholder || 'Type a message...'}
+          placeholder={placeholder || 'Écrivez un message…'}
           rows={1}
           disabled={disabled}
           style={{

@@ -19,8 +19,8 @@ export default function GPUStats({ model, gpuInfo, ollamaConnected }) {
         color: 'var(--text-secondary)',
       }}
     >
-      <StatChip label="Model" value={model || 'qwen2.5:0.5b'} />
-      <StatChip label="Params" value="500M" />
+      <StatChip label="Modèle" value={model || 'qwen2.5:0.5b'} />
+      <StatChip label="Paramètres" value="500M" />
       <StatChip
         label="Device"
         value={gpuInfo?.available ? gpuInfo.name : 'CPU'}
@@ -43,7 +43,7 @@ export default function GPUStats({ model, gpuInfo, ollamaConnected }) {
               background: ollamaConnected ? 'var(--brand)' : '#ef476f',
               boxShadow: ollamaConnected ? '0 0 6px var(--brand)' : 'none',
             }} />
-            {ollamaConnected ? 'Connected' : 'Demo Mode'}
+            {ollamaConnected ? 'Connecté' : 'Mode démo'}
           </span>
         }
       />

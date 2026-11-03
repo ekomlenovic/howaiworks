@@ -7,53 +7,53 @@ const TRADEOFFS = [
   {
     key: 'latency',
     icon: '⚡',
-    label: <>Latency — <Accent>Cloud thinks faster, but has a longer commute</Accent></>,
+    label: <>Latence : <Accent>le cloud réfléchit plus vite, mais il a plus de trajet à faire</Accent></>,
     insight: {
-      headline: 'Time-to-first-token vs. tokens-per-second.',
+      headline: 'Temps avant le premier token ou nombre de tokens par seconde ?',
       body: <>
-        <strong style={{ color: '#6ec0e8' }}>Cloud</strong> has high TTFT (time-to-first-token) — your prompt
-        travels over the internet to a data center, waits in a queue, then starts generating.
-        But once it starts, powerful A100/H100 GPUs produce tokens at 80-150 tok/s.
+        Le <strong style={{ color: '#6ec0e8' }}>cloud</strong> a un TTFT (temps avant le premier token) élevé : votre message
+        voyage sur internet jusqu’à un centre de données, attend son tour dans une file, puis la génération commence.
+        Mais une fois lancé, ses puissants GPU A100/H100 produisent 80 à 150 tokens par seconde.
         <br /><br />
-        <strong style={{ color: 'var(--brand)' }}>Local</strong> starts almost instantly (no network hop),
-        but consumer hardware generates at 10-30 tok/s. For short responses, local <em>feels</em> faster.
-        For long responses, cloud pulls ahead.
+        Le <strong style={{ color: 'var(--brand)' }}>local</strong> démarre presque instantanément (pas de trajet réseau),
+        mais le matériel grand public ne génère que 10 à 30 tokens par seconde. Pour une réponse courte, le local <em>paraît</em> plus rapide.
+        Pour une réponse longue, le cloud prend l’avantage.
       </>,
     },
   },
   {
     key: 'privacy',
     icon: '🔒',
-    label: <>Privacy — <Accent>Local AI keeps your secrets</Accent></>,
+    label: <>Confidentialité : <Accent>l’IA locale garde vos secrets</Accent></>,
     insight: {
-      headline: 'Your data never leaves your machine.',
+      headline: 'Vos données ne quittent jamais votre machine.',
       body: <>
-        When you use cloud AI, your prompts are sent to a remote server — stored, potentially logged,
-        sometimes used for training. With local AI, the model runs entirely on your hardware.
-        <strong style={{ color: 'var(--text-primary)' }}> Nothing is transmitted. Nothing is stored. Nothing is shared.</strong>
+        Quand vous utilisez une IA dans le cloud, vos messages sont envoyés à un serveur distant : ils peuvent être stockés, enregistrés dans des journaux,
+        et parfois utilisés pour l’entraînement. Avec une IA locale, le modèle tourne entièrement sur votre matériel.
+        <strong style={{ color: 'var(--text-primary)' }}> Rien n’est transmis. Rien n’est stocké. Rien n’est partagé.</strong>
         <br /><br />
-        This matters for healthcare (HIPAA), legal (attorney-client privilege), finance (SEC regulations),
-        and anyone who values data sovereignty. Hospitals increasingly run local models for patient data.
-        Law firms use them for confidential documents.
+        C’est essentiel dans la santé (secret médical), le droit (secret professionnel de l’avocat), la finance (réglementation bancaire),
+        et pour toute personne attachée à la maîtrise de ses données (pensez au RGPD). De plus en plus d’hôpitaux font tourner des modèles locaux pour les données des patients,
+        et des cabinets d’avocats les utilisent pour leurs documents confidentiels.
       </>,
     },
   },
   {
     key: 'cost',
     icon: '💰',
-    label: <>Cost — <Accent>Cloud charges per token. Local is free after setup.</Accent></>,
+    label: <>Coût : <Accent>le cloud facture au token, le local est gratuit une fois installé</Accent></>,
     insight: {
-      headline: 'Pay-per-use vs. upfront investment.',
+      headline: 'Payer à l’usage ou investir au départ ?',
       body: <>
-        <strong style={{ color: '#6ec0e8' }}>Cloud pricing</strong> (typical): ~$0.03 per 1K input tokens,
-        ~$0.06 per 1K output tokens. A busy chatbot handling 10,000 conversations/day can cost $500-2,000/month.
+        <strong style={{ color: '#6ec0e8' }}>Tarifs du cloud</strong> (ordre de grandeur) : environ 0,03 $ pour 1 000 tokens en entrée,
+        environ 0,06 $ pour 1 000 tokens en sortie. Un chatbot très sollicité, qui gère 10 000 conversations par jour, peut coûter 500 à 2 000 $ par mois.
         <br /><br />
-        <strong style={{ color: 'var(--brand)' }}>Local pricing</strong>: buy the hardware once, run forever.
-        A $200 GPU can run small models; a high-end AI workstation can run 70B-parameter models.
-        After the initial investment, every token is free.
+        <strong style={{ color: 'var(--brand)' }}>Coût du local</strong> : on achète le matériel une fois, puis on l’utilise indéfiniment.
+        Une carte graphique à 200 $ fait tourner de petits modèles ; une station de travail haut de gamme peut faire tourner des modèles de 70 milliards de paramètres.
+        Une fois l’investissement de départ fait, chaque token est gratuit (hors électricité).
         <br /><br />
         <span style={{ fontSize: 13, color: 'var(--text-dim)' }}>
-          The breakeven depends on usage volume — low usage favors cloud, high usage favors local.
+          Le seuil de rentabilité dépend du volume d’utilisation : un usage léger favorise le cloud, un usage intensif favorise le local.
         </span>
       </>,
     },
@@ -61,19 +61,19 @@ const TRADEOFFS = [
   {
     key: 'capability',
     icon: '🧠',
-    label: <>Capability — <Accent>Bigger models, better answers</Accent></>,
+    label: <>Capacités : <Accent>plus le modèle est gros, meilleures sont les réponses</Accent></>,
     insight: {
-      headline: '500M parameters vs 8B+ parameters — size matters.',
+      headline: '500 millions de paramètres contre plus de 8 milliards : la taille compte.',
       body: <>
-        The local model you saw (qwen2.5:0.5b) has <strong style={{ color: 'var(--brand)' }}>500 million parameters</strong>.
-        Cloud models like Llama 3.1 have <strong style={{ color: '#6ec0e8' }}>8 billion+ parameters</strong> — 16x more.
+        Le modèle local que vous avez vu (qwen2.5:0.5b) compte <strong style={{ color: 'var(--brand)' }}>500 millions de paramètres</strong>.
+        Des modèles comme Llama 3.1 en ont <strong style={{ color: '#6ec0e8' }}>8 milliards ou plus</strong>, soit 16 fois plus.
         <br /><br />
-        More parameters means more "memory" for facts, better reasoning, and more coherent long-form text.
-        But it also means more GPU memory needed. A 70B model needs ~35GB of VRAM (at 4-bit quantization) —
-        that's an A100 or a high-end consumer GPU.
+        Plus de paramètres, c’est plus de « mémoire » pour les connaissances, un meilleur raisonnement et des textes longs plus cohérents.
+        Mais il faut aussi plus de mémoire graphique. Un modèle de 70 milliards de paramètres a besoin d’environ 35 Go de VRAM (en quantification 4 bits) :
+        c’est le niveau d’une A100 ou d’une carte grand public très haut de gamme.
         <br /><br />
-        The future is trending toward smaller, more efficient models (distillation, quantization)
-        that close this gap, and new hardware keeps bringing larger models to your desk.
+        La tendance va vers des modèles plus petits et plus efficaces (distillation, quantification)
+        qui réduisent cet écart, et le nouveau matériel permet de faire tourner des modèles toujours plus gros sur votre bureau.
       </>,
     },
   },
@@ -135,7 +135,7 @@ export default function TradeoffCards({ onAllExplored }) {
         color: 'var(--text-dim)',
         marginBottom: 4,
       }}>
-        The Trade-offs
+        Les compromis
       </div>
 
       {TRADEOFFS.map((card) => (
@@ -174,8 +174,8 @@ export default function TradeoffCards({ onAllExplored }) {
           }}
         >
           {exploredCards.size === TRADEOFFS.length
-            ? 'All explored — you understand the cloud vs. local landscape.'
-            : `${exploredCards.size}/${TRADEOFFS.length} explored`
+            ? 'Tout exploré : vous avez une vue claire du match cloud contre local.'
+            : `${exploredCards.size}/${TRADEOFFS.length} explorés`
           }
         </motion.div>
       )}

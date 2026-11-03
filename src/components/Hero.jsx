@@ -18,7 +18,7 @@ export default function Hero() {
         marginBottom: 12,
         letterSpacing: -0.5,
       }}>
-        AI doesn't read words. It reads <span style={{ color: 'var(--brand)' }}>numbers.</span>
+        L’IA ne lit pas des mots. Elle lit des <span style={{ color: 'var(--brand)' }}>nombres.</span>
       </h1>
 
       <p style={{
@@ -29,8 +29,8 @@ export default function Hero() {
         margin: '0 auto',
         lineHeight: 1.5,
       }}>
-        Before AI can do anything with your text, it has to break it into smaller pieces called tokens.
-        Type below and see exactly how.
+        Avant de pouvoir faire quoi que ce soit de votre texte, l’IA doit le découper en petits morceaux appelés tokens.
+        Tapez ci-dessous et voyez exactement comment.
       </p>
     </motion.div>
   )

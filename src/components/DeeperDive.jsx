@@ -53,7 +53,7 @@ export default function DeeperDive({ path }) {
         letterSpacing: 0.5,
         marginBottom: 14,
       }}>
-        DEEPER DIVE
+        POUR ALLER PLUS LOIN
       </span>
 
       <h2 style={{

@@ -125,7 +125,7 @@ function AttentionHeatmap() {
           fontFamily: 'var(--font-mono)',
         }}
       >
-        {autoPhase < 2 ? 'Watch...' : 'Click any word to see what it pays attention to'}
+        {autoPhase < 2 ? 'Regardez…' : 'Cliquez sur un mot pour voir à quoi il fait attention'}
       </motion.div>
 
       {/* Sentence with clickable words */}
@@ -216,28 +216,28 @@ function AttentionHeatmap() {
             <span style={{ fontSize: 14, color: 'var(--text-primary)', lineHeight: 1.6 }}>
               {selectedWord === 'it' ? (
                 <>
-                  <strong style={{ color: 'var(--brand)' }}>"it"</strong> pays 55% attention to{' '}
-                  <strong style={{ color: 'var(--brand)' }}>"animal"</strong> — the model figured out
-                  that "it" refers to the animal, not the street. No one programmed this rule.
+                  <strong style={{ color: 'var(--brand)' }}>« it »</strong> (il) accorde 55 % de son attention à{' '}
+                  <strong style={{ color: 'var(--brand)' }}>« animal »</strong> : le modèle a compris
+                  que « it » désigne l’animal, pas la rue (« street »). Personne n’a programmé cette règle.
                 </>
               ) : selectedWord === 'cross' ? (
                 <>
-                  <strong style={{ color: 'var(--brand)' }}>"cross"</strong> attends most to{' '}
-                  <strong style={{ color: 'var(--brand)' }}>"street"</strong> (35%) — it's looking
-                  at what it's crossing.
+                  <strong style={{ color: 'var(--brand)' }}>« cross »</strong> (traverser) regarde surtout{' '}
+                  <strong style={{ color: 'var(--brand)' }}>« street »</strong> (la rue, 35 %) : il cherche
+                  ce qui est traversé.
                 </>
               ) : selectedWord === 'tired' ? (
                 <>
-                  <strong style={{ color: 'var(--brand)' }}>"tired"</strong> attends to{' '}
-                  <strong style={{ color: 'var(--brand)' }}>"animal"</strong> (25%) and{' '}
-                  <strong style={{ color: 'var(--brand)' }}>"it"</strong> (20%) — connecting
-                  the tiredness back to the subject.
+                  <strong style={{ color: 'var(--brand)' }}>« tired »</strong> (fatigué) regarde{' '}
+                  <strong style={{ color: 'var(--brand)' }}>« animal »</strong> (25 %) et{' '}
+                  <strong style={{ color: 'var(--brand)' }}>« it »</strong> (20 %) : il relie
+                  la fatigue au sujet de la phrase.
                 </>
               ) : (
                 <>
-                  <strong style={{ color: 'var(--brand)' }}>"{selectedWord}"</strong> distributes
-                  attention across the sentence. The brightest words are what the model considers most
-                  relevant for understanding this word in context.
+                  <strong style={{ color: 'var(--brand)' }}>« {selectedWord} »</strong> répartit
+                  son attention sur toute la phrase. Les mots les plus lumineux sont ceux que le modèle juge les plus
+                  utiles pour comprendre ce mot dans son contexte.
                 </>
               )}
             </span>
@@ -251,32 +251,32 @@ function AttentionHeatmap() {
 // ─── Multi-head visualization ──────────────────────────────────────────
 const HEADS = [
   {
-    name: 'Grammar',
+    name: 'Grammaire',
     color: '#6ec0e8',
-    description: 'Tracks subject-verb agreement and sentence structure',
+    description: 'Suit l’accord sujet-verbe et la structure de la phrase',
     connections: [
-      { from: 'animal', to: 'didn\'t', label: 'subject → verb' },
-      { from: 'it', to: 'was', label: 'subject → verb' },
-      { from: 'The', to: 'animal', label: 'determiner → noun' },
+      { from: 'animal', to: 'didn\'t', label: 'sujet → verbe' },
+      { from: 'it', to: 'was', label: 'sujet → verbe' },
+      { from: 'The', to: 'animal', label: 'déterminant → nom' },
     ],
   },
   {
-    name: 'Coreference',
+    name: 'Coréférence',
     color: '#f85f00',
-    description: 'Resolves what pronouns refer to',
+    description: 'Retrouve ce que désignent les pronoms',
     connections: [
-      { from: 'it', to: 'animal', label: 'pronoun → referent' },
-      { from: 'tired', to: 'animal', label: 'adjective → subject' },
+      { from: 'it', to: 'animal', label: 'pronom → référent' },
+      { from: 'tired', to: 'animal', label: 'adjectif → sujet' },
     ],
   },
   {
-    name: 'Semantics',
+    name: 'Sémantique',
     color: '#e8956e',
-    description: 'Links related meanings across the sentence',
+    description: 'Relie les sens apparentés dans toute la phrase',
     connections: [
-      { from: 'cross', to: 'street', label: 'action → object' },
-      { from: 'tired', to: 'didn\'t', label: 'cause → effect' },
-      { from: 'because', to: 'tired', label: 'reason → cause' },
+      { from: 'cross', to: 'street', label: 'action → objet' },
+      { from: 'tired', to: 'didn\'t', label: 'cause → effet' },
+      { from: 'because', to: 'tired', label: 'raison → cause' },
     ],
   },
 ]
@@ -464,7 +464,7 @@ function MultiHeadViz() {
           color: 'var(--text-dim)',
           fontFamily: 'var(--font-mono)',
         }}>
-          Toggle multiple heads to compare
+          Activez plusieurs têtes pour comparer
         </div>
       )}
     </div>
@@ -475,14 +475,14 @@ function MultiHeadViz() {
 function TransformerStack() {
   const [activeLayer, setActiveLayer] = useState(null)
   const LAYERS = [
-    { name: 'Input Embeddings', desc: 'Convert tokens to vectors (you learned this in Understand)', color: '#6ec0e8' },
-    { name: 'Self-Attention', desc: 'Each word looks at every other word to gather context', color: '#f85f00' },
-    { name: 'Add & Normalize', desc: 'Add the original input back (residual connection) and normalize', color: '#8a8a96' },
-    { name: 'Feed-Forward', desc: 'Two matrix multiplications with an activation — where knowledge is stored', color: '#e8956e' },
-    { name: 'Add & Normalize', desc: 'Another residual connection and normalization', color: '#8a8a96' },
+    { name: 'Embeddings d’entrée', desc: 'Convertit les tokens en vecteurs (vu dans la leçon « Comprendre »)', color: '#6ec0e8' },
+    { name: 'Auto-attention', desc: 'Chaque mot regarde tous les autres pour récupérer du contexte', color: '#f85f00' },
+    { name: 'Addition et normalisation', desc: 'On rajoute l’entrée d’origine (connexion résiduelle) puis on normalise', color: '#8a8a96' },
+    { name: 'Feed-forward', desc: 'Deux multiplications de matrices avec une activation : c’est là que sont stockées les connaissances', color: '#e8956e' },
+    { name: 'Addition et normalisation', desc: 'Une autre connexion résiduelle suivie d’une normalisation', color: '#8a8a96' },
   ]
 
-  const svgW = 380
+  const svgW = 430
   const blockW = 260
   const blockH = 40
   const gap = 8
@@ -608,7 +608,7 @@ function TransformerStack() {
                   fontSize={11}
                   fill="#8a8a96"
                 >
-                  ×N layers
+                  ×N couches
                 </text>
               </g>
             )
@@ -677,7 +677,7 @@ function TransformerStack() {
 }
 
 // ─── RNN vs Transformer animated visualization ──────────────────────────
-const RNN_WORDS = ['The', 'cat', 'sat', 'on', 'the', 'mat', 'because', 'it', 'was', 'soft']
+const RNN_WORDS = ['Le', 'chat', 'dort', 'sur', 'le', 'tapis', 'car', 'il', 'est', 'doux']
 
 function RNNvsTransformerInner() {
   const [phase, setPhase] = useState(0) // 0=idle, 1=rnn scanning, 2=rnn done, 3=transformer
@@ -740,7 +740,7 @@ function RNNvsTransformerInner() {
       {/* RNN panel */}
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 13, color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', marginBottom: 10 }}>
-          Before attention (RNNs):
+          Avant l’attention (RNN, réseaux récurrents) :
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', minHeight: 36 }}>
           {RNN_WORDS.map((w, i) => {
@@ -783,7 +783,7 @@ function RNNvsTransformerInner() {
               animate={{ opacity: 1, y: 0 }}
               style={{ fontSize: 12, color: '#e87a96', fontFamily: 'var(--font-mono)', marginTop: 8 }}
             >
-              it = ??? (forgot 'cat')
+              il = ??? (a oublié « chat »)
             </motion.div>
           )}
         </AnimatePresence>
@@ -794,7 +794,7 @@ function RNNvsTransformerInner() {
       {/* Transformer panel */}
       <div>
         <div style={{ fontSize: 13, color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', marginBottom: 10 }}>
-          With attention (Transformers):
+          Avec l’attention (transformers) :
         </div>
         <div style={{ overflowX: 'auto' }}>
           <svg viewBox={`0 0 ${svgWidth} 110`} style={{ width: '100%', maxWidth: svgWidth, display: 'block' }}>
@@ -856,7 +856,7 @@ function RNNvsTransformerInner() {
               transition={{ delay: 0.5 }}
               style={{ fontSize: 12, color: '#f85f00', fontFamily: 'var(--font-mono)', marginTop: 4 }}
             >
-              Every word directly accesses every other word
+              Chaque mot accède directement à tous les autres
             </motion.div>
           )}
         </AnimatePresence>
@@ -887,7 +887,7 @@ function RNNvsTransformerViz() {
         onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
         onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-dim)'}
       >
-        ↻ replay
+        ↻ rejouer
       </button>
     </div>
   )
@@ -900,7 +900,7 @@ function QKVDiagram() {
       <svg viewBox="0 0 300 180" style={{ width: '100%', maxWidth: 300, display: 'block', margin: '0 auto' }}>
         {/* Input box */}
         <rect x={115} y={6} width={70} height={28} rx={6} fill="#141416" stroke="#2a2a30" strokeWidth={1} />
-        <text x={150} y={24} textAnchor="middle" fontFamily="IBM Plex Mono, monospace" fontSize={11} fill="#e8e8ed">Input</text>
+        <text x={150} y={24} textAnchor="middle" fontFamily="IBM Plex Mono, monospace" fontSize={11} fill="#e8e8ed">Entrée</text>
 
         {/* Branching lines to Q, K, V */}
         <line x1={150} y1={34} x2={50} y2={62} stroke="#6ec0e8" strokeWidth={1.5} />
@@ -934,7 +934,7 @@ function QKVDiagram() {
         {/* × V = Output */}
         <line x1={125} y1={159} x2={125} y2={169} stroke="#55555f" strokeWidth={1} />
         <line x1={250} y1={88} x2={170} y2={172} stroke="#f85f00" strokeWidth={1.5} strokeDasharray="3 2" />
-        <text x={150} y={176} textAnchor="middle" fontFamily="IBM Plex Mono, monospace" fontSize={10} fill="#f85f00">× V = Output</text>
+        <text x={150} y={176} textAnchor="middle" fontFamily="IBM Plex Mono, monospace" fontSize={10} fill="#f85f00">× V = Sortie</text>
       </svg>
     </div>
   )
@@ -945,22 +945,22 @@ const NUDGE_ITEMS = [
   {
     key: 'pronoun-resolution',
     icon: '🔍',
-    label: <>What does <strong>"it"</strong> refer to?</>,
+    label: <>À quoi renvoie <strong>« it »</strong> ?</>,
     insight: (
       <div style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
         <p style={{ margin: '0 0 12px' }}>
-          In the sentence "The animal didn't cross the street because <strong>it</strong> was too tired,"
-          humans instantly know "it" = the animal. But how does a model figure this out?
+          Dans la phrase « The animal didn’t cross the street because <strong>it</strong> was too tired »
+          (« L’animal n’a pas traversé la rue parce qu’il était trop fatigué »), un humain sait immédiatement que « it » = l’animal. Mais comment un modèle le devine-t-il ?
         </p>
         <p style={{ margin: '0 0 12px' }}>
-          <strong style={{ color: 'var(--brand)' }}>Before attention:</strong> Models like RNNs
-          processed words left-to-right. By the time they reached "it," the information about "animal"
-          had faded — like trying to remember the start of a long sentence.
+          <strong style={{ color: 'var(--brand)' }}>Avant l’attention :</strong> les modèles comme les RNN (réseaux de neurones récurrents)
+          lisaient les mots de gauche à droite. Le temps d’arriver à « it », l’information sur « animal »
+          s’était estompée, comme quand on essaie de se souvenir du début d’une très longue phrase.
         </p>
         <p style={{ margin: 0 }}>
-          <strong style={{ color: 'var(--brand)' }}>With attention:</strong> The model can look
-          directly back at "animal" when processing "it." No forgetting, no fading. It computes a
-          relevance score between every pair of words simultaneously.
+          <strong style={{ color: 'var(--brand)' }}>Avec l’attention :</strong> le modèle peut regarder
+          directement « animal » quand il traite « it ». Pas d’oubli, pas d’effacement. Il calcule un
+          score de pertinence entre chaque paire de mots, en même temps.
         </p>
       </div>
     ),
@@ -968,22 +968,22 @@ const NUDGE_ITEMS = [
   {
     key: 'why-multiple-heads',
     icon: '🧠',
-    label: <>Why <strong>multiple</strong> attention heads?</>,
+    label: <>Pourquoi <strong>plusieurs</strong> têtes d’attention ?</>,
     insight: (
       <div style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
         <p style={{ margin: '0 0 12px' }}>
-          Language encodes many relationships at once. In "The cat sat on the mat,"
-          you simultaneously understand grammar (cat = subject), position (cat is before sat),
-          and meaning (cats sit on things).
+          Le langage encode plein de relations à la fois. Dans « Le chat dort sur le tapis »,
+          vous comprenez en même temps la grammaire (chat = sujet), la position (chat vient avant dort)
+          et le sens (les chats dorment sur des choses).
         </p>
         <p style={{ margin: '0 0 12px' }}>
-          A single attention pattern can only capture one type of relationship. Multiple heads
-          let the model track all of them in parallel — typically <strong style={{ color: 'var(--brand)' }}>12-96 heads</strong> per
-          layer, each learning a different pattern.
+          Un seul schéma d’attention ne peut capturer qu’un type de relation. Plusieurs têtes
+          permettent au modèle de toutes les suivre en parallèle : en général <strong style={{ color: 'var(--brand)' }}>de 12 à 96 têtes</strong> par
+          couche, chacune apprenant un schéma différent.
         </p>
         <p style={{ margin: 0 }}>
-          This wasn't designed by linguists. The heads <strong>emerge from training</strong> — the model
-          discovers that specialization helps it predict the next word better.
+          Ce ne sont pas des linguistes qui l’ont conçu. Les têtes <strong>émergent de l’entraînement</strong> : le modèle
+          découvre que se spécialiser l’aide à mieux prédire le mot suivant.
         </p>
       </div>
     ),
@@ -991,21 +991,21 @@ const NUDGE_ITEMS = [
   {
     key: 'how-deep',
     icon: '📚',
-    label: <>How <strong>deep</strong> does it go?</>,
+    label: <>Jusqu’à quelle <strong>profondeur</strong> ?</>,
     insight: (
       <div style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
         <p style={{ margin: '0 0 12px' }}>
-          A transformer isn't just one attention step — it's the same block repeated many times.
-          Each layer refines the representation:
+          Un transformer, ce n’est pas une seule étape d’attention : c’est le même bloc répété de nombreuses fois.
+          Chaque couche affine la représentation :
         </p>
         <div style={{ margin: '0 0 12px', paddingLeft: 12, borderLeft: '2px solid var(--border)' }}>
-          <div style={{ marginBottom: 6 }}><strong style={{ color: '#6ec0e8' }}>Early layers</strong> — basic syntax, word boundaries, part-of-speech</div>
-          <div style={{ marginBottom: 6 }}><strong style={{ color: 'var(--brand)' }}>Middle layers</strong> — semantic relationships, coreference, facts</div>
-          <div><strong style={{ color: '#e8956e' }}>Late layers</strong> — task-specific reasoning, output formatting</div>
+          <div style={{ marginBottom: 6 }}><strong style={{ color: '#6ec0e8' }}>Premières couches</strong> : syntaxe de base, frontières des mots, nature des mots</div>
+          <div style={{ marginBottom: 6 }}><strong style={{ color: 'var(--brand)' }}>Couches intermédiaires</strong> : relations de sens, coréférences, connaissances</div>
+          <div><strong style={{ color: '#e8956e' }}>Dernières couches</strong> : raisonnement propre à la tâche, mise en forme de la réponse</div>
         </div>
         <p style={{ margin: 0 }}>
-          GPT-2 has 12 layers. GPT-3 has 96. More layers = more refined understanding, but also
-          more compute per token. This is why bigger models are slower but smarter.
+          GPT-2 a 12 couches, GPT-3 en a 96. Plus de couches = une compréhension plus fine, mais aussi
+          plus de calcul par token. C’est pour cela que les gros modèles sont plus lents, mais plus malins.
         </p>
       </div>
     ),
@@ -1057,8 +1057,8 @@ export default function AttentionPage() {
           marginBottom: 16,
           letterSpacing: -0.5,
         }}>
-          How AI{' '}
-          <span style={{ color: 'var(--brand)' }}>pays attention.</span>
+          Comment l’IA{' '}
+          <span style={{ color: 'var(--brand)' }}>fait attention.</span>
         </h1>
         <p style={{
           fontSize: 17,
@@ -1068,43 +1068,43 @@ export default function AttentionPage() {
           margin: '0 auto',
           lineHeight: 1.6,
         }}>
-          Every word looks at every other word. The model decides what matters.
-          This is the mechanism that made modern AI possible.
+          Chaque mot regarde tous les autres. Le modèle décide de ce qui compte.
+          C’est le mécanisme qui a rendu possible l’IA moderne.
         </p>
       </motion.div>
 
       {/* Section 1: The Problem */}
       <SectionCard
-        badge="THE PROBLEM"
-        title="Words change meaning based on context"
-        explanation={`"Bank" means something different in "river bank" vs "bank account." Earlier AI models processed words one at a time, left to right — by the time they reached the end of a sentence, they'd already forgotten the beginning. Attention solved this by letting every word look at every other word, all at once.`}
+        badge="LE PROBLÈME"
+        title="Le sens des mots change selon le contexte"
+        explanation={`« Avocat » ne veut pas dire la même chose dans « manger un avocat » et « appeler son avocat ». Les anciens modèles d’IA traitaient les mots un par un, de gauche à droite : arrivés à la fin d’une phrase, ils en avaient déjà oublié le début. L’attention a résolu ce problème en permettant à chaque mot de regarder tous les autres, en même temps.`}
       >
         <RNNvsTransformerViz />
       </SectionCard>
 
       {/* Section 2: Interactive attention heatmap */}
       <SectionCard
-        badge="SELF-ATTENTION"
-        title="Every word asks: 'Who should I pay attention to?'"
-        explanation="For each word, the model computes a score against every other word in the sentence. High scores mean strong relevance. This happens in parallel for all words simultaneously."
+        badge="AUTO-ATTENTION"
+        title="Chaque mot se demande : « À qui dois-je faire attention ? »"
+        explanation="Pour chaque mot, le modèle calcule un score avec chacun des autres mots de la phrase. Un score élevé signifie un lien fort. Ce calcul se fait en parallèle pour tous les mots à la fois. (La phrase est en anglais : « L’animal n’a pas traversé la rue parce qu’il était trop fatigué ».)"
       >
         <AttentionHeatmap />
       </SectionCard>
 
       {/* Section 3: Multi-head attention */}
       <SectionCard
-        badge="MULTI-HEAD"
-        title="Multiple perspectives at once"
-        explanation="A single attention pattern can only capture one type of relationship. Real transformers run many attention heads in parallel — each one learns to focus on a different pattern."
+        badge="MULTI-TÊTES"
+        title="Plusieurs points de vue à la fois"
+        explanation="Un seul schéma d’attention ne capture qu’un type de relation. Les vrais transformers font tourner de nombreuses têtes d’attention en parallèle, et chacune apprend à se concentrer sur un schéma différent."
       >
         <MultiHeadViz />
       </SectionCard>
 
       {/* Section 4: Transformer stack */}
       <SectionCard
-        badge="THE FULL PICTURE"
-        title="The transformer block"
-        explanation="Attention is just one part. A complete transformer block combines self-attention with feed-forward layers, residual connections, and normalization. Then the whole block repeats."
+        badge="VUE D’ENSEMBLE"
+        title="Le bloc transformer"
+        explanation="L’attention n’est qu’une partie du tout. Un bloc transformer complet associe l’auto-attention à des couches feed-forward, des connexions résiduelles et une normalisation. Puis le bloc entier se répète."
       >
         <TransformerStack />
       </SectionCard>
@@ -1159,7 +1159,7 @@ export default function AttentionPage() {
           fontFamily: 'var(--font-mono)',
           marginBottom: 12,
         }}>
-          Explore to continue ({exploredNudges.size}/{NUDGE_ITEMS.length})
+          Explorez pour continuer ({exploredNudges.size}/{NUDGE_ITEMS.length})
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {NUDGE_ITEMS.map(item => (
@@ -1183,14 +1183,14 @@ export default function AttentionPage() {
         delay={0.5}
         sections={[
           {
-            label: 'The Concept',
+            label: 'Le concept',
             color: 'var(--brand)',
             defaultOpen: true,
             content: (
               <div style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
                 <p style={{ margin: '0 0 16px' }}>
-                  Self-attention computes three vectors for each token: <strong>Query</strong> (what am I looking for?),{' '}
-                  <strong>Key</strong> (what do I contain?), and <strong>Value</strong> (what information do I carry?).
+                  L’auto-attention calcule trois vecteurs pour chaque token : la <strong>requête</strong> (Query : qu’est-ce que je cherche ?),{' '}
+                  la <strong>clé</strong> (Key : qu’est-ce que je contiens ?) et la <strong>valeur</strong> (Value : quelle information est-ce que je transporte ?).
                 </p>
                 <QKVDiagram />
                 <div style={{
@@ -1202,23 +1202,23 @@ export default function AttentionPage() {
                   lineHeight: 1.8,
                   marginBottom: 16,
                 }}>
-                  <div style={{ color: 'var(--text-dim)', marginBottom: 8 }}>For each word:</div>
-                  <div><span style={{ color: '#6ec0e8' }}>Q</span> = word × W_query    <span style={{ color: 'var(--text-dim)' }}>// "what am I looking for?"</span></div>
-                  <div><span style={{ color: '#e8956e' }}>K</span> = word × W_key      <span style={{ color: 'var(--text-dim)' }}>// "what do I contain?"</span></div>
-                  <div><span style={{ color: '#f85f00' }}>V</span> = word × W_value    <span style={{ color: 'var(--text-dim)' }}>// "what info do I carry?"</span></div>
-                  <div style={{ marginTop: 12, color: 'var(--text-dim)' }}>Attention score:</div>
+                  <div style={{ color: 'var(--text-dim)', marginBottom: 8 }}>Pour chaque mot :</div>
+                  <div><span style={{ color: '#6ec0e8' }}>Q</span> = mot × W_query    <span style={{ color: 'var(--text-dim)' }}>// « qu’est-ce que je cherche ? »</span></div>
+                  <div><span style={{ color: '#e8956e' }}>K</span> = mot × W_key      <span style={{ color: 'var(--text-dim)' }}>// « qu’est-ce que je contiens ? »</span></div>
+                  <div><span style={{ color: '#f85f00' }}>V</span> = mot × W_value    <span style={{ color: 'var(--text-dim)' }}>// « quelle info je transporte ? »</span></div>
+                  <div style={{ marginTop: 12, color: 'var(--text-dim)' }}>Score d’attention :</div>
                   <div>score = softmax(<span style={{ color: '#6ec0e8' }}>Q</span> · <span style={{ color: '#e8956e' }}>K</span>ᵀ / √d) × <span style={{ color: '#f85f00' }}>V</span></div>
                 </div>
                 <p style={{ margin: 0 }}>
-                  The dot product Q·K measures how relevant each key is to each query. Dividing by √d
-                  (the dimension size) prevents the values from getting too large. Softmax converts
-                  raw scores into a probability distribution. The result is a weighted sum of Values.
+                  Le produit scalaire Q·K mesure à quel point chaque clé correspond à chaque requête. Diviser par √d
+                  (d étant la dimension) évite que les valeurs deviennent trop grandes. La fonction softmax transforme
+                  les scores bruts en distribution de probabilités. Le résultat est une somme pondérée des valeurs.
                 </p>
               </div>
             ),
           },
           {
-            label: 'The Code',
+            label: 'Le code',
             color: '#6ec0e8',
             content: (
               <div style={{
@@ -1230,25 +1230,25 @@ export default function AttentionPage() {
                 lineHeight: 1.6,
                 overflowX: 'auto',
               }}>
-                <div style={{ color: 'var(--text-dim)', marginBottom: 12 }}>// Simplified self-attention in Python</div>
+                <div style={{ color: 'var(--text-dim)', marginBottom: 12 }}>// Auto-attention simplifiée en Python</div>
                 <pre style={{ margin: 0, color: 'var(--text-primary)', whiteSpace: 'pre-wrap' }}>{`import numpy as np
 
 def self_attention(X, W_q, W_k, W_v):
     """
-    X:   input embeddings  (seq_len, d_model)
-    W_q: query weights     (d_model, d_k)
-    W_k: key weights       (d_model, d_k)
-    W_v: value weights     (d_model, d_v)
+    X:   embeddings d'entrée  (seq_len, d_model)
+    W_q: poids des requêtes   (d_model, d_k)
+    W_k: poids des clés       (d_model, d_k)
+    W_v: poids des valeurs    (d_model, d_v)
     """
-    Q = X @ W_q    # queries
-    K = X @ W_k    # keys
-    V = X @ W_v    # values
+    Q = X @ W_q    # requêtes
+    K = X @ W_k    # clés
+    V = X @ W_v    # valeurs
 
     d_k = K.shape[-1]
     scores = Q @ K.T / np.sqrt(d_k)
     weights = softmax(scores)  # (seq_len, seq_len)
 
-    return weights @ V  # weighted sum of values
+    return weights @ V  # somme pondérée des valeurs
 
 def softmax(x):
     e = np.exp(x - x.max(axis=-1, keepdims=True))
@@ -1257,13 +1257,13 @@ def softmax(x):
             ),
           },
           {
-            label: 'Challenge',
+            label: 'Défi',
             color: '#e8d06e',
             content: (
               <div style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
                 <p style={{ margin: '0 0 12px' }}>
-                  Self-attention compares every word to every other word. If a sentence has <em>n</em> words,
-                  that's <em>n × n</em> comparisons.
+                  L’auto-attention compare chaque mot à tous les autres. Si une phrase contient <em>n</em> mots,
+                  cela fait <em>n × n</em> comparaisons.
                 </p>
                 <div style={{
                   padding: '12px 16px',
@@ -1273,43 +1273,43 @@ def softmax(x):
                   marginBottom: 12,
                 }}>
                   <p style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 13 }}>
-                    A 1,000-token prompt = 1,000,000 attention scores.{' '}
-                    <br />A 100,000-token prompt = 10,000,000,000 scores.
+                    Un prompt de 1 000 tokens = 1 000 000 de scores d’attention.{' '}
+                    <br />Un prompt de 100 000 tokens = 10 000 000 000 de scores.
                   </p>
                 </div>
                 <p style={{ margin: 0 }}>
-                  This O(n²) scaling is why context windows are limited, and why researchers are
-                  working on alternatives like Flash Attention, sparse attention, and linear attention.
-                  Can you think of ways to reduce the number of comparisons without losing important relationships?
+                  Cette croissance en O(n²) explique pourquoi les fenêtres de contexte sont limitées, et pourquoi les chercheurs
+                  travaillent sur des alternatives comme Flash Attention, l’attention creuse (sparse) ou l’attention linéaire.
+                  Voyez-vous des façons de réduire le nombre de comparaisons sans perdre les relations importantes ?
                 </p>
               </div>
             ),
           },
           {
-            label: 'Real World',
+            label: 'Dans la vraie vie',
             color: '#e87a96',
             content: (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #6ec0e8' }}>
-                  <strong style={{ color: '#6ec0e8', fontSize: 14 }}>Machine Translation</strong>
+                  <strong style={{ color: '#6ec0e8', fontSize: 14 }}>Traduction automatique</strong>
                   <div style={{ marginTop: 4, fontSize: 13, color: 'var(--text-secondary)' }}>
-                    Attention was originally invented for translation. It lets the model align source and target words
-                    ("le chat" → "the cat") without rigid word-by-word mapping.
+                    L’attention a d’abord été inventée pour la traduction. Elle permet au modèle d’aligner les mots de la langue source et de la langue cible
+                    (« le chat » → « the cat ») sans correspondance rigide mot à mot.
                   </div>
                 </div>
                 <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid var(--brand)' }}>
-                  <strong style={{ color: 'var(--brand)', fontSize: 14 }}>Code Completion</strong>
+                  <strong style={{ color: 'var(--brand)', fontSize: 14 }}>Complétion de code</strong>
                   <div style={{ marginTop: 4, fontSize: 13, color: 'var(--text-secondary)' }}>
-                    When Copilot suggests code, attention lets it look back at your function signatures,
-                    variable names, and imports — all at once — to write contextually correct code.
+                    Quand Copilot vous suggère du code, l’attention lui permet de regarder en même temps vos signatures de fonctions,
+                    vos noms de variables et vos imports, pour écrire un code adapté au contexte.
                   </div>
                 </div>
                 <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #e8956e' }}>
-                  <strong style={{ color: '#e8956e', fontSize: 14 }}>Vision Transformers</strong>
+                  <strong style={{ color: '#e8956e', fontSize: 14 }}>Transformers pour la vision</strong>
                   <div style={{ marginTop: 4, fontSize: 13, color: 'var(--text-secondary)' }}>
-                    The same attention mechanism works on images. Split an image into patches, treat each
-                    patch like a "word," and let patches attend to each other. This is how DALL-E and
-                    modern image classifiers work.
+                    Le même mécanisme d’attention fonctionne sur les images. On découpe l’image en petits carrés, on traite chaque
+                    carré comme un « mot », et on laisse les carrés faire attention les uns aux autres. C’est ainsi que fonctionnent DALL-E et
+                    les classificateurs d’images modernes.
                   </div>
                 </div>
               </div>
@@ -1331,8 +1331,8 @@ def softmax(x):
           marginBottom: 20,
           lineHeight: 1.6,
         }}>
-          You've seen how AI reads text, maps meaning, and focuses attention.
-          Now see where all of this actually runs.
+          Vous avez vu comment l’IA lit le texte, cartographie le sens et dirige son attention.
+          Voyons maintenant où tout cela tourne vraiment.
         </p>
         <Link
           to="/run"
@@ -1360,7 +1360,7 @@ def softmax(x):
             e.currentTarget.style.boxShadow = '0 0 20px rgba(248, 95, 0, 0.3)'
           }}
         >
-          See where AI runs
+          Voir où tourne l’IA
           <span style={{ fontSize: 18 }}>→</span>
         </Link>
       </motion.div>

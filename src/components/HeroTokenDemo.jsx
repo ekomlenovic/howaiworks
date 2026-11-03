@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTokenizer } from '../hooks/useTokenizer'
 
 const SENTENCES = [
-  'How does AI actually work?',
-  'The cat sat on the mat',
-  'strawberry',
+  'Comment fonctionne vraiment l’IA ?',
+  'Le chat est assis sur le tapis',
+  'anticonstitutionnellement',
   'مرحبا كيف حالك',
 ]
 
@@ -210,7 +210,7 @@ export default function HeroTokenDemo() {
           fontSize: 13,
           fontFamily: 'var(--font-mono)',
         }}>
-          Loading tokenizer...
+          Chargement du tokeniseur…
         </div>
       )}
     </div>

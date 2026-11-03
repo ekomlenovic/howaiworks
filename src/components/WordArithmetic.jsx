@@ -7,55 +7,55 @@ const EXPERIMENTS = [
   {
     key: 'king_woman',
     icon: '👑',
-    label: <><Accent>King</Accent> − <Accent>Man</Accent> + <Accent>Woman</Accent> = ?</>,
+    label: <><Accent>King</Accent> (roi) − <Accent>Man</Accent> (homme) + <Accent>Woman</Accent> (femme) = ?</>,
     a: 'king',
     b: 'man',
     c: 'woman',
     result: 'queen',
     arithmeticKey: 'king_man_woman',
     insight: {
-      headline: 'AI learned gender relationships from text alone.',
+      headline: 'L’IA a appris la notion de genre à partir du seul texte.',
       body: <>
-        No one told the model that king and queen are related. By reading billions of sentences,
-        it discovered that the <strong style={{ color: 'var(--text-primary)' }}>vector difference</strong> between
-        "king" and "man" is almost identical to the difference between "queen" and "woman."
-        The model encodes abstract relationships as directions in meaning-space.
+        Personne n’a dit au modèle que « king » (roi) et « queen » (reine) étaient liés. En lisant des milliards de phrases,
+        il a découvert que la <strong style={{ color: 'var(--text-primary)' }}>différence entre les vecteurs</strong> de
+        « king » et de « man » (homme) est presque identique à celle entre « queen » et « woman » (femme).
+        Le modèle encode des relations abstraites sous forme de directions dans l’espace du sens.
       </>,
-      nextHint: 'Try the next one — AI learned geography without ever seeing a map →',
+      nextHint: 'Essayez la suivante : l’IA a appris la géographie sans jamais voir de carte →',
     },
   },
   {
     key: 'paris_japan',
     icon: '🗼',
-    label: <><Accent>Paris</Accent> − <Accent>France</Accent> + <Accent>Japan</Accent> = ?</>,
+    label: <><Accent>Paris</Accent> − <Accent>France</Accent> + <Accent>Japan</Accent> (Japon) = ?</>,
     a: 'Paris',
     b: 'France',
     c: 'Japan',
     result: 'Tokyo',
     arithmeticKey: 'paris_france_japan',
     insight: {
-      headline: 'AI learned geography without ever seeing a map.',
+      headline: 'L’IA a appris la géographie sans jamais voir de carte.',
       body: <>
-        The direction from "France" to "Paris" encodes the concept of <strong style={{ color: 'var(--text-primary)' }}>"capital city of."</strong>{' '}
-        Apply that same direction starting from "Japan" and you land near "Tokyo."
-        The model built a geometric map of countries and capitals purely from reading text —
-        no atlas, no GPS coordinates, no explicit teaching.
+        La direction qui va de « France » à « Paris » encode la notion de <strong style={{ color: 'var(--text-primary)' }}>« capitale de »</strong>.{' '}
+        Appliquez cette même direction en partant de « Japan » (Japon) et vous arrivez près de « Tokyo ».
+        Le modèle a construit une carte géométrique des pays et de leurs capitales uniquement en lisant du texte :
+        pas d’atlas, pas de coordonnées GPS, aucun enseignement explicite.
       </>,
-      nextHint: 'Now try your own equation — discover what other relationships AI has learned →',
+      nextHint: 'Maintenant, essayez votre propre équation et découvrez quelles autres relations l’IA a apprises →',
     },
   },
   {
     key: 'custom',
     icon: '🧪',
-    label: <>Create your own word equation</>,
+    label: <>Créez votre propre équation de mots</>,
     isCustom: true,
     insight: {
-      headline: 'These relationships emerge automatically from reading billions of sentences.',
+      headline: 'Ces relations émergent toutes seules à force de lire des milliards de phrases.',
       body: <>
-        Nobody hand-codes these relationships. During training, the model learns to predict the next word
-        in a sentence. To do that well, it <em>must</em> understand that "king" relates to "queen" the
-        way "man" relates to "woman." The geometry of meaning-space is a
-        <strong style={{ color: 'var(--text-primary)' }}> side effect of learning to predict text.</strong>
+        Personne ne programme ces relations à la main. Pendant l’entraînement, le modèle apprend à prédire le mot suivant
+        d’une phrase. Pour bien y arriver, il <em>doit</em> comprendre que « king » est à « queen » ce que
+        « man » est à « woman ». La géométrie de l’espace du sens est un
+        <strong style={{ color: 'var(--text-primary)' }}> effet secondaire de l’apprentissage de la prédiction de texte.</strong>
       </>,
       nextHint: null,
     },
@@ -166,7 +166,7 @@ export default function WordArithmetic({ embeddingData, onShowArithmetic, onAllE
         result: closest ? { word: closest.word, x: closest.x, y: closest.y } : { word: '?', x: rx, y: ry },
       })
     } else {
-      setCustomResult('(word not in map — try words from the scatter plot)')
+      setCustomResult('(mot absent de la carte : essayez des mots du nuage de points)')
     }
   }
 
@@ -181,7 +181,7 @@ export default function WordArithmetic({ embeddingData, onShowArithmetic, onAllE
         color: 'var(--text-dim)',
         marginBottom: 4,
       }}>
-        Word Arithmetic
+        Arithmétique des mots
       </div>
 
       {EXPERIMENTS.map((exp) => (
@@ -326,8 +326,8 @@ export default function WordArithmetic({ embeddingData, onShowArithmetic, onAllE
           }}
         >
           {exploredExperiments.size === EXPERIMENTS.length
-            ? 'All explored — you now understand meaning-space.'
-            : `${exploredExperiments.size}/${EXPERIMENTS.length} explored`
+            ? 'Tout exploré : vous comprenez maintenant l’espace du sens.'
+            : `${exploredExperiments.size}/${EXPERIMENTS.length} explorées`
           }
         </motion.div>
       )}
@@ -343,13 +343,22 @@ const WORD_OPTIONS = [
   'computer', 'pizza', 'coffee', 'ocean',
 ]
 
+// Traductions affichées à côté des mots anglais (les embeddings sont calculés sur des mots anglais)
+const WORD_FR = {
+  king: 'roi', queen: 'reine', man: 'homme', woman: 'femme', doctor: 'médecin', nurse: 'infirmière',
+  cat: 'chat', dog: 'chien', fish: 'poisson', bird: 'oiseau',
+  Paris: 'Paris', France: 'France', Japan: 'Japon', Tokyo: 'Tokyo',
+  happy: 'heureux', sad: 'triste', love: 'amour', fear: 'peur',
+  computer: 'ordinateur', pizza: 'pizza', coffee: 'café', ocean: 'océan',
+}
+
 function WordSelect({ value, onChange }) {
   return (
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
       style={{
-        width: 100,
+        width: 150,
         padding: '6px 8px',
         background: 'var(--bg-deep)',
         border: '1px solid var(--border)',
@@ -375,9 +384,9 @@ function WordSelect({ value, onChange }) {
         e.target.style.boxShadow = 'none'
       }}
     >
-      <option value="" disabled>pick a word</option>
+      <option value="" disabled>choisir un mot</option>
       {WORD_OPTIONS.map(w => (
-        <option key={w} value={w}>{w}</option>
+        <option key={w} value={w}>{WORD_FR[w] && WORD_FR[w] !== w ? `${w} (${WORD_FR[w]})` : w}</option>
       ))}
     </select>
   )

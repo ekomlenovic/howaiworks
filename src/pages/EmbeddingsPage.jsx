@@ -219,8 +219,8 @@ export default function EmbeddingsPage() {
           marginBottom: 12,
           letterSpacing: -0.5,
         }}>
-          AI doesn't just see numbers.{' '}
-          <span style={{ color: 'var(--brand)' }}>It understands meaning.</span>
+          L’IA ne voit pas que des nombres.{' '}
+          <span style={{ color: 'var(--brand)' }}>Elle saisit le sens.</span>
         </h1>
         <p style={{
           fontSize: 17,
@@ -230,7 +230,7 @@ export default function EmbeddingsPage() {
           margin: '0 auto',
           lineHeight: 1.5,
         }}>
-          AI organized these words by meaning — no one told it which words are related.
+          L’IA a rangé ces mots selon leur sens, sans que personne ne lui dise lesquels étaient liés. (Les mots sont en anglais, la langue du modèle utilisé.)
         </p>
       </motion.div>
 
@@ -270,7 +270,7 @@ export default function EmbeddingsPage() {
               }
               setWordInput(e.target.value)
             }}
-            placeholder="Type or click a word from the map to highlight it..."
+            placeholder="Tapez un mot (en anglais) ou cliquez sur la carte pour le mettre en valeur…"
             style={{
               flex: 1,
               padding: '12px 16px',
@@ -321,7 +321,7 @@ export default function EmbeddingsPage() {
               e.currentTarget.style.boxShadow = 'none'
             }}
           >
-            Find
+            Chercher
           </button>
         </form>
       </motion.div>
@@ -341,24 +341,24 @@ export default function EmbeddingsPage() {
         }}
       >
         <h3 style={{ fontSize: 17, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 8 }}>
-          What is an embedding?
+          Qu’est-ce qu’un embedding ?
         </h3>
         <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 20 }}>
-          An embedding is a way of turning a word into a list of numbers that captures its{' '}
-          <span style={{ color: 'var(--text-primary)' }}>meaning</span>. The model learns these numbers
-          during training so that words with similar meanings end up with similar numbers. Every dot on the
-          map above is one word, placed according to its embedding.
+          Un embedding (ou « plongement » en français) est une façon de transformer un mot en une liste de nombres qui capture son{' '}
+          <span style={{ color: 'var(--text-primary)' }}>sens</span>. Le modèle apprend ces nombres
+          pendant l’entraînement, de sorte que les mots de sens proche se retrouvent avec des nombres proches. Chaque point de la
+          carte ci-dessus est un mot, placé en fonction de son embedding.
         </p>
 
         <h3 style={{ fontSize: 17, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 8 }}>
-          What is a vector?
+          Qu’est-ce qu’un vecteur ?
         </h3>
         <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, margin: 0 }}>
-          A vector is just a list of numbers — like coordinates, but in many dimensions. Each word's
-          embedding is a vector with{' '}
-          <span style={{ color: 'var(--text-primary)' }}>768 numbers</span>. We can't visualize 768
-          dimensions, so the map above compresses them down to 2. Even in this simplified view, you can
-          see that related words cluster together — animals near animals, emotions near emotions.
+          Un vecteur, c’est simplement une liste de nombres : comme des coordonnées GPS, mais avec beaucoup plus de dimensions. L’embedding
+          de chaque mot est un vecteur de{' '}
+          <span style={{ color: 'var(--text-primary)' }}>768 nombres</span>. Impossible de se représenter 768
+          dimensions : la carte ci-dessus les compresse donc en 2. Même dans cette vue simplifiée, on voit
+          que les mots liés se regroupent : les animaux près des animaux, les émotions près des émotions.
         </p>
       </motion.div>
 
@@ -385,25 +385,25 @@ export default function EmbeddingsPage() {
         onOpen={() => markLessonComplete('lesson-complete-understand')}
         sections={[
           {
-            label: 'The Concept',
+            label: 'Le concept',
             color: 'var(--brand)',
             defaultOpen: true,
             content: (
               <div>
                 <p style={{ marginBottom: 20 }}>
-                  The scatter plot above projects 768 dimensions down to just 2 using{' '}
-                  <strong style={{ color: 'var(--text-primary)' }}>PCA (Principal Component Analysis)</strong>.
-                  Even in this crude 2D view, you can see clusters of meaning: animals together, emotions together,
-                  places together. In the full 768-dimensional space, these relationships are far richer.
+                  Le nuage de points ci-dessus projette 768 dimensions sur seulement 2 grâce à{' '}
+                  <strong style={{ color: 'var(--text-primary)' }}>l’ACP (analyse en composantes principales, ou PCA en anglais)</strong>.
+                  Même dans cette vue 2D grossière, on distingue des groupes de sens : les animaux ensemble, les émotions ensemble,
+                  les lieux ensemble. Dans l’espace complet à 768 dimensions, ces relations sont bien plus riches.
                 </p>
 
                 <p style={{ marginBottom: 16 }}>
-                  <strong style={{ color: 'var(--brand)', fontSize: 15 }}>Why 768 numbers?</strong>
+                  <strong style={{ color: 'var(--brand)', fontSize: 15 }}>Pourquoi 768 nombres ?</strong>
                 </p>
                 <p style={{ marginBottom: 12 }}>
-                  Each dimension captures some aspect of meaning. No single dimension means "is an animal" or
-                  "is a color" — instead, meaning is distributed across all dimensions. This is why we call them{' '}
-                  <strong style={{ color: 'var(--text-primary)' }}>distributed representations.</strong>
+                  Chaque dimension capture un aspect du sens. Aucune dimension ne veut dire à elle seule « est un animal » ou
+                  « est une couleur » : le sens est réparti sur l’ensemble des dimensions. C’est pour cela qu’on parle de{' '}
+                  <strong style={{ color: 'var(--text-primary)' }}>représentations distribuées.</strong>
                 </p>
 
                 <div style={{
@@ -413,42 +413,42 @@ export default function EmbeddingsPage() {
                   borderRadius: 8,
                   marginBottom: 20,
                 }}>
-                  <strong style={{ color: 'var(--brand)' }}>Cosine similarity</strong>
+                  <strong style={{ color: 'var(--brand)' }}>Similarité cosinus</strong>
                   <div style={{ marginTop: 4, fontSize: 13 }}>
-                    We measure how similar two embeddings are using cosine similarity — the angle between two vectors.
-                    cos(0°) = 1.0 means identical direction (identical meaning). cos(90°) = 0 means unrelated.
-                    "cat" and "kitten" might have cosine similarity of 0.92. "cat" and "javascript" might be 0.15.
+                    On mesure la ressemblance entre deux embeddings avec la similarité cosinus, qui dépend de l’angle entre les deux vecteurs.
+                    cos(0°) = 1,0 signifie la même direction (sens identique). cos(90°) = 0 signifie aucun rapport.
+                    « cat » (chat) et « kitten » (chaton) peuvent avoir une similarité de 0,92 ; « cat » et « javascript », plutôt 0,15.
                   </div>
                 </div>
 
                 <p style={{ marginTop: 12, padding: '10px 14px', background: 'rgba(248, 95, 0,0.06)', borderRadius: 8, borderLeft: '3px solid var(--brand)' }}>
-                  <strong style={{ color: 'var(--text-primary)' }}>Key insight:</strong>{' '}
-                  Embeddings are the bridge between human language and machine computation. The tokenizer
-                  converts words to IDs (Page 1). The embedding layer converts those IDs into rich meaning
-                  vectors. Everything the AI "understands" lives in this geometric space.
+                  <strong style={{ color: 'var(--text-primary)' }}>À retenir :</strong>{' '}
+                  les embeddings font le pont entre le langage humain et le calcul de la machine. Le tokeniseur
+                  convertit les mots en identifiants (leçon précédente). La couche d’embeddings convertit ces identifiants en vecteurs
+                  riches de sens. Tout ce que l’IA « comprend » vit dans cet espace géométrique.
                 </p>
               </div>
             ),
           },
           {
-            label: 'The Code',
+            label: 'Le code',
             color: '#6ec0e8',
             content: (
               <PythonCode code={`import ollama
 
-# Get embeddings from nomic-embed-text (768 dimensions)
+# Obtenir des embeddings avec nomic-embed-text (768 dimensions)
 response = ollama.embed(
     model="nomic-embed-text",
     input=["cat", "kitten", "javascript"]
 )
 
-cat_vec = response["embeddings"][0]      # 768 numbers
+cat_vec = response["embeddings"][0]      # 768 nombres
 kitten_vec = response["embeddings"][1]
 js_vec = response["embeddings"][2]
 
-print(f"Dimensions: {len(cat_vec)}")  # 768
+print(f"Dimensions : {len(cat_vec)}")  # 768
 
-# ── Cosine similarity ─────────────────────────────
+# ── Similarité cosinus ────────────────────────────
 import numpy as np
 
 def cosine_sim(a, b):
@@ -457,70 +457,70 @@ def cosine_sim(a, b):
 print(f"cat ↔ kitten:     {cosine_sim(cat_vec, kitten_vec):.3f}")  # ~0.92
 print(f"cat ↔ javascript: {cosine_sim(cat_vec, js_vec):.3f}")      # ~0.15
 
-# ── Word arithmetic ───────────────────────────────
+# ── Arithmétique des mots ─────────────────────────
 king = ollama.embed(model="nomic-embed-text", input=["king"])["embeddings"][0]
 man  = ollama.embed(model="nomic-embed-text", input=["man"])["embeddings"][0]
 woman = ollama.embed(model="nomic-embed-text", input=["woman"])["embeddings"][0]
 
 result = np.array(king) - np.array(man) + np.array(woman)
-# Find nearest word → "queen"`} />
+# Chercher le mot le plus proche → "queen" (reine)`} />
             ),
           },
           {
-            label: 'Challenge',
+            label: 'Défi',
             color: '#e8d06e',
             content: (
               <div>
                 <p style={{ marginBottom: 10 }}>
-                  <strong style={{ color: 'var(--text-primary)' }}>Think about it:</strong>
+                  <strong style={{ color: 'var(--text-primary)' }}>Réfléchissez :</strong>
                 </p>
                 <p style={{ marginBottom: 12 }}>
-                  Why might "doctor" be closer to "man" than "woman" in some embedding spaces?
-                  What does this tell us about training data?
+                  Pourquoi « doctor » (médecin) pourrait-il être plus proche de « man » (homme) que de « woman » (femme) dans certains espaces d’embeddings ?
+                  Qu’est-ce que cela nous apprend sur les données d’entraînement ?
                 </p>
                 <p style={{ marginBottom: 8, paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>1.</strong> Click on "doctor" and "nurse" on the map above.
-                  Look at their nearest neighbors. Do you notice a gender pattern?
+                  <strong style={{ color: '#e8d06e' }}>1.</strong> Cliquez sur « doctor » et « nurse » (infirmière) sur la carte ci-dessus.
+                  Regardez leurs plus proches voisins. Remarquez-vous un schéma lié au genre ?
                 </p>
                 <p style={{ marginBottom: 8, paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>2.</strong> If embeddings learn from text data, and the
-                  training text has biases (e.g., "the doctor... he" vs "the nurse... she"), where do those biases end up?
+                  <strong style={{ color: '#e8d06e' }}>2.</strong> Si les embeddings apprennent à partir de textes, et que ces
+                  textes contiennent des biais (par exemple « le médecin… il » contre « l’infirmière… elle »), où finissent ces biais ?
                 </p>
                 <p style={{ paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>3.</strong> How might you de-bias embeddings? Can you remove
-                  the "gender direction" without losing other useful information?
+                  <strong style={{ color: '#e8d06e' }}>3.</strong> Comment pourrait-on corriger les biais des embeddings ? Peut-on supprimer
+                  la « direction du genre » sans perdre d’autres informations utiles ?
                 </p>
               </div>
             ),
           },
           {
-            label: 'Real World',
+            label: 'Dans la vraie vie',
             color: '#e87a96',
             content: (
               <div>
                 <p style={{ marginBottom: 14 }}>
-                  Embeddings power most of the AI features you use daily — often invisibly.
+                  Les embeddings font tourner la plupart des fonctionnalités d’IA que vous utilisez au quotidien, souvent sans que vous le voyiez.
                 </p>
                 <div style={{ display: 'grid', gap: 10 }}>
                   <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #6ec0e8' }}>
-                    <strong style={{ color: '#6ec0e8' }}>Search engines</strong>
+                    <strong style={{ color: '#6ec0e8' }}>Moteurs de recherche</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      Google embeds your query and compares it to embedded documents. Searching "how to fix a flat tire"
-                      finds pages about "changing a punctured tire" — different words, same meaning-space neighborhood.
+                      Google transforme votre requête en embedding et la compare aux embeddings des documents. Chercher « réparer un pneu à plat »
+                      trouve des pages sur « changer une roue crevée » : des mots différents, mais le même voisinage dans l’espace du sens.
                     </div>
                   </div>
                   <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #e8d06e' }}>
-                    <strong style={{ color: '#e8d06e' }}>RAG (Retrieval-Augmented Generation)</strong>
+                    <strong style={{ color: '#e8d06e' }}>RAG (génération augmentée par récupération)</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      When ChatGPT searches the web or reads documents to answer you, it's using embeddings to find
-                      the most relevant chunks of text. This is how AI "knows" about your company's internal docs.
+                      Quand ChatGPT cherche sur le web ou lit des documents pour vous répondre, il utilise des embeddings pour trouver
+                      les passages les plus pertinents. C’est ainsi qu’une IA « connaît » les documents internes de votre entreprise.
                     </div>
                   </div>
                   <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #e87a96' }}>
-                    <strong style={{ color: '#e87a96' }}>Recommendation systems</strong>
+                    <strong style={{ color: '#e87a96' }}>Systèmes de recommandation</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      Netflix, Spotify, and YouTube embed content and users in the same space. If your "user vector"
-                      is near a movie's embedding, you'll probably like it. Same math, different domain.
+                      Netflix, Spotify et YouTube placent les contenus et les utilisateurs dans le même espace. Si votre « vecteur utilisateur »
+                      est proche de l’embedding d’un film, il vous plaira probablement. Mêmes maths, autre domaine.
                     </div>
                   </div>
                 </div>
@@ -543,8 +543,8 @@ result = np.array(king) - np.array(man) + np.array(woman)
           marginBottom: 20,
           lineHeight: 1.6,
         }}>
-          Words have meaning. But how does the model know which meanings matter
-          for each prediction? That's where attention comes in.
+          Les mots ont un sens. Mais comment le modèle sait-il quels sens comptent
+          pour chaque prédiction ? C’est là qu’intervient l’attention.
         </p>
         <Link
           to="/attention"
@@ -572,7 +572,7 @@ result = np.array(king) - np.array(man) + np.array(woman)
             e.currentTarget.style.boxShadow = '0 0 20px rgba(248, 95, 0, 0.3)'
           }}
         >
-          See how AI pays attention
+          Voir comment l’IA fait attention
           <span style={{ fontSize: 18 }}>→</span>
         </Link>
       </motion.div>

@@ -160,19 +160,19 @@ function FlowchartAnimation() {
       border: '1px solid var(--border)',
     }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-        <div style={nodeStyle(step >= 0)}>Is it round?</div>
-        <div style={arrowStyle(step >= 1)}>↓ yes</div>
-        <div style={nodeStyle(step >= 1)}>Is it orange?</div>
-        <div style={arrowStyle(step >= 2)}>↓ yes</div>
-        <div style={nodeStyle(step >= 2)}>Does it peel?</div>
-        <div style={arrowStyle(step >= 3)}>↓ yes</div>
+        <div style={nodeStyle(step >= 0)}>C’est rond ?</div>
+        <div style={arrowStyle(step >= 1)}>↓ oui</div>
+        <div style={nodeStyle(step >= 1)}>C’est orange ?</div>
+        <div style={arrowStyle(step >= 2)}>↓ oui</div>
+        <div style={nodeStyle(step >= 2)}>Ça s’épluche ?</div>
+        <div style={arrowStyle(step >= 3)}>↓ oui</div>
         <div style={{
           ...nodeStyle(step >= 4),
           background: step >= 4 ? 'var(--brand)' : 'var(--bg-elevated)',
           color: step >= 4 ? '#0a0a0b' : 'var(--text-secondary)',
           fontWeight: step >= 4 ? 700 : 500,
         }}>
-          It's an orange!
+          C’est une orange !
         </div>
       </div>
     </div>
@@ -239,9 +239,9 @@ function ScatterPlotAnimation() {
         transition: 'opacity 0.3s ease',
         opacity: phase >= 1 ? 1 : 0,
       }}>
-        {phase === 1 && 'collecting emails...'}
-        {phase === 2 && 'classifying...'}
-        {phase >= 3 && 'pattern found!'}
+        {phase === 1 && 'collecte des e-mails…'}
+        {phase === 2 && 'classement…'}
+        {phase >= 3 && 'régularité trouvée !'}
       </div>
       <svg viewBox="0 0 100 80" style={{ width: '100%', height: 'auto' }}>
         {allDots.map((d, i) => {
@@ -281,7 +281,7 @@ function ScatterPlotAnimation() {
         </text>
         <text x={75} y={75} fill="var(--brand)" fontSize={7} textAnchor="middle"
           opacity={phase >= 3 ? 0.7 : 0} style={{ transition: 'opacity 0.4s ease 0.3s', fontFamily: 'var(--font-mono)' }}>
-          not spam
+          pas du spam
         </text>
       </svg>
     </div>
@@ -305,11 +305,11 @@ function NeuralNetAnimation() {
   }, [])
 
   const layers = [
-    { nodes: 4, label: 'input' },
+    { nodes: 4, label: 'entrée' },
     { nodes: 5, label: '' },
     { nodes: 5, label: '' },
     { nodes: 3, label: '' },
-    { nodes: 2, label: 'output' },
+    { nodes: 2, label: 'sortie' },
   ]
 
   const layerX = (i) => 15 + i * 18
@@ -361,9 +361,9 @@ function NeuralNetAnimation() {
         )}
         {/* Labels */}
         <text x={layerX(0)} y={78} fill="var(--text-dim)" fontSize={5.5} textAnchor="middle"
-          style={{ fontFamily: 'var(--font-mono)' }}>input</text>
+          style={{ fontFamily: 'var(--font-mono)' }}>entrée</text>
         <text x={layerX(4)} y={78} fill="var(--text-dim)" fontSize={5.5} textAnchor="middle"
-          style={{ fontFamily: 'var(--font-mono)' }}>output</text>
+          style={{ fontFamily: 'var(--font-mono)' }}>sortie</text>
       </svg>
     </div>
   )
@@ -372,8 +372,8 @@ function NeuralNetAnimation() {
 // ─── Era 4: Next-word prediction ────────────────────────────────────────
 function NextWordAnimation() {
   const [wordIndex, setWordIndex] = useState(-1)
-  const words = ['The', 'cat', 'sat', 'on', 'the']
-  const prediction = 'mat'
+  const words = ['Le', 'chat', 'dort', 'sur', 'le']
+  const prediction = 'canapé'
 
   useEffect(() => {
     let i = 0
@@ -456,7 +456,7 @@ function NextWordAnimation() {
           fontSize: 11,
           fontWeight: 600,
         }}>
-          85% probability
+          probabilité de 85 %
         </span>
       </div>
     </div>
@@ -468,20 +468,20 @@ const NUDGE_ITEMS = [
   {
     key: 'images',
     icon: '🖼',
-    label: 'What about images?',
-    insight: 'Same idea, different data. AI sees an image as a grid of numbers — the brightness and color of each pixel. It finds patterns in those numbers the same way it finds patterns in text. Edges → shapes → objects → scenes. Everything is numbers in, patterns out.',
+    label: 'Et pour les images ?',
+    insight: 'Même idée, autres données. L’IA voit une image comme une grille de nombres : la luminosité et la couleur de chaque pixel. Elle y repère des régularités de la même façon que dans un texte. Contours → formes → objets → scènes. Des nombres en entrée, des régularités en sortie.',
   },
   {
     key: 'thinking',
     icon: '🧠',
-    label: 'Is AI really thinking?',
-    insight: "This is the \"Chinese Room\" question. Imagine someone in a room who doesn't speak Chinese, but has a giant rulebook. They receive Chinese characters, look up the right response, and slide it back under the door. From outside, it looks like they speak Chinese. AI is similar — it matches patterns brilliantly, but whether that counts as \"understanding\" is still debated.",
+    label: 'L’IA pense-t-elle vraiment ?',
+    insight: "C’est la question de la « chambre chinoise ». Imaginez une personne enfermée dans une pièce, qui ne parle pas chinois mais dispose d’un énorme manuel de règles. On lui glisse des caractères chinois sous la porte ; elle cherche la bonne réponse dans le manuel et la renvoie. Vu de l’extérieur, on croirait qu’elle parle chinois. L’IA, c’est un peu pareil : elle associe des régularités de façon brillante, mais savoir si cela compte comme de la « compréhension » fait toujours débat.",
   },
   {
     key: 'learning',
     icon: '🔄',
-    label: 'How does it learn?',
-    insight: 'The training loop: See a sentence → predict the next word → check if you were right → adjust your weights slightly → repeat. Do this billions of times across terabytes of text, and the model slowly learns grammar, facts, reasoning patterns, and more. Each tiny adjustment makes it a little bit better.',
+    label: 'Comment apprend-elle ?',
+    insight: 'La boucle d’entraînement : lire une phrase → prédire le mot suivant → vérifier si c’était juste → ajuster légèrement ses poids → recommencer. Répétez cela des milliards de fois sur des téraoctets de texte, et le modèle apprend peu à peu la grammaire, des connaissances, des façons de raisonner, et bien plus. Chaque petit ajustement le rend un tout petit peu meilleur.',
   },
 ]
 
@@ -528,8 +528,8 @@ export default function WhatIsAIPage() {
           marginBottom: 12,
           letterSpacing: -0.5,
         }}>
-          What is{' '}
-          <span style={{ color: 'var(--brand)' }}>AI?</span>
+          C’est quoi{' '}
+          <span style={{ color: 'var(--brand)' }}>l’IA ?</span>
         </h1>
         <p style={{
           fontSize: 17,
@@ -539,18 +539,18 @@ export default function WhatIsAIPage() {
           margin: '0 auto',
           lineHeight: 1.6,
         }}>
-          From hand-written rules to machines that write poetry.
+          Des règles écrites à la main aux machines qui écrivent des poèmes.
           <br />
-          Four eras in four minutes.
+          Quatre ères en quatre minutes.
         </p>
       </motion.div>
 
       {/* Era 1: Rules */}
       <EraCard
         index={0}
-        yearRange="1950s – 1980s"
-        title="Humans wrote the rules"
-        explanation="Early AI was just if/then logic. Programmers told the computer exactly what to do for every situation."
+        yearRange="Années 1950 – 1980"
+        title="Les humains écrivaient les règles"
+        explanation="Les premières IA n’étaient que de la logique « si… alors… ». Les programmeurs disaient à l’ordinateur exactement quoi faire dans chaque situation."
         paper={{ title: 'Computing Machinery and Intelligence', year: 1950, url: 'https://doi.org/10.1093/mind/LIX.236.433' }}
       >
         <FlowchartAnimation />
@@ -559,9 +559,9 @@ export default function WhatIsAIPage() {
       {/* Era 2: Learning from Data */}
       <EraCard
         index={1}
-        yearRange="1990s – 2000s"
-        title="Machines found the patterns"
-        explanation="Instead of writing rules, we gave computers thousands of examples and let them figure out the patterns themselves."
+        yearRange="Années 1990 – 2000"
+        title="Les machines trouvaient les régularités"
+        explanation="Au lieu d’écrire des règles, on a donné aux ordinateurs des milliers d’exemples en les laissant trouver eux-mêmes les régularités."
         paper={{ title: 'A Training Algorithm for Optimal Margin Classifiers', year: 1992, url: 'https://doi.org/10.1145/130385.130401' }}
       >
         <ScatterPlotAnimation />
@@ -570,9 +570,9 @@ export default function WhatIsAIPage() {
       {/* Era 3: Deep Learning */}
       <EraCard
         index={2}
-        yearRange="2010s"
-        title="Layers of understanding"
-        explanation="Stack many pattern-finders in layers. The first layer sees edges, the next sees shapes, the next sees faces. This is how AI learned to see, hear, and speak."
+        yearRange="Années 2010"
+        title="Des couches de compréhension"
+        explanation="On empile de nombreux détecteurs de régularités en couches. La première couche voit des contours, la suivante des formes, la suivante des visages. C’est ainsi que l’IA a appris à voir, entendre et parler."
         paper={{ title: 'ImageNet Classification with Deep Convolutional Neural Networks', year: 2012, url: 'https://doi.org/10.1145/3065386' }}
       >
         <NeuralNetAnimation />
@@ -581,9 +581,9 @@ export default function WhatIsAIPage() {
       {/* Era 4: Language Models */}
       <EraCard
         index={3}
-        yearRange="2020s"
-        title="Predicting the next word"
-        explanation="Train on billions of sentences from the internet. Learn which word comes next, over and over. That's ChatGPT — the world's best autocomplete."
+        yearRange="Années 2020"
+        title="Prédire le mot suivant"
+        explanation="On l’entraîne sur des milliards de phrases venues d’internet, pour apprendre quel mot vient ensuite, encore et encore. C’est ça, ChatGPT : la meilleure saisie semi-automatique du monde."
         paper={{ title: 'Attention Is All You Need', year: 2017, url: 'https://doi.org/10.48550/arXiv.1706.03762' }}
       >
         <NextWordAnimation />
@@ -611,8 +611,8 @@ export default function WhatIsAIPage() {
           maxWidth: 460,
           margin: '0 auto 24px',
         }}>
-          Today's AI reads text as numbers, finds patterns in those numbers, and predicts what comes next.
-          But before any of that — it needs to <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>break your words into pieces</span> it can understand.
+          L’IA d’aujourd’hui lit le texte sous forme de nombres, y repère des régularités et prédit la suite.
+          Mais avant tout cela, elle doit <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>découper vos mots en morceaux</span> qu’elle sait traiter.
         </p>
         <Link
           to="/tokenize"
@@ -640,7 +640,7 @@ export default function WhatIsAIPage() {
             e.currentTarget.style.boxShadow = '0 0 20px rgba(248, 95, 0, 0.3)'
           }}
         >
-          See how AI reads text
+          Voir comment l’IA lit un texte
           <span style={{ fontSize: 18 }}>→</span>
         </Link>
       </motion.div>
@@ -660,7 +660,7 @@ export default function WhatIsAIPage() {
           marginBottom: 12,
           textAlign: 'center',
         }}>
-          Dig deeper — explore all three to complete this lesson
+          Creusez un peu : explorez les trois pour terminer cette leçon
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {NUDGE_ITEMS.map((item) => (

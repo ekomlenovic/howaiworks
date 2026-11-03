@@ -25,12 +25,12 @@ export default function Footer() {
         </a>
         <span>·</span>
         <a href="https://matthewferoz.com" target="_blank" rel="noopener noreferrer" style={linkStyle}>
-          Built by Matt Feroz
+          Créé par Matt Feroz
         </a>
       </div>
 
       <div style={{ fontSize: 12 }}>
-        This project is open source — built to make AI education accessible to everyone.
+        Ce projet est open source : il a été conçu pour rendre l’apprentissage de l’IA accessible à tous.
       </div>
     </footer>
   )

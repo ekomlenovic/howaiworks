@@ -24,7 +24,7 @@ export default function ChatArea({ messages }) {
           fontSize: 14,
           fontFamily: 'var(--font-mono)',
         }}>
-          Send a message to start chatting with local AI
+          Envoyez un message pour commencer à discuter avec l’IA locale
         </div>
       )}
       {messages.map((msg, i) => (

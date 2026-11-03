@@ -33,15 +33,15 @@ export default function OllamaStatus({ connected, onRetry }) {
           color: '#ef476f',
           letterSpacing: 0.5,
         }}>
-          DEMO
+          DÉMO
         </span>
         <span>
-          Pre-recorded responses — <a
+          Réponses préenregistrées : <a
             href="https://ollama.com"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: 'var(--brand)', textDecoration: 'underline', textUnderlineOffset: 2 }}
-          >install Ollama</a> to chat live
+          >installez Ollama</a> pour discuter en direct
         </span>
       </div>
       {onRetry && (
@@ -59,7 +59,7 @@ export default function OllamaStatus({ connected, onRetry }) {
             flexShrink: 0,
           }}
         >
-          Retry
+          Réessayer
         </button>
       )}
     </motion.div>

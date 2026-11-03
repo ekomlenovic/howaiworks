@@ -7,45 +7,45 @@ import HeroTokenDemo from '../components/HeroTokenDemo'
 const LESSONS = [
   {
     num: 1,
-    title: 'What is AI',
-    desc: 'See how AI evolved from rules to language',
+    title: 'C’est quoi l’IA',
+    desc: 'Voyez comment l’IA est passée des règles au langage',
     path: '/what-is-ai',
     completionKey: 'lesson-complete-what-is-ai',
   },
   {
     num: 2,
-    title: 'Tokenize',
-    desc: 'See how AI splits your words into pieces',
+    title: 'Tokeniser',
+    desc: 'Voyez comment l’IA découpe vos mots en morceaux',
     path: '/tokenize',
     completionKey: 'lesson-complete-tokenizer',
   },
   {
     num: 3,
-    title: 'Understand',
-    desc: 'Watch AI organize words by meaning',
+    title: 'Comprendre',
+    desc: 'Regardez l’IA ranger les mots selon leur sens',
     path: '/understand',
     completionKey: 'lesson-complete-understand',
   },
   {
     num: 4,
     title: 'Attention',
-    desc: 'See how transformers focus on what matters',
+    desc: 'Voyez comment les transformers se concentrent sur l’essentiel',
     path: '/attention',
     completionKey: 'lesson-complete-attention',
   },
   {
     num: 5,
-    title: 'Run',
-    desc: 'Race cloud vs local inference',
+    title: 'Exécuter',
+    desc: 'Faites s’affronter le cloud et le local',
     path: '/run',
     completionKey: 'lesson-complete-run',
   },
 ]
 
 const LOCKED = [
-  { num: 6, title: 'Fine-tune', desc: 'Train on your own data' },
-  { num: 7, title: 'Evaluate', desc: 'Measure model quality' },
-  { num: 8, title: 'Deploy', desc: 'Ship it to production' },
+  { num: 6, title: 'Affiner', desc: 'Entraîner sur vos propres données' },
+  { num: 7, title: 'Évaluer', desc: 'Mesurer la qualité d’un modèle' },
+  { num: 8, title: 'Déployer', desc: 'Le mettre en production' },
 ]
 
 export default function HomePage() {
@@ -66,8 +66,8 @@ export default function HomePage() {
               letterSpacing: -1,
             }}
           >
-            This is how AI{' '}
-            <span style={{ color: 'var(--brand)' }}>works.</span>
+            Voici comment l’IA{' '}
+            <span style={{ color: 'var(--brand)' }}>fonctionne.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -82,8 +82,8 @@ export default function HomePage() {
               lineHeight: 1.6,
             }}
           >
-            Don't read about AI. Experience it. Type, see, and understand
-            what happens inside the machine.
+            Ne vous contentez pas de lire sur l’IA : expérimentez-la. Tapez, observez et comprenez
+            ce qui se passe à l’intérieur de la machine.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -305,7 +305,7 @@ export default function HomePage() {
             e.currentTarget.style.boxShadow = '0 0 20px rgba(248, 95, 0, 0.3)'
           }}
         >
-          Start learning
+          Commencer à apprendre
           <span style={{ fontSize: 18 }}>→</span>
         </Link>
       </motion.div>

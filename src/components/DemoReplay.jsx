@@ -3,16 +3,16 @@
 
 export const DEMO_CONVERSATIONS = [
   {
-    prompt: 'What is a neural network?',
-    response: 'A neural network is a computing system inspired by biological brains. It consists of layers of interconnected nodes (neurons) that process information. Each connection has a weight that adjusts during training. Data flows through input layers, gets transformed by hidden layers, and produces output. The network learns by adjusting weights to minimize prediction errors — a process called backpropagation. Even this small 500M parameter model uses the same fundamental architecture as GPT-4, just with fewer layers and neurons.',
+    prompt: 'Qu\'est-ce qu\'un réseau de neurones ?',
+    response: 'Un réseau de neurones est un système de calcul inspiré du cerveau biologique. Il est composé de couches de nœuds interconnectés (les neurones) qui traitent l\'information. Chaque connexion possède un poids qui s\'ajuste pendant l\'entraînement. Les données entrent par la couche d\'entrée, sont transformées par les couches cachées, puis produisent une sortie. Le réseau apprend en ajustant ses poids pour réduire ses erreurs de prédiction : c\'est ce qu\'on appelle la rétropropagation. Même ce petit modèle de 500 millions de paramètres utilise la même architecture de base que GPT-4, simplement avec moins de couches et de neurones.',
   },
   {
-    prompt: 'How do you understand my words?',
-    response: 'I don\'t read words the way you do. Your text gets broken into tokens — small pieces that are often parts of words, not whole words. Each token maps to a number (an ID), and those numbers get converted into vectors (lists of hundreds of numbers). These vectors capture meaning: similar words have similar vectors. I process these vectors through layers of attention mechanisms, where each token looks at every other token to understand context. The word "bank" means something different in "river bank" vs "bank account" — attention helps me figure that out.',
+    prompt: 'Comment comprends-tu mes mots ?',
+    response: 'Je ne lis pas les mots comme vous. Votre texte est découpé en tokens : de petits morceaux qui sont souvent des bouts de mots plutôt que des mots entiers. Chaque token correspond à un nombre (un identifiant), et ces nombres sont convertis en vecteurs (des listes de centaines de nombres). Ces vecteurs capturent le sens : des mots proches ont des vecteurs proches. Je fais passer ces vecteurs dans des couches d\'attention, où chaque token regarde tous les autres pour comprendre le contexte. Le mot « avocat » ne veut pas dire la même chose dans « manger un avocat » et « appeler son avocat » : c\'est l\'attention qui m\'aide à faire la différence.',
   },
   {
-    prompt: 'Can you run on a Chromebook?',
-    response: 'Yes! I\'m qwen2.5:0.5b — a 500 million parameter model that needs only about 1GB of RAM. That\'s small enough to run on most Chromebooks, old laptops, even a Raspberry Pi. No GPU required, no internet needed, no API key, no subscription. Larger models like GPT-4 have over a trillion parameters and need massive server farms. But I can still have conversations, answer questions, and explain concepts. The tradeoff is that I\'m less capable on complex reasoning tasks — but for learning and experimentation, I work great. AI doesn\'t have to be expensive or exclusive.',
+    prompt: 'Peux-tu tourner sur un Chromebook ?',
+    response: 'Oui ! Je suis qwen2.5:0.5b, un modèle de 500 millions de paramètres qui n\'a besoin que d\'environ 1 Go de mémoire vive. C\'est assez léger pour tourner sur la plupart des Chromebooks, de vieux ordinateurs portables, et même un Raspberry Pi. Pas besoin de carte graphique, ni d\'internet, ni de clé d\'API, ni d\'abonnement. Les plus gros modèles comme GPT-4 ont plus de mille milliards de paramètres et ont besoin d\'énormes fermes de serveurs. Je peux quand même tenir une conversation, répondre à des questions et expliquer des notions. En contrepartie, je suis moins bon sur les raisonnements complexes, mais pour apprendre et expérimenter, je fais très bien l\'affaire. L\'IA n\'a pas besoin d\'être chère ou réservée à quelques-uns.',
   },
 ]
 

@@ -10,14 +10,14 @@ const TYPE_SPEED = 60 // ms per character
 const PAUSE_BETWEEN_PHRASES = 2000 // ms to hold each phrase before clearing
 
 const DEMO_PHRASES = [
-  'How does AI work?',
-  'Just keep swimming.',
-  'Summarize this document for me.',
-  'Hello, World!',
-  'Fix the bug in my code.',
-  'With great power comes great responsibility.',
-  'Explain this like I\'m five.',
-  "I'm sorry Dave, I'm afraid I can't do that.", // easter egg — last
+  'Comment fonctionne l’IA ?',
+  'Continue à nager.',
+  'Résume ce document pour moi.',
+  'Bonjour le monde !',
+  'Corrige le bug dans mon code.',
+  'Un grand pouvoir implique de grandes responsabilités.',
+  'Explique-moi comme si j’avais cinq ans.',
+  "Je suis désolé, Dave. J’ai bien peur de ne pas pouvoir faire ça.", // easter egg — last
 ]
 
 // Token color palette - matches globals.css .token-color-*
@@ -62,50 +62,51 @@ export default function TokenizerPhase({
       key: 'strawberry',
       icon: '🍓',
       text: 'strawberry',
-      label: <>Try <Accent>strawberry</Accent> - Why does AI have such a tough time?</>,
+      label: <>Essayez <Accent>strawberry</Accent> (fraise) : pourquoi l’IA a-t-elle autant de mal ?</>,
       insight: {
-        headline: 'AI can\'t spell - and this is why.',
+        headline: 'L’IA ne sait pas épeler, et voici pourquoi.',
         body: <>
-          "strawberry" becomes 3 tokens: <strong style={{ color: 'var(--text-primary)' }}>"str" + "aw" + "berry"</strong>.
-          When you ask AI "how many r's in strawberry?", it never sees the individual letters -
-          it sees 3 opaque fragments. The r's are scattered across token boundaries, invisible to the model.
-          This is the root cause of AI's famous spelling failures.
+          « strawberry » devient 3 tokens : <strong style={{ color: 'var(--text-primary)' }}>« str » + « aw » + « berry »</strong>.
+          Quand vous demandez à une IA « combien de r dans strawberry ? », elle ne voit jamais les lettres une par une :
+          elle voit 3 fragments opaques. Les « r » sont éparpillés entre les frontières des tokens, invisibles pour le modèle.
+          C’est la cause profonde des célèbres erreurs d’orthographe de l’IA. (Et en français ? « fraise » devient « f » + « raise ».)
         </>,
-        nextHint: 'Now try a really long word - see what happens when AI encounters something rare ↓',
+        nextHint: 'Essayez maintenant un mot très long : voyez ce qui se passe quand l’IA rencontre un mot rare ↓',
       },
     },
     {
       key: 'supercalifragilistic',
       icon: '☂️',
       text: 'supercalifragilisticexpialidocious',
-      label: <>Try <Accent>supercalifragilisticexpialidocious</Accent> - 1 word you can say, 11 fragments AI sees</>,
+      label: <>Essayez <Accent>supercalifragilisticexpialidocious</Accent> : 1 mot pour vous, 11 fragments pour l’IA</>,
       insight: {
-        headline: 'The rarer the word, the harder AI works.',
+        headline: 'Plus le mot est rare, plus l’IA travaille.',
         body: <>
-          You can say this word in one breath. AI needs <strong style={{ color: 'var(--text-primary)' }}>~11 tokens</strong> just
-          to represent it. The tokenizer was trained on internet text where "the" appears billions of times
-          but "supercalifragilisticexpialidocious" almost never does. Common words get their own token.
-          Rare words get shattered into fragments - consuming more of AI's limited context window
-          and making the model work harder for the same meaning.
+          Vous prononcez ce mot d’une seule traite. L’IA a besoin d’<strong style={{ color: 'var(--text-primary)' }}>environ 11 tokens</strong> rien
+          que pour le représenter. Le tokeniseur a été construit à partir de textes d’internet où « the » apparaît des milliards de fois,
+          mais « supercalifragilisticexpialidocious » presque jamais. Les mots courants ont leur propre token.
+          Les mots rares sont réduits en miettes, ce qui consomme davantage la fenêtre de contexte limitée de l’IA
+          et oblige le modèle à travailler plus pour le même sens. Essayez aussi « anticonstitutionnellement » !
         </>,
-        nextHint: 'Now try a different language - discover the hidden cost of not being English ↓',
+        nextHint: 'Essayez maintenant une autre langue : découvrez le coût caché de ne pas parler anglais ↓',
       },
     },
     {
       key: 'arabic',
       icon: '🌍',
       text: 'مرحبا كيف حالك',
-      label: <>Try <Accent>Hello how are you</Accent> in Arabic - same meaning, nearly 3x the tokens</>,
+      label: <>Essayez <Accent>Bonjour, comment ça va</Accent> en arabe : même sens, presque 3 fois plus de tokens</>,
       insight: {
-        headline: 'Same meaning. 3x the cost.',
+        headline: 'Même sens. Trois fois le prix.',
         body: <>
-          "Hello how are you" is ~5 tokens. <strong style={{ color: 'var(--text-primary)' }}>The same phrase in Arabic can be 12+ tokens.</strong>{' '}
-          Because the tokenizer was trained mostly on English text, it learned efficient representations
-          for English words but treats non-Latin scripts almost character-by-character. This means
-          Arabic, Hindi, Yoruba, and other languages use more tokens for the same meaning -
-          costing more money, filling up the context window faster, and getting worse model performance.
+          « Hello how are you » tient en 4 tokens. <strong style={{ color: 'var(--text-primary)' }}>La même phrase en arabe en demande 11.</strong>{' '}
+          Comme le tokeniseur a surtout été construit à partir de textes anglais, il a appris des représentations efficaces
+          pour les mots anglais, mais traite les écritures non latines presque caractère par caractère. Résultat :
+          l’arabe, l’hindi, le yoruba et d’autres langues utilisent plus de tokens pour le même sens.
+          Cela coûte plus cher, remplit plus vite la fenêtre de contexte et donne de moins bons résultats.
+          Même le français paie un petit supplément : « Bonjour, comment ça va ? » prend 6 tokens.
           <span style={{ display: 'block', marginTop: 8, color: 'var(--brand)', fontWeight: 500, fontSize: 14 }}>
-            Tokenization is where AI inequity begins.
+            C’est dans la tokenisation que commencent les inégalités de l’IA.
           </span>
         </>,
         nextHint: null,
@@ -410,7 +411,7 @@ export default function TokenizerPhase({
     >
       {/* === BAR 1: Your text === */}
       <div style={{ ...labelStyle, color: 'var(--brand)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span>Your text</span>
+        <span>Votre texte</span>
         {userHasTyped && (
           <span style={{
             color: charCount >= CHAR_LIMIT ? '#e87a96' : charCount >= CHAR_LIMIT * 0.85 ? '#e8d06e' : 'var(--text-dim)',
@@ -453,7 +454,7 @@ export default function TokenizerPhase({
         <textarea
           ref={textInputRef}
           value={inputText}
-          placeholder={!isAutoTyping ? "Type anything here..." : ""}
+          placeholder={!isAutoTyping ? "Tapez ce que vous voulez ici…" : ""}
           rows={1}
           onChange={(e) => {
             handleTextInput(e)
@@ -486,7 +487,7 @@ export default function TokenizerPhase({
             fontSize: 11,
             color: 'var(--text-dim)',
           }}>
-            Loading tokenizer...
+            Chargement du tokeniseur…
           </div>
         )}
       </div>
@@ -496,7 +497,7 @@ export default function TokenizerPhase({
 
       {/* === BAR 2: What AI sees (IDs) === */}
       <div style={{ ...labelStyle, color: 'var(--brand)' }}>
-        What AI sees
+        Ce que voit l’IA
       </div>
       <div style={{ position: 'relative', marginBottom: 24 }}>
         {/* Colored overlay for IDs */}
@@ -525,7 +526,7 @@ export default function TokenizerPhase({
         <textarea
           ref={idsInputRef}
           value={idsDisplayValue}
-          placeholder="Token IDs appear here..."
+          placeholder="Les identifiants des tokens apparaissent ici…"
           rows={1}
           onChange={(e) => {
             handleIdsInput(e)
@@ -567,8 +568,8 @@ export default function TokenizerPhase({
           active={hoveredStat === 'tokens'}
           onEnter={() => { clearTimeout(hoverTimeoutRef.current); setHoveredStat('tokens') }}
           tooltip={<>
-            AI can't read text. It splits your input into small pieces called tokens — often parts of words, not whole words. "strawberry" becomes 3 tokens: "str", "aw", "berry". Everything AI does starts from these fragments.{' '}
-            <StatLink href="https://platform.openai.com/tokenizer">Try OpenAI's Tokenizer</StatLink>
+            L’IA ne sait pas lire du texte. Elle découpe ce que vous écrivez en petits morceaux appelés tokens, souvent des bouts de mots plutôt que des mots entiers. « strawberry » devient 3 tokens : « str », « aw », « berry ». Tout ce que fait l’IA part de ces fragments.{' '}
+            <StatLink href="https://platform.openai.com/tokenizer">Essayer le tokeniseur d’OpenAI</StatLink>
           </>}
         >
           <span style={{ color: 'var(--brand)', fontWeight: 600, fontSize: 15 }}>
@@ -580,33 +581,33 @@ export default function TokenizerPhase({
           active={hoveredStat === 'characters'}
           onEnter={() => { clearTimeout(hoverTimeoutRef.current); setHoveredStat('characters') }}
           tooltip={<>
-            The raw letters, spaces, and symbols you typed — what humans read. AI never sees these directly. It converts them into tokens first, which is why the token count is always different from the character count.{' '}
-            <StatLink href="https://huggingface.co/learn/llm-course/en/chapter2/4">How Tokenizers Work</StatLink>
+            Les lettres, espaces et symboles bruts que vous avez tapés : ce que lisent les humains. L’IA ne les voit jamais directement. Elle les convertit d’abord en tokens, c’est pourquoi le nombre de tokens est toujours différent du nombre de caractères.{' '}
+            <StatLink href="https://huggingface.co/learn/llm-course/en/chapter2/4">Comment fonctionnent les tokeniseurs (en anglais)</StatLink>
           </>}
         >
-          {charCount} characters
+          {charCount} caractères
         </StatItem>
         <span style={{ color: 'var(--text-dim)' }}>·</span>
         <StatItem
           active={hoveredStat === 'ratio'}
           onEnter={() => { clearTimeout(hoverTimeoutRef.current); setHoveredStat('ratio') }}
           tooltip={<>
-            How many characters fit in one token on average. English text averages ~4 chars/token. A lower ratio means more tokens for the same text — making AI slower and more expensive. Non-English languages often score worse here.{' '}
-            <StatLink href="https://huggingface.co/spaces/Xenova/the-tokenizer-playground">Tokenizer Playground</StatLink>
+            Le nombre moyen de caractères par token. En anglais, on tourne autour de 4 caractères par token. Un ratio plus faible signifie plus de tokens pour le même texte, donc une IA plus lente et plus chère. Les langues autres que l’anglais (dont le français) ont souvent un ratio moins bon.{' '}
+            <StatLink href="https://huggingface.co/spaces/Xenova/the-tokenizer-playground">Bac à sable des tokeniseurs</StatLink>
           </>}
         >
-          {charsPerToken} chars/token
+          {charsPerToken} car./token
         </StatItem>
         <span style={{ color: 'var(--text-dim)' }}>·</span>
         <StatItem
           active={hoveredStat === 'cost'}
           onEnter={() => { clearTimeout(hoverTimeoutRef.current); setHoveredStat('cost') }}
           tooltip={<>
-            AI APIs charge per token, not per word or message. This estimate uses GPT-4's input rate (~$0.03 per 1K tokens). More tokens = higher cost — which is why inefficient tokenization for non-English text creates real cost inequality.{' '}
-            <StatLink href="https://openai.com/api/pricing/">OpenAI Pricing</StatLink>
+            Les API d’IA facturent au token, pas au mot ni au message. Cette estimation utilise le tarif d’entrée de GPT-4 (~0,03 $ pour 1 000 tokens). Plus de tokens = plus cher : c’est pourquoi une tokenisation moins efficace pour les textes non anglais crée une vraie inégalité de coût.{' '}
+            <StatLink href="https://openai.com/api/pricing/">Tarifs d’OpenAI</StatLink>
           </>}
         >
-          ~${tokenCount > 0 ? (tokenCount * 0.00003).toFixed(5) : '0.00000'}/call
+          ~${tokenCount > 0 ? (tokenCount * 0.00003).toFixed(5) : '0.00000'}/appel
         </StatItem>
       </div>
 
@@ -627,14 +628,14 @@ export default function TokenizerPhase({
             color: 'var(--text-primary)',
             marginBottom: 12,
           }}>
-            What is a token?
+            Qu’est-ce qu’un token ?
           </div>
           <div style={{
             fontSize: 14,
             color: 'var(--text-secondary)',
             lineHeight: 1.7,
           }}>
-            A token is a small piece of text — it might be a whole word, part of a word, or even a single character. AI doesn't read words the way you do. It breaks everything down into these pieces first. Each colored chunk above is one token.
+            Un token est un petit morceau de texte : un mot entier, un bout de mot, voire un seul caractère. L’IA ne lit pas les mots comme vous. Elle commence par tout découper en morceaux de ce genre. Chaque bloc coloré ci-dessus est un token.
           </div>
         </div>
         <div>
@@ -644,14 +645,14 @@ export default function TokenizerPhase({
             color: 'var(--text-primary)',
             marginBottom: 12,
           }}>
-            What is a tokenizer?
+            Qu’est-ce qu’un tokeniseur ?
           </div>
           <div style={{
             fontSize: 14,
             color: 'var(--text-secondary)',
             lineHeight: 1.7,
           }}>
-            A tokenizer is the tool that decides where to split. The one running here is <span style={{ color: 'var(--text-primary)' }}>cl100k_base</span> — the same tokenizer used by ChatGPT and GPT-4. It has a vocabulary of ~100,000 tokens, and every piece of text you type gets mapped to entries in that vocabulary. This is the very first step a language model performs before it can understand anything.
+            Le tokeniseur est l’outil qui décide où couper. Celui qui tourne ici est <span style={{ color: 'var(--text-primary)' }}>cl100k_base</span>, le même que celui de ChatGPT et GPT-4. Il possède un vocabulaire d’environ 100 000 tokens, et chaque morceau de texte que vous tapez est associé à des entrées de ce vocabulaire. C’est la toute première étape qu’effectue un modèle de langage avant de pouvoir comprendre quoi que ce soit.
           </div>
         </div>
       </div>
@@ -707,8 +708,8 @@ export default function TokenizerPhase({
             }}
           >
             {exploredNudges.size === NUDGES.length
-              ? 'All explored — you now see what AI sees.'
-              : `${exploredNudges.size}/${NUDGES.length} explored`
+              ? 'Tout exploré : vous voyez maintenant ce que voit l’IA.'
+              : `${exploredNudges.size}/${NUDGES.length} explorés`
             }
           </motion.div>
         )}
@@ -721,22 +722,22 @@ export default function TokenizerPhase({
         onOpen={onDepthOpened}
         sections={[
           {
-            label: 'The Problem',
+            label: 'Le problème',
             color: 'var(--brand)',
             defaultOpen: true,
             content: (
               <div>
                 <p style={{ marginBottom: 16 }}>
-                  <strong style={{ color: 'var(--brand)', fontSize: 15 }}>The problem: AI can't read.</strong>
+                  <strong style={{ color: 'var(--brand)', fontSize: 15 }}>Le problème : l’IA ne sait pas lire.</strong>
                 </p>
                 <p style={{ marginBottom: 12 }}>
-                  Neural networks are math machines — they multiply matrices and add numbers.
-                  They have no concept of "a" or "z" or "strawberry." So before AI can think about
-                  your text, something has to convert it into numbers. That something is called a{' '}
-                  <strong style={{ color: 'var(--text-primary)' }}>tokenizer</strong>.
+                  Les réseaux de neurones sont des machines à calculer : ils multiplient des matrices et additionnent des nombres.
+                  Ils n’ont aucune idée de ce qu’est un « a », un « z » ou une « fraise ». Donc, avant que l’IA puisse réfléchir à
+                  votre texte, quelque chose doit le convertir en nombres. Ce quelque chose s’appelle un{' '}
+                  <strong style={{ color: 'var(--text-primary)' }}>tokeniseur</strong>.
                 </p>
                 <p style={{ marginBottom: 20 }}>
-                  But <em>how</em> do you decide what each number represents? You have three options:
+                  Mais <em>comment</em> décider de ce que représente chaque nombre ? Il y a trois options :
                 </p>
                 <div style={{ display: 'grid', gap: 10 }}>
                   <div style={{
@@ -745,11 +746,11 @@ export default function TokenizerPhase({
                     border: '1px solid var(--border)',
                     borderRadius: 8,
                   }}>
-                    <strong style={{ color: '#e87a96' }}>Option A: One number per character</strong>
+                    <strong style={{ color: '#e87a96' }}>Option A : un nombre par caractère</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      "hello" → 5 numbers. Simple, but wildly inefficient.
-                      A 1,000-word essay becomes ~5,000 tokens. AI's context window fills up fast,
-                      and the model wastes processing power on individual letters that carry little meaning on their own.
+                      « hello » → 5 nombres. Simple, mais terriblement inefficace.
+                      Une dissertation de 1 000 mots devient environ 5 000 tokens. La fenêtre de contexte de l’IA se remplit vite,
+                      et le modèle gaspille sa puissance de calcul sur des lettres isolées qui, seules, n’ont presque pas de sens.
                     </div>
                   </div>
                   <div style={{
@@ -758,11 +759,11 @@ export default function TokenizerPhase({
                     border: '1px solid var(--border)',
                     borderRadius: 8,
                   }}>
-                    <strong style={{ color: '#e8d06e' }}>Option B: One number per word</strong>
+                    <strong style={{ color: '#e8d06e' }}>Option B : un nombre par mot</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      Efficient for common words, but English alone has 750,000+ words. Add misspellings,
-                      slang, code, other languages — you'd need millions of entries. And any word not in
-                      the dictionary? Completely invisible to the model.
+                      Efficace pour les mots courants, mais l’anglais compte à lui seul plus de 750 000 mots. Ajoutez les fautes de frappe,
+                      l’argot, le code, les autres langues (et les conjugaisons du français !) : il faudrait des millions d’entrées. Et un mot absent
+                      du dictionnaire ? Totalement invisible pour le modèle.
                     </div>
                   </div>
                   <div style={{
@@ -771,11 +772,11 @@ export default function TokenizerPhase({
                     border: '1px solid rgba(248, 95, 0,0.25)',
                     borderRadius: 8,
                   }}>
-                    <strong style={{ color: 'var(--brand)' }}>Option C: Byte Pair Encoding — the sweet spot</strong>
+                    <strong style={{ color: 'var(--brand)' }}>Option C : l’encodage par paires d’octets (BPE), le juste milieu</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      Learn the most useful pieces from real data. Common words like "the" get their own token.
-                      Rare words get broken into reusable subword pieces. A fixed vocabulary of ~100K tokens
-                      can represent <em>any</em> text in <em>any</em> language.
+                      On apprend les morceaux les plus utiles à partir de vraies données. Les mots courants comme « the » ont leur propre token.
+                      Les mots rares sont découpés en sous-morceaux réutilisables. Un vocabulaire fixe d’environ 100 000 tokens
+                      peut représenter <em>n’importe quel</em> texte dans <em>n’importe quelle</em> langue.
                     </div>
                   </div>
                 </div>
@@ -783,43 +784,43 @@ export default function TokenizerPhase({
             ),
           },
           {
-            label: 'How BPE Works',
+            label: 'Comment marche le BPE',
             color: 'var(--brand)',
             content: (
               <div>
                 <p style={{ marginBottom: 12 }}>
-                  Imagine you're inventing a shorthand for writing faster. You'd look at what you write most
-                  and create abbreviations for the most common patterns. BPE does exactly this, automatically,
-                  by scanning billions of words of text:
+                  Imaginez que vous inventez une sténo pour écrire plus vite. Vous regarderiez ce que vous écrivez le plus souvent
+                  et créeriez des abréviations pour les combinaisons les plus fréquentes. Le BPE fait exactement cela, automatiquement,
+                  en parcourant des milliards de mots :
                 </p>
                 <div style={{ display: 'grid', gap: 12 }}>
-                  <StepBox step={1} title="Start with individual bytes">
-                    Break every piece of text into its smallest units — individual bytes (roughly characters).
+                  <StepBox step={1} title="Partir des octets individuels">
+                    On découpe chaque texte en ses plus petites unités : les octets (en gros, les caractères).
                     <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, marginTop: 8, color: 'var(--text-primary)', letterSpacing: 1 }}>
                       "hello" → [h] [e] [l] [l] [o]
                     </div>
                   </StepBox>
-                  <StepBox step={2} title="Count every adjacent pair">
-                    Scan the entire training dataset (think: all of Wikipedia, Reddit, books, code).
-                    Count how often each pair of adjacent tokens appears together.
+                  <StepBox step={2} title="Compter chaque paire voisine">
+                    On parcourt toutes les données d’entraînement (imaginez : tout Wikipédia, Reddit, des livres, du code).
+                    On compte combien de fois chaque paire de tokens voisins apparaît.
                     <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, marginTop: 8, color: 'var(--text-primary)' }}>
-                      "th" appears 9.2 billion times{' '}
-                      <span style={{ color: 'var(--brand)' }}>← winner</span>
+                      « th » apparaît 9,2 milliards de fois{' '}
+                      <span style={{ color: 'var(--brand)' }}>← gagnant</span>
                     </div>
                   </StepBox>
-                  <StepBox step={3} title="Merge the most frequent pair">
-                    Combine [t] + [h] → [th] everywhere in the data. This new merged token
-                    becomes part of the vocabulary.
+                  <StepBox step={3} title="Fusionner la paire la plus fréquente">
+                    On remplace [t] + [h] par [th] partout dans les données. Ce nouveau token fusionné
+                    entre dans le vocabulaire.
                     <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, marginTop: 8, color: 'var(--text-primary)' }}>
-                      Before: [t] [h] [e] → After: [th] [e]
+                      Avant : [t] [h] [e] → Après : [th] [e]
                     </div>
                   </StepBox>
-                  <StepBox step={4} title="Repeat ~100,000 times">
-                    Each round, find and merge the next most frequent pair. Early merges create
-                    common pairs like "in", "er", "the". Later merges create full words
-                    like "the", "and", "function". After ~100K merges, you have a complete vocabulary.
+                  <StepBox step={4} title="Recommencer ~100 000 fois">
+                    À chaque tour, on cherche et on fusionne la paire suivante la plus fréquente. Les premières fusions créent
+                    des paires courantes comme « in », « er », « th ». Les suivantes créent des mots entiers
+                    comme « the », « and », « function ». Après environ 100 000 fusions, on obtient un vocabulaire complet.
                     <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, marginTop: 8, color: 'var(--text-primary)' }}>
-                      [th] + [e] → [the] — now "the" is a single token
+                      [th] + [e] → [the] : « the » est maintenant un seul token
                     </div>
                   </StepBox>
                 </div>
@@ -827,46 +828,46 @@ export default function TokenizerPhase({
             ),
           },
           {
-            label: 'The Result',
+            label: 'Le résultat',
             color: 'var(--brand)',
             content: (
               <div>
                 <p style={{ marginBottom: 12 }}>
-                  The tokenizer you're using right now is <strong style={{ color: 'var(--text-primary)' }}>cl100k_base</strong> — the
-                  same one inside GPT-4. It has a vocabulary of exactly <strong style={{ color: 'var(--text-primary)' }}>100,256 tokens</strong>.
+                  Le tokeniseur que vous utilisez en ce moment est <strong style={{ color: 'var(--text-primary)' }}>cl100k_base</strong>, le
+                  même que celui de GPT-4. Son vocabulaire compte exactement <strong style={{ color: 'var(--text-primary)' }}>100 256 tokens</strong>.
                 </p>
                 <p style={{ marginBottom: 6 }}>
-                  Common English words like "the", "and", "hello" each get one token.
-                  Rare words like "supercalifragilisticexpialidocious" get shattered into many small pieces.
-                  And non-Latin scripts — Arabic, Hindi, Chinese — often get broken into even more
-                  fragments, because there was less of that text in the training data.
+                  Les mots anglais courants comme « the », « and », « hello » ont chacun un seul token.
+                  Les mots rares comme « supercalifragilisticexpialidocious » sont découpés en plein de petits morceaux.
+                  Et les écritures non latines (arabe, hindi, chinois) sont souvent découpées en encore plus de
+                  fragments, parce qu’il y avait moins de textes dans ces langues parmi les données d’entraînement.
                 </p>
                 <p style={{ marginTop: 12, padding: '10px 14px', background: 'rgba(248, 95, 0,0.06)', borderRadius: 8, borderLeft: '3px solid var(--brand)' }}>
-                  <strong style={{ color: 'var(--text-primary)' }}>Key insight:</strong>{' '}
-                  The tokenizer is trained <em>separately</em> from the AI model, <em>before</em> the
-                  model ever sees any data. It's a preprocessing step. The neural network never sees
-                  your characters — only the integer IDs the tokenizer produces. Everything the model
-                  knows about language starts from these numbers.
+                  <strong style={{ color: 'var(--text-primary)' }}>À retenir :</strong>{' '}
+                  le tokeniseur est construit <em>séparément</em> du modèle d’IA, <em>avant</em> que le
+                  modèle ne voie la moindre donnée. C’est une étape de prétraitement. Le réseau de neurones ne voit jamais
+                  vos caractères, seulement les identifiants entiers produits par le tokeniseur. Tout ce que le modèle
+                  sait du langage part de ces nombres.
                 </p>
               </div>
             ),
           },
           {
-            label: 'See It In Code',
+            label: 'Le voir en code',
             color: '#6ec0e8',
             content: (
               <PythonCode code={`import tiktoken
 
-# Load the same tokenizer used by GPT-4
+# Charger le même tokeniseur que GPT-4
 enc = tiktoken.get_encoding("cl100k_base")
 
-# ── Tokenize a word ─────────────────────────────────
+# ── Tokeniser un mot ────────────────────────────────
 text = "strawberry"
 token_ids = enc.encode(text)
 print(f'"{text}" → {token_ids}')
 # "strawberry" → [496, 675, 15717]
 
-# ── See what each token ID represents ───────────────
+# ── Voir ce que représente chaque identifiant ───────
 for token_id in token_ids:
     fragment = enc.decode([token_id])
     print(f"  ID {token_id:>6} → '{fragment}'")
@@ -874,83 +875,86 @@ for token_id in token_ids:
 # ID    675 → 'aw'
 # ID  15717 → 'berry'
 
-# ── The language inequality ─────────────────────────
+# ── L'inégalité entre les langues ───────────────────
 english = "Hello, how are you?"
+french  = "Bonjour, comment ça va ?"
 arabic  = "مرحبا كيف حالك"
 
 en_tokens = enc.encode(english)
+fr_tokens = enc.encode(french)
 ar_tokens = enc.encode(arabic)
 
-print(f"English: {len(en_tokens)} tokens")  # ~5
-print(f"Arabic:  {len(ar_tokens)} tokens")  # ~12
-# Same meaning. Different cost.`} />
+print(f"Anglais :  {len(en_tokens)} tokens")  # 6
+print(f"Français : {len(fr_tokens)} tokens")  # 6
+print(f"Arabe :    {len(ar_tokens)} tokens")  # 11
+# Même sens. Coût différent.`} />
             ),
           },
           {
-            label: 'Challenge',
+            label: 'Défi',
             color: '#e8d06e',
             content: (
               <div>
                 <p style={{ marginBottom: 10 }}>
-                  <strong style={{ color: 'var(--text-primary)' }}>Think about it:</strong>
+                  <strong style={{ color: 'var(--text-primary)' }}>Réfléchissez :</strong>
                 </p>
                 <p style={{ marginBottom: 12 }}>
-                  If BPE merges are based on frequency in training data, and the training data was
-                  mostly English web text — what happens to languages that weren't well represented?
+                  Si les fusions du BPE reposent sur la fréquence dans les données d’entraînement, et que ces données étaient
+                  surtout des textes web en anglais, que se passe-t-il pour les langues peu représentées ?
                 </p>
                 <p style={{ marginBottom: 8, paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>1.</strong> Type "Hello, how are you?" above and note the token count.
-                  Then try it in Spanish, Arabic, Hindi, or Yoruba. How does the count change?
+                  <strong style={{ color: '#e8d06e' }}>1.</strong> Tapez « Hello, how are you? » ci-dessus et notez le nombre de tokens.
+                  Essayez ensuite en français, en espagnol, en arabe, en hindi ou en yoruba. Comment le nombre évolue-t-il ?
                 </p>
                 <p style={{ marginBottom: 8, paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>2.</strong> Try typing a common English name ("John") vs. a name from
-                  another culture. Which one stays in one piece?
+                  <strong style={{ color: '#e8d06e' }}>2.</strong> Tapez un prénom anglais courant (« John ») puis un prénom d’une
+                  autre culture. Lequel reste en un seul morceau ?
                 </p>
                 <p style={{ paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>3.</strong> What would happen if you trained a tokenizer on <em>only</em>{' '}
-                  Arabic text? Would English words start getting fragmented instead?
+                  <strong style={{ color: '#e8d06e' }}>3.</strong> Que se passerait-il si on construisait un tokeniseur <em>uniquement</em>{' '}
+                  à partir de textes arabes ? Est-ce que ce seraient les mots anglais qui seraient fragmentés, cette fois ?
                 </p>
               </div>
             ),
           },
           {
-            label: 'Why This Matters',
+            label: 'Pourquoi c’est important',
             color: '#e87a96',
             content: (
               <div>
                 <p style={{ marginBottom: 14 }}>
-                  Tokenization seems like a small technical detail — but it has real consequences
-                  for billions of people.
+                  La tokenisation ressemble à un petit détail technique, mais elle a des conséquences bien réelles
+                  pour des milliards de personnes.
                 </p>
                 <div style={{ display: 'grid', gap: 10 }}>
                   <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #e8d06e' }}>
-                    <strong style={{ color: '#e8d06e' }}>Cost inequality</strong>
+                    <strong style={{ color: '#e8d06e' }}>Inégalité de coût</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      AI APIs charge per token. The same message in Yoruba or Bengali can use 2-4x
-                      more tokens than English — meaning people in those languages literally pay more
-                      for the same service.
+                      Les API d’IA facturent au token. Le même message en yoruba ou en bengali peut utiliser 2 à 4 fois
+                      plus de tokens qu’en anglais : les personnes qui parlent ces langues paient littéralement plus cher
+                      pour le même service.
                     </div>
                   </div>
                   <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #6ec0e8' }}>
-                    <strong style={{ color: '#6ec0e8' }}>Quality gap</strong>
+                    <strong style={{ color: '#6ec0e8' }}>Écart de qualité</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      AI models have a fixed context window (e.g. 128K tokens). If your language burns
-                      through tokens 3x faster, you get 3x less room for the AI to reason. Same model,
-                      worse results — just because of which language you speak.
+                      Les modèles d’IA ont une fenêtre de contexte fixe (par exemple 128 000 tokens). Si votre langue consomme
+                      les tokens 3 fois plus vite, l’IA a 3 fois moins de place pour raisonner. Même modèle,
+                      moins bons résultats, simplement à cause de la langue que vous parlez.
                     </div>
                   </div>
                   <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #e87a96' }}>
-                    <strong style={{ color: '#e87a96' }}>Identity erasure</strong>
+                    <strong style={{ color: '#e87a96' }}>Effacement des identités</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      Names like "John" or "Sarah" are single tokens — the model sees them whole.
-                      Names like "Oluwaseun" or "Bhagyashree" get fragmented into meaningless syllables.
-                      The model literally cannot see these names the way it sees English ones.
+                      Des prénoms comme « John » ou « Sarah » tiennent en un seul token : le modèle les voit en entier.
+                      Des prénoms comme « Oluwaseun » ou « Bhagyashree » sont fragmentés en syllabes sans signification.
+                      Le modèle ne peut littéralement pas voir ces prénoms comme il voit les prénoms anglais.
                     </div>
                   </div>
                 </div>
                 <p style={{ marginTop: 14, fontSize: 13, color: 'var(--brand)', fontWeight: 500 }}>
-                  This is where AI inequity begins — not in the model's weights, but in the very first
-                  step: how text becomes numbers.
+                  C’est là que commencent les inégalités de l’IA : pas dans les poids du modèle, mais dès la toute première
+                  étape, quand le texte devient des nombres.
                 </p>
               </div>
             ),

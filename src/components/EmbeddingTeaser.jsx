@@ -22,11 +22,11 @@ export default function EmbeddingTeaser({ visible }) {
         textTransform: 'uppercase',
         marginBottom: 8,
       }}>
-        Phase 03
+        Étape 03
       </div>
 
       <h2 style={{ fontSize: 24, fontWeight: 600, marginBottom: 8 }}>
-        The Map of Meaning
+        La carte du sens
       </h2>
 
       <p style={{
@@ -36,8 +36,8 @@ export default function EmbeddingTeaser({ visible }) {
         margin: '0 auto',
         lineHeight: 1.6,
       }}>
-        Those numbers aren't random — words with similar meanings end up near each other
-        in a vast mathematical space. Explore how AI organizes the meaning of every word you know.
+        Ces nombres ne sont pas choisis au hasard : les mots de sens proche se retrouvent voisins
+        dans un immense espace mathématique. Découvrez comment l’IA organise le sens de tous les mots que vous connaissez.
       </p>
 
       {/* TODO: Replace with EmbeddingMap component connected to Ollama */}
@@ -51,7 +51,7 @@ export default function EmbeddingTeaser({ visible }) {
         fontFamily: 'var(--font-mono)',
         fontSize: 13,
       }}>
-        🗺️ Interactive embedding map — connect Ollama to explore
+        🗺️ Carte interactive des embeddings : connectez Ollama pour l’explorer
       </div>
     </motion.div>
   )

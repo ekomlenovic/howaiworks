@@ -40,7 +40,7 @@ export default function AboutPage() {
           marginBottom: 12,
           letterSpacing: -0.5,
         }}>
-          About{' '}
+          À propos de{' '}
           howaiworks<span style={{ color: 'var(--brand)' }}>.io</span>
         </h1>
         <p style={{
@@ -50,7 +50,7 @@ export default function AboutPage() {
           margin: '0 auto',
           lineHeight: 1.5,
         }}>
-          Making AI education visceral and interactive.
+          Apprendre l’IA en la touchant du doigt, de façon interactive.
         </p>
       </motion.div>
 
@@ -61,10 +61,10 @@ export default function AboutPage() {
         transition={{ duration: 0.4, delay: 0.1 }}
         style={sectionStyle}
       >
-        <div style={headingStyle}>The Story</div>
+        <div style={headingStyle}>L’histoire</div>
         <div style={bodyStyle}>
           <p style={{ marginBottom: 12 }}>
-            howaiworks.io started with a simple observation:
+            howaiworks.io est né d’un constat simple :
           </p>
           <div style={{
             padding: '12px 16px',
@@ -75,19 +75,19 @@ export default function AboutPage() {
             fontStyle: 'italic',
             color: 'var(--text-primary)',
           }}>
-            "Most people use AI every day — almost nobody knows what's actually
-            happening inside."
+            « La plupart des gens utilisent l’IA tous les jours, mais presque personne ne sait ce qui
+            se passe réellement à l’intérieur. »
           </div>
           <p style={{ marginBottom: 12 }}>
-            Reading about it doesn't fix that. Slides and lectures don't either.
-            Experiencing it does.
+            Lire des articles n’y change rien. Les diapositives et les cours magistraux non plus.
+            L’expérimenter, si.
           </p>
           <p>
             <strong style={{ color: 'var(--brand)' }}>howaiworks.io</strong> is
-            built on that idea. Instead of reading about tokenization, embeddings, and
-            inference — you experience them. Type text and watch it become tokens.
-            See words organize by meaning. Race cloud vs. local inference. No slides,
-            no lectures. Just the machine, made visible.
+            repose sur cette idée. Au lieu de lire des explications sur la tokenisation, les embeddings et
+            l’inférence, vous les vivez. Tapez du texte et regardez-le devenir des tokens.
+            Voyez les mots se ranger selon leur sens. Faites s’affronter l’inférence dans le cloud et en local. Pas de diapositives,
+            pas de cours magistral. Juste la machine, rendue visible.
           </p>
         </div>
       </motion.div>

@@ -125,7 +125,7 @@ function SetupSection({ title, accent, connected, children }) {
             color: 'var(--text-dim)',
             marginLeft: 4,
           }}>
-            Connected
+            Connecté
           </span>
         )}
       </button>
@@ -164,35 +164,35 @@ function LocalSteps() {
   return (
     <>
       <IntroBlock accent="#f85f00">
-        Ollama runs AI models directly on your machine — no internet, no API key, no data leaving your computer. The model we use here is Qwen 2.5 with 500 million parameters, small enough to fit in ~1GB of RAM. It won't match cloud quality (500M vs 70B parameters), but inference starts instantly and your prompts stay private. That's the trade-off this page lets you feel.
+        Ollama fait tourner des modèles d’IA directement sur votre machine : pas d’internet, pas de clé d’API, aucune donnée qui quitte votre ordinateur. Le modèle utilisé ici est Qwen 2.5, avec 500 millions de paramètres, assez petit pour tenir dans environ 1 Go de mémoire vive. Il n’atteindra pas la qualité du cloud (500 millions contre 70 milliards de paramètres), mais l’inférence démarre instantanément et vos messages restent privés. C’est exactement ce compromis que cette page vous fait ressentir.
       </IntroBlock>
 
-      <SetupStep step={1} accent={localAccent} title="Install Ollama">
-        Download from{' '}
+      <SetupStep step={1} accent={localAccent} title="Installer Ollama">
+        Téléchargez-le sur{' '}
         <a href="https://ollama.com" target="_blank" rel="noopener noreferrer"
           style={{ color: 'var(--brand)', textDecoration: 'underline' }}>
           ollama.com
-        </a>. It's a runtime that manages AI models on your machine — download, load, and serve them through a local API, similar to how Docker manages containers.
+        </a>. C’est un logiciel qui gère les modèles d’IA sur votre machine : il les télécharge, les charge en mémoire et les rend accessibles via une API locale, un peu comme Docker gère des conteneurs.
       </SetupStep>
 
-      <SetupStep step={2} accent={localAccent} title="Pull a model">
-        Run <code style={code}>ollama pull qwen2.5:0.5b</code>. This downloads the model weights (~400MB) — the learned parameters that encode everything the model knows. "Pulling" is like pulling a Docker image: download once, run many times.
+      <SetupStep step={2} accent={localAccent} title="Télécharger un modèle">
+        Lancez <code style={code}>ollama pull qwen2.5:0.5b</code>. Cette commande télécharge les poids du modèle (~400 Mo), c’est-à-dire les paramètres appris qui contiennent tout ce que le modèle sait. Le « pull », c’est comme récupérer une image Docker : on télécharge une fois, on l’utilise autant de fois qu’on veut.
       </SetupStep>
 
-      <SetupStep step={3} accent={localAccent} title="Verify it works">
-        Run <code style={code}>ollama run qwen2.5:0.5b</code> and type a question. If it responds, the model is loaded. Press Ctrl+D to exit.
+      <SetupStep step={3} accent={localAccent} title="Vérifier que ça marche">
+        Lancez <code style={code}>ollama run qwen2.5:0.5b</code> et tapez une question. S’il répond, le modèle est bien chargé. Appuyez sur Ctrl+D pour quitter.
       </SetupStep>
 
-      <SetupStep step={4} accent={localAccent} title="Install the Python backend">
-        Run <code style={code}>pip install fastapi uvicorn httpx tiktoken</code>. This installs the server that bridges Ollama's local API to this website's frontend.
+      <SetupStep step={4} accent={localAccent} title="Installer le serveur Python">
+        Lancez <code style={code}>pip install fastapi uvicorn httpx tiktoken</code>. Cela installe le serveur qui fait le lien entre l’API locale d’Ollama et l’interface de ce site.
       </SetupStep>
 
-      <SetupStep step={5} accent={localAccent} title="Start the server">
-        Run <code style={code}>uvicorn main:app --port 8000</code>. This launches the FastAPI backend at localhost:8000. The frontend's dev server proxies <code style={code}>/api</code> requests there.
+      <SetupStep step={5} accent={localAccent} title="Démarrer le serveur">
+        Lancez <code style={code}>uvicorn main:app --port 8000</code>. Cela démarre le serveur FastAPI sur localhost:8000. Le serveur de développement du site lui redirige les requêtes <code style={code}>/api</code>.
       </SetupStep>
 
-      <SetupStep step={6} accent={localAccent} title="Refresh this page">
-        The "Simulated" badge disappears from the Local column. You're running real inference on your own hardware.
+      <SetupStep step={6} accent={localAccent} title="Rafraîchir cette page">
+        Le badge « Simulé » disparaît de la colonne Local. Vous faites maintenant tourner une vraie inférence sur votre propre matériel.
       </SetupStep>
     </>
   )
@@ -204,10 +204,10 @@ export default function SetupGuide({ localConnected, webllm, localInferenceMode 
   if (localActive) return null
 
   const localTitle = localActive
-    ? 'Local — WebLLM Active (Ollama recommended)'
+    ? 'Local : WebLLM actif (Ollama recommandé)'
     : webllm?.status === 'loading'
-      ? 'Connect Local — Loading in browser...'
-      : 'Connect Local — Ollama'
+      ? 'Connecter le local : chargement dans le navigateur…'
+      : 'Connecter le local : Ollama'
 
   return (
     <AnimatePresence>
@@ -248,7 +248,7 @@ export default function SetupGuide({ localConnected, webllm, localInferenceMode 
                 textTransform: 'uppercase',
                 color: '#e8d06e',
               }}>
-                Setup Guide
+                Guide d’installation
               </span>
             </div>
             <p style={{
@@ -257,9 +257,9 @@ export default function SetupGuide({ localConnected, webllm, localInferenceMode 
               lineHeight: 1.5,
               margin: 0,
             }}>
-              The race below is simulated to show typical timing — the cloud lane
-              replays data-center behavior (slower first token, faster streaming).
-              Set up Ollama or WebGPU to run the local side for real.
+              La course ci-dessous est simulée pour montrer des temps typiques : la piste cloud
+              rejoue le comportement d’un centre de données (premier token plus lent, flux plus rapide ensuite).
+              Installez Ollama ou utilisez WebGPU pour faire tourner le côté local pour de vrai.
             </p>
           </div>
 

@@ -78,7 +78,7 @@ export default function TokenizerPage() {
             e.currentTarget.style.boxShadow = '0 0 20px rgba(248, 95, 0, 0.3)'
           }}
         >
-          Explore how AI understands
+          Découvrir comment l’IA comprend
           <span style={{ fontSize: 18 }}>→</span>
         </Link>
       </motion.div>

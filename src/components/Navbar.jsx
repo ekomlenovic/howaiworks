@@ -5,45 +5,45 @@ import { motion, AnimatePresence } from 'framer-motion'
 const NAV_ITEMS = [
   {
     path: '/what-is-ai',
-    label: 'What is AI',
-    title: 'What is AI',
-    preview: 'The basics',
+    label: 'C’est quoi l’IA',
+    title: 'C’est quoi l’IA',
+    preview: 'Les bases',
     completionKey: 'lesson-complete-what-is-ai',
   },
   {
     path: '/tokenize',
-    label: 'Tokenizer',
-    title: 'Tokenize',
-    preview: 'Split words',
+    label: 'Tokeniseur',
+    title: 'Tokeniser',
+    preview: 'Découper les mots',
     completionKey: 'lesson-complete-tokenizer',
   },
   {
     path: '/understand',
-    label: 'Understand',
-    title: 'Understand',
-    preview: 'Meaning maps',
+    label: 'Comprendre',
+    title: 'Comprendre',
+    preview: 'Cartes du sens',
     completionKey: 'lesson-complete-understand',
   },
   {
     path: '/attention',
     label: 'Attention',
     title: 'Attention',
-    preview: 'How AI focuses',
+    preview: 'Où l’IA se concentre',
     completionKey: 'lesson-complete-attention',
   },
   {
     path: '/run',
-    label: 'Run Local',
-    title: 'Run',
-    preview: 'Live inference',
+    label: 'En local',
+    title: 'Exécuter',
+    preview: 'Inférence en direct',
     completionKey: 'lesson-complete-run',
   },
 ]
 
 const LOCKED_ITEMS = [
-  { title: 'Fine-tune', preview: 'Custom data' },
-  { title: 'Evaluate', preview: 'Model quality' },
-  { title: 'Deploy', preview: 'Ship it' },
+  { title: 'Affiner', preview: 'Données perso' },
+  { title: 'Évaluer', preview: 'Qualité du modèle' },
+  { title: 'Déployer', preview: 'Mise en ligne' },
 ]
 
 const LOCKED_COUNT = LOCKED_ITEMS.length
@@ -99,7 +99,7 @@ function TooltipCard({ stepNumber, title, completed, locked }) {
         fontStyle: 'italic',
         color: locked ? '#3a3a42' : (completed ? '#f85f00' : '#55555f'),
       }}>
-        {locked ? 'locked' : (completed ? 'completed' : 'in progress')}
+        {locked ? 'verrouillé' : (completed ? 'terminé' : 'en cours')}
       </span>
     </motion.div>
   )
@@ -159,7 +159,7 @@ export default function Navbar() {
 
         {/* Center: Nav links */}
         <div style={{ display: 'flex', gap: 32 }}>
-          {[{ path: '/', label: 'Home' }, { path: '/resources', label: 'Resources' }, { path: '/about', label: 'About' }].map(({ path, label }) => {
+          {[{ path: '/', label: 'Accueil' }, { path: '/resources', label: 'Ressources' }, { path: '/about', label: 'À propos' }].map(({ path, label }) => {
             const active = pathname === path
             return (
               <Link

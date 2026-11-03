@@ -40,8 +40,8 @@ export default function CloudVsLocalPage({ webllm }) {
           marginBottom: 12,
           letterSpacing: -0.5,
         }}>
-          The same AI.{' '}
-          <span style={{ color: 'var(--brand)' }}>Two very different machines.</span>
+          La même IA.{' '}
+          <span style={{ color: 'var(--brand)' }}>Deux machines très différentes.</span>
         </h1>
         <p style={{
           fontSize: 17,
@@ -51,8 +51,8 @@ export default function CloudVsLocalPage({ webllm }) {
           margin: '0 auto',
           lineHeight: 1.5,
         }}>
-          <span style={{ color: '#6ec0e8' }}>Cloud</span>: a GPU cluster in a data center.{' '}
-          <span style={{ color: 'var(--brand)' }}>Local</span>: your own computer. Watch them race.
+          <span style={{ color: '#6ec0e8' }}>Cloud</span> : une grappe de GPU dans un centre de données.{' '}
+          <span style={{ color: 'var(--brand)' }}>Local</span> : votre propre ordinateur. Regardez-les faire la course.
         </p>
       </motion.div>
 
@@ -111,39 +111,39 @@ export default function CloudVsLocalPage({ webllm }) {
         onOpen={() => markLessonComplete('lesson-complete-run')}
         sections={[
           {
-            label: 'The Concept',
+            label: 'Le concept',
             color: 'var(--brand)',
             defaultOpen: true,
             content: (
               <div>
                 <p style={{ marginBottom: 16 }}>
-                  <strong style={{ color: 'var(--brand)', fontSize: 15 }}>The inference pipeline</strong>
+                  <strong style={{ color: 'var(--brand)', fontSize: 15 }}>La chaîne d’inférence</strong>
                 </p>
                 <p style={{ marginBottom: 12 }}>
-                  When you send a prompt to an AI model, here's what happens in the GPU:
+                  Quand vous envoyez un prompt à un modèle d’IA, voici ce qui se passe dans le GPU (la carte graphique) :
                 </p>
                 <div style={{ display: 'grid', gap: 10, marginBottom: 20 }}>
-                  <InferenceStep step={1} title="Tokenize">
-                    Your text is split into tokens (you saw this on Page 1). This happens on the CPU — fast, no GPU needed.
+                  <InferenceStep step={1} title="Tokeniser">
+                    Votre texte est découpé en tokens (vous l’avez vu dans la leçon sur la tokenisation). Cela se passe sur le processeur (CPU) : rapide, pas besoin de GPU.
                   </InferenceStep>
-                  <InferenceStep step={2} title="Embed">
-                    Token IDs are converted to embedding vectors (Page 2). The embedding table lives in GPU memory.
+                  <InferenceStep step={2} title="Plonger (embedding)">
+                    Les identifiants des tokens sont convertis en vecteurs d’embedding (leçon « Comprendre »). La table des embeddings est stockée dans la mémoire du GPU.
                   </InferenceStep>
-                  <InferenceStep step={3} title="Forward pass">
-                    Embeddings flow through dozens of transformer layers. Each layer has attention heads and feed-forward
-                    networks — billions of matrix multiplications. This is where the GPU earns its paycheck.
+                  <InferenceStep step={3} title="Propagation avant">
+                    Les embeddings traversent des dizaines de couches de transformer. Chaque couche contient des têtes d’attention et des réseaux
+                    « feed-forward » : des milliards de multiplications de matrices. C’est là que le GPU mérite son salaire.
                   </InferenceStep>
-                  <InferenceStep step={4} title="Sample next token">
-                    The model outputs a probability distribution over all ~100K tokens. We sample from it to pick the next token.
-                    Then repeat from step 2 with the new token appended.
+                  <InferenceStep step={4} title="Tirer le token suivant">
+                    Le modèle produit une distribution de probabilités sur les quelque 100 000 tokens possibles. On tire au sort dedans pour choisir le token suivant.
+                    Puis on recommence à l’étape 2 en ajoutant ce nouveau token.
                   </InferenceStep>
                 </div>
 
                 <p style={{ marginBottom: 16 }}>
-                  <strong style={{ color: 'var(--brand)', fontSize: 15 }}>GPU memory is the bottleneck</strong>
+                  <strong style={{ color: 'var(--brand)', fontSize: 15 }}>La mémoire du GPU, c’est le goulot d’étranglement</strong>
                 </p>
                 <p style={{ marginBottom: 12 }}>
-                  A model's parameters must all fit in GPU VRAM. At FP16 (2 bytes per parameter):
+                  Tous les paramètres d’un modèle doivent tenir dans la mémoire vidéo (VRAM) du GPU. En FP16 (2 octets par paramètre) :
                 </p>
                 <div style={{
                   padding: '12px 16px',
@@ -154,20 +154,20 @@ export default function CloudVsLocalPage({ webllm }) {
                   fontSize: 13,
                   marginBottom: 12,
                 }}>
-                  <div>0.5B params × 2 bytes = <strong style={{ color: 'var(--brand)' }}>1 GB</strong> (runs on a Chromebook)</div>
-                  <div>8B params × 2 bytes = <strong style={{ color: '#6ec0e8' }}>16 GB</strong> (needs a gaming GPU)</div>
-                  <div>70B params × 2 bytes = <strong style={{ color: '#e8956e' }}>140 GB</strong> (needs 2× A100 80GB)</div>
+                  <div>0,5 Md de paramètres × 2 octets = <strong style={{ color: 'var(--brand)' }}>1 Go</strong> (tourne sur un Chromebook)</div>
+                  <div>8 Md de paramètres × 2 octets = <strong style={{ color: '#6ec0e8' }}>16 Go</strong> (il faut une carte graphique de joueur)</div>
+                  <div>70 Md de paramètres × 2 octets = <strong style={{ color: '#e8956e' }}>140 Go</strong> (il faut 2 A100 de 80 Go)</div>
                 </div>
                 <p>
-                  <strong style={{ color: 'var(--text-primary)' }}>Quantization</strong> reduces this: 4-bit quantization
-                  means each parameter uses 0.5 bytes instead of 2. A 70B model drops from 140GB to ~35GB — fitting
-                  on a single A100 or a high-end consumer GPU. The tradeoff: slight accuracy loss.
+                  <strong style={{ color: 'var(--text-primary)' }}>La quantification</strong> réduit ce besoin : en quantification 4 bits,
+                  chaque paramètre occupe 0,5 octet au lieu de 2. Un modèle de 70 milliards de paramètres passe de 140 Go à environ 35 Go, et tient
+                  sur une seule A100 ou une carte grand public très haut de gamme. La contrepartie : une légère perte de précision.
                 </p>
               </div>
             ),
           },
           {
-            label: 'The Code',
+            label: 'Le code',
             color: '#6ec0e8',
             defaultOpen: false,
             content: (
@@ -183,16 +183,16 @@ export default function CloudVsLocalPage({ webllm }) {
                 whiteSpace: 'pre',
                 color: 'var(--text-secondary)',
               }}>
-{`# Cloud inference (any OpenAI-compatible API)
+{`# Inférence dans le cloud (n'importe quelle API compatible OpenAI)
 import openai
 
 client = openai.OpenAI(
-    api_key="sk-your-key-here"
+    api_key="sk-votre-cle-ici"
 )
 
 response = client.chat.completions.create(
     model="gpt-4o-mini",
-    messages=[{"role": "user", "content": "What is AI?"}],
+    messages=[{"role": "user", "content": "C'est quoi l'IA ?"}],
     stream=True
 )
 
@@ -201,16 +201,16 @@ for chunk in response:
     if token:
         print(token, end="", flush=True)
 
-# ── Same interface, different infrastructure ──────
-# Local inference (Ollama — runs on your machine)
+# ── Même interface, autre infrastructure ──────────
+# Inférence locale (Ollama, tourne sur votre machine)
 client = openai.OpenAI(
     base_url="http://localhost:11434/v1",
-    api_key="ollama"  # Ollama doesn't need a real key
+    api_key="ollama"  # Ollama n'a pas besoin d'une vraie clé
 )
 
 response = client.chat.completions.create(
     model="qwen2.5:0.5b",
-    messages=[{"role": "user", "content": "What is AI?"}],
+    messages=[{"role": "user", "content": "C'est quoi l'IA ?"}],
     stream=True
 )
 
@@ -222,59 +222,59 @@ for chunk in response:
             ),
           },
           {
-            label: 'Challenge',
+            label: 'Défi',
             color: '#e8d06e',
             defaultOpen: false,
             content: (
               <div>
                 <p style={{ marginBottom: 10 }}>
-                  <strong style={{ color: 'var(--text-primary)' }}>Think about it:</strong>
+                  <strong style={{ color: 'var(--text-primary)' }}>Réfléchissez :</strong>
                 </p>
                 <p style={{ marginBottom: 8, paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>1.</strong> If an A100 has 80GB VRAM and each FP16
-                  parameter is 2 bytes, what's the largest model it can hold? What about at 4-bit quantization?
+                  <strong style={{ color: '#e8d06e' }}>1.</strong> Si une A100 a 80 Go de VRAM et que chaque paramètre
+                  en FP16 occupe 2 octets, quel est le plus gros modèle qu’elle peut contenir ? Et en quantification 4 bits ?
                 </p>
                 <p style={{ marginBottom: 8, paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>2.</strong> Some workstations now ship with 128GB of
-                  unified memory shared between CPU and GPU. How does this change what models can run locally?
+                  <strong style={{ color: '#e8d06e' }}>2.</strong> Certaines stations de travail sont désormais livrées avec 128 Go de
+                  mémoire unifiée, partagée entre le CPU et le GPU. Qu’est-ce que cela change pour les modèles qu’on peut faire tourner en local ?
                 </p>
                 <p style={{ paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>3.</strong> Why does cloud have higher time-to-first-token
-                  but faster tokens-per-second? What would change if you were on the same network as the GPU cluster?
+                  <strong style={{ color: '#e8d06e' }}>3.</strong> Pourquoi le cloud met-il plus de temps à produire le premier token,
+                  mais génère-t-il ensuite plus de tokens par seconde ? Qu’est-ce qui changerait si vous étiez sur le même réseau que la grappe de GPU ?
                 </p>
               </div>
             ),
           },
           {
-            label: 'Real World',
+            label: 'Dans la vraie vie',
             color: '#e87a96',
             defaultOpen: false,
             content: (
               <div>
                 <p style={{ marginBottom: 14 }}>
-                  The cloud vs. local choice isn't just technical — it shapes entire industries.
+                  Choisir entre cloud et local n’est pas qu’une question technique : cela façonne des secteurs entiers.
                 </p>
                 <div style={{ display: 'grid', gap: 10 }}>
                   <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #e87a96' }}>
-                    <strong style={{ color: '#e87a96' }}>Healthcare (local wins)</strong>
+                    <strong style={{ color: '#e87a96' }}>Santé (le local l’emporte)</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      Hospitals use local AI to analyze patient records. HIPAA requires data stays on-premises.
-                      A patient's medical history should never traverse the internet to reach a cloud GPU.
+                      Les hôpitaux utilisent une IA locale pour analyser les dossiers des patients. La réglementation (HIPAA aux États-Unis, RGPD et hébergement de données de santé en France) encadre strictement ces données.
+                      L’historique médical d’un patient ne devrait jamais traverser internet pour atteindre un GPU dans le cloud.
                     </div>
                   </div>
                   <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #6ec0e8' }}>
-                    <strong style={{ color: '#6ec0e8' }}>Startups (cloud wins)</strong>
+                    <strong style={{ color: '#6ec0e8' }}>Startups (le cloud l’emporte)</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      A startup serving 1M users can't buy 100 A100s on day one. Cloud lets them scale
-                      GPU usage up and down with demand — paying only for what they use.
+                      Une startup qui sert un million d’utilisateurs ne peut pas acheter 100 A100 dès le premier jour. Le cloud lui permet d’augmenter
+                      ou de réduire sa consommation de GPU selon la demande, en ne payant que ce qu’elle utilise.
                     </div>
                   </div>
                   <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid var(--brand)' }}>
-                    <strong style={{ color: 'var(--brand)' }}>On-device AI (bridging the gap)</strong>
+                    <strong style={{ color: 'var(--brand)' }}>IA embarquée (combler l’écart)</strong>
                     <div style={{ marginTop: 4, fontSize: 13 }}>
-                      Phones and laptops now ship with neural processors and unified memory built for local
-                      models, and AI workstations can run 100B+ parameter models at your desk. The hardware
-                      is steadily collapsing the trade-off between capability and privacy.
+                      Les téléphones et ordinateurs portables embarquent désormais des processeurs neuronaux et de la mémoire unifiée pensés pour les modèles
+                      locaux, et des stations de travail dédiées à l’IA font tourner des modèles de plus de 100 milliards de paramètres sur votre bureau. Le matériel
+                      réduit peu à peu le dilemme entre puissance et confidentialité.
                     </div>
                   </div>
                 </div>
@@ -364,7 +364,7 @@ function CopyableCommand({ command }) {
           fontSize: 10,
           color: 'var(--brand)',
         }}>
-          Copied!
+          Copié !
         </span>
       )}
     </div>
@@ -396,15 +396,15 @@ function OllamaLocalCard({ connected, webllm }) {
               color: 'var(--text-primary)',
               marginBottom: 2,
             }}>
-              Run locally with Ollama
+              Faire tourner en local avec Ollama
             </div>
             <div style={{
               fontSize: 13,
               color: 'var(--text-secondary)',
             }}>
               {connected
-                ? 'Ollama is running — local inference active'
-                : 'Run AI on your own machine, no internet needed'}
+                ? 'Ollama est lancé : inférence locale active'
+                : 'Faites tourner l’IA sur votre machine, sans internet'}
             </div>
           </div>
           {connected && (
@@ -422,7 +422,7 @@ function OllamaLocalCard({ connected, webllm }) {
               flexShrink: 0,
             }}>
               <span style={{ fontSize: 8 }}>●</span>
-              Connected
+              Connecté
             </div>
           )}
         </div>
@@ -438,10 +438,10 @@ function OllamaLocalCard({ connected, webllm }) {
           lineHeight: 1.6,
           color: 'var(--text-secondary)',
         }}>
-          <strong style={{ color: 'var(--brand)' }}>Local inference</strong> runs the AI model directly
-          on your computer — no internet, no API key, no data leaving your machine. The tradeoff: your hardware
-          limits which models you can run. The 0.5B-parameter model here fits in ~1GB of RAM but is far smaller
-          than cloud-scale models.
+          <strong style={{ color: 'var(--brand)' }}>L’inférence locale</strong> fait tourner le modèle d’IA directement
+          sur votre ordinateur : pas d’internet, pas de clé d’API, aucune donnée qui quitte votre machine. La contrepartie : votre matériel
+          limite les modèles que vous pouvez utiliser. Le modèle de 0,5 milliard de paramètres utilisé ici tient dans environ 1 Go de RAM, mais il est bien plus petit
+          que les modèles du cloud.
         </div>
 
         {/* Quick-start commands */}
@@ -456,7 +456,7 @@ function OllamaLocalCard({ connected, webllm }) {
               color: 'var(--text-dim)',
               marginBottom: 8,
             }}>
-              Quick start
+              Démarrage rapide
             </div>
             <CopyableCommand command="ollama pull qwen2.5:0.5b" />
             <CopyableCommand command="ollama run qwen2.5:0.5b" />
@@ -489,7 +489,7 @@ function OllamaLocalCard({ connected, webllm }) {
                   e.currentTarget.style.boxShadow = 'none'
                 }}
               >
-                Get Ollama
+                Télécharger Ollama
                 <span style={{ fontSize: 12 }}>↗</span>
               </a>
               {webllm && (
@@ -514,10 +514,10 @@ function OllamaLocalCard({ connected, webllm }) {
                   }}
                 >
                   {webllm.isReady
-                    ? 'WebGPU model loaded'
+                    ? 'Modèle WebGPU chargé'
                     : webllm.status === 'loading'
-                    ? 'Loading WebGPU model...'
-                    : "Can't install? Try WebGPU"}
+                    ? 'Chargement du modèle WebGPU…'
+                    : "Impossible d’installer ? Essayez WebGPU"}
                 </button>
               )}
             </div>
@@ -557,7 +557,7 @@ function WebLLMProgressBar({ progress }) {
             color: 'var(--brand)',
             fontWeight: 600,
           }}>
-            Loading AI in your browser...
+            Chargement de l’IA dans votre navigateur…
           </span>
           <span style={{
             fontFamily: 'var(--font-mono)',
@@ -593,7 +593,7 @@ function WebLLMProgressBar({ progress }) {
           overflow: 'hidden',
           textOverflow: 'ellipsis',
         }}>
-          {progress.text || 'Preparing WebGPU...'}
+          {progress.text || 'Préparation de WebGPU…'}
         </div>
       </div>
     </motion.div>

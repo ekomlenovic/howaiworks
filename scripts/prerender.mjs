@@ -20,14 +20,14 @@ const esc = (s) =>
   s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 
 const NAV_LABELS = {
-  '/': 'Home',
-  '/what-is-ai': 'What is AI?',
-  '/tokenize': 'Tokenize',
-  '/understand': 'Understand',
+  '/': 'Accueil',
+  '/what-is-ai': 'C’est quoi l’IA ?',
+  '/tokenize': 'Tokeniser',
+  '/understand': 'Comprendre',
   '/attention': 'Attention',
-  '/run': 'Run',
-  '/about': 'About',
-  '/resources': 'Resources',
+  '/run': 'Exécuter',
+  '/about': 'À propos',
+  '/resources': 'Ressources',
 }
 
 function jsonLd(path, meta) {
@@ -43,7 +43,7 @@ function jsonLd(path, meta) {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: SITE.name,
-      alternateName: 'How AI Works',
+      alternateName: 'Comment fonctionne l’IA',
       url: SITE.origin,
       description: meta.description,
       author,
@@ -58,9 +58,9 @@ function jsonLd(path, meta) {
       description: meta.description,
       url,
       isAccessibleForFree: true,
-      educationalLevel: 'beginner',
-      learningResourceType: 'interactive simulation',
-      inLanguage: 'en',
+      educationalLevel: 'débutant',
+      learningResourceType: 'simulation interactive',
+      inLanguage: 'fr',
       author,
       isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.origin },
     }
@@ -72,7 +72,7 @@ function jsonLd(path, meta) {
     name: meta.title.split(' | ')[0],
     description: meta.description,
     url,
-    inLanguage: 'en',
+    inLanguage: 'fr',
     author,
   }
 }
@@ -107,8 +107,8 @@ function staticBody(path, meta) {
     sections +
     ctaHtml +
     `<p style="margin-top:32px;font-size:13px;color:#6b7078">` +
-    `${SITE.name} is free and open source (<a href="${SITE.github}" style="color:#f85f00">GitHub</a>), ` +
-    `built by <a href="${SITE.author.url}" style="color:#f85f00">${esc(SITE.author.name)}</a>.</p>` +
+    `${SITE.name} est gratuit et open source (<a href="${SITE.github}" style="color:#f85f00">GitHub</a>), ` +
+    `créé par <a href="${SITE.author.url}" style="color:#f85f00">${esc(SITE.author.name)}</a>.</p>` +
     `</div>`
   )
 }

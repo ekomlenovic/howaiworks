@@ -5,19 +5,19 @@ import DeeperDive from '../components/DeeperDive'
 const TRUSTED_VOICES = [
   {
     name: 'Andrew Ng',
-    role: 'Co-founder of Coursera, founder of DeepLearning.AI',
+    role: 'Cofondateur de Coursera, fondateur de DeepLearning.AI',
     photo: '/andrew-ng.jpg',
-    desc: 'Stanford professor and former head of Google Brain. His free courses on machine learning and deep learning are the gold standard for getting started.',
+    desc: 'Professeur à Stanford et ancien directeur de Google Brain. Ses cours gratuits sur l’apprentissage automatique et l’apprentissage profond sont la référence pour débuter (en anglais, sous-titres disponibles).',
     links: [
       { label: 'DeepLearning.AI', href: 'https://www.deeplearning.ai/' },
-      { label: 'Coursera ML Course', href: 'https://www.coursera.org/learn/machine-learning' },
+      { label: 'Cours de ML sur Coursera', href: 'https://www.coursera.org/learn/machine-learning' },
     ],
   },
   {
     name: 'Andrej Karpathy',
-    role: 'Former Director of AI at Tesla, ex-OpenAI',
+    role: 'Ancien directeur de l’IA chez Tesla, ex-OpenAI',
     photo: 'https://pbs.twimg.com/profile_images/1296667294148382721/9Pr6XrPB_400x400.jpg',
-    desc: 'His "Neural Networks: Zero to Hero" YouTube series builds transformers from scratch — the best way to truly understand what\'s under the hood.',
+    desc: 'Sa série YouTube « Neural Networks: Zero to Hero » construit des transformers à partir de zéro : le meilleur moyen de vraiment comprendre ce qu’il y a sous le capot (en anglais).',
     links: [
       { label: 'YouTube', href: 'https://www.youtube.com/@AndrejKarpathy' },
       { label: 'Zero to Hero', href: 'https://karpathy.ai/zero-to-hero.html' },
@@ -25,12 +25,12 @@ const TRUSTED_VOICES = [
   },
   {
     name: 'Jeremy Howard',
-    role: 'Co-founder of fast.ai',
+    role: 'Cofondateur de fast.ai',
     photo: 'https://pbs.twimg.com/profile_images/1550854978044698624/Rj2vTOiR_400x400.jpg',
-    desc: 'Practical, top-down approach to deep learning. The fast.ai courses are free and designed for people who want to build things, not just study theory.',
+    desc: 'Une approche pratique de l’apprentissage profond, qui part du concret. Les cours fast.ai sont gratuits et pensés pour celles et ceux qui veulent construire des choses, pas seulement étudier la théorie (en anglais).',
     links: [
       { label: 'fast.ai', href: 'https://www.fast.ai/' },
-      { label: 'Course', href: 'https://course.fast.ai/' },
+      { label: 'Le cours', href: 'https://course.fast.ai/' },
     ],
   },
 ]
@@ -38,23 +38,23 @@ const TRUSTED_VOICES = [
 const RESOURCES = [
   {
     href: 'https://bbycroft.net/llm',
-    title: 'LLM Visualizer (Brendan Bycroft)',
-    desc: '3D interactive walkthrough of a full transformer — see how tokens flow through embeddings, attention, and prediction step by step.',
+    title: 'Visualisation de LLM (Brendan Bycroft)',
+    desc: 'Une visite interactive en 3D d’un transformer complet : suivez les tokens à travers les embeddings, l’attention et la prédiction, étape par étape.',
   },
   {
     href: 'https://arxiv.org/abs/1508.07909',
-    title: 'BPE Paper (Sennrich et al. 2016)',
-    desc: 'The original paper that introduced Byte Pair Encoding for neural machine translation.',
+    title: 'L’article sur le BPE (Sennrich et al., 2016)',
+    desc: 'L’article original qui a introduit l’encodage par paires d’octets (Byte Pair Encoding) pour la traduction automatique neuronale.',
   },
   {
     href: 'https://github.com/dqbd/tiktoken',
     title: 'js-tiktoken',
-    desc: 'The client-side tokenizer library powering this demo — runs entirely in your browser.',
+    desc: 'La bibliothèque de tokenisation qui fait tourner cette démo, entièrement dans votre navigateur.',
   },
   {
     href: 'https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them',
-    title: 'What Are Tokens?',
-    desc: 'OpenAI\'s official explainer on tokens, counting, and how they affect pricing.',
+    title: 'Qu’est-ce qu’un token ? (OpenAI)',
+    desc: 'L’explication officielle d’OpenAI sur les tokens, la façon de les compter et leur effet sur les prix (en anglais).',
   },
 ]
 
@@ -75,7 +75,7 @@ export default function ResourcesPage() {
           marginBottom: 12,
           letterSpacing: -0.5,
         }}>
-          Resources
+          Ressources
         </h1>
         <p style={{
           fontSize: 17,
@@ -84,7 +84,7 @@ export default function ResourcesPage() {
           margin: '0 auto',
           lineHeight: 1.5,
         }}>
-          Here are some more resources to go deeper.
+          Quelques ressources supplémentaires pour aller plus loin.
         </p>
       </motion.div>
 
@@ -150,7 +150,7 @@ export default function ResourcesPage() {
           marginBottom: 6,
           letterSpacing: -0.3,
         }}>
-          Trusted Voices in AI
+          Des voix de confiance en IA
         </h2>
         <p style={{
           fontSize: 14,
@@ -158,7 +158,7 @@ export default function ResourcesPage() {
           lineHeight: 1.5,
           marginBottom: 20,
         }}>
-          People worth following — researchers and educators who explain AI with depth and honesty.
+          Des personnes à suivre : chercheurs et pédagogues qui expliquent l’IA avec profondeur et honnêteté.
         </p>
 
         <div style={{

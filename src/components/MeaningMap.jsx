@@ -13,12 +13,12 @@ const CATEGORY_COLORS = {
 }
 
 const CATEGORY_LABELS = {
-  animal: 'Animals',
-  emotion: 'Emotions',
-  technology: 'Technology',
-  food: 'Food',
-  place: 'Places',
-  person: 'People',
+  animal: 'Animaux',
+  emotion: 'Émotions',
+  technology: 'Technologie',
+  food: 'Nourriture',
+  place: 'Lieux',
+  person: 'Personnes',
 }
 
 const REPRESENTATIVE_WORDS = embeddingData.representativeWords || {
@@ -353,7 +353,7 @@ export default function MeaningMap({ words, onWordClick, selectedWord, neighborL
           {/* Fullscreen toggle */}
           <button
             onClick={toggleFullscreen}
-            title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+            title={isFullscreen ? 'Quitter le plein écran' : 'Plein écran'}
             style={{
               marginLeft: 'auto',
               background: 'none',
@@ -594,7 +594,7 @@ export default function MeaningMap({ words, onWordClick, selectedWord, neighborL
             fontFamily="var(--font-mono)"
             opacity={0.5}
           >
-            scroll to zoom · drag to pan
+            molette pour zoomer · glisser pour se déplacer
           </text>
         </svg>
 

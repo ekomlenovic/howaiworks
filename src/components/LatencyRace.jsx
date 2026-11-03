@@ -7,7 +7,7 @@ const TOKEN_COLORS = [
   '#e87a96', '#94a0e8', '#e8a0d6', '#b0d87a', '#e8a07a', '#7ac0e8',
 ]
 
-const DEFAULT_PROMPT = 'What is artificial intelligence?'
+const DEFAULT_PROMPT = 'Qu\'est-ce que l\'intelligence artificielle ?'
 
 export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, localInferenceMode }) {
   const [prompt, setPrompt] = useState('')
@@ -247,7 +247,7 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
         {/* Cloud column */}
         <RaceColumn
           label="CLOUD"
-          sublabel="Simulated · data-center GPU cluster"
+          sublabel="Simulé · grappe de GPU en centre de données"
           accentColor="#6ec0e8"
           tokens={cloudTokens}
           done={cloudDone}
@@ -261,9 +261,9 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
         <RaceColumn
           label="LOCAL"
           sublabel={
-            localInferenceMode === 'ollama' ? 'Ollama · Your Machine'
-            : localInferenceMode === 'webllm' ? 'WebGPU · In-Browser'
-            : 'Simulated · qwen2.5:0.5b'
+            localInferenceMode === 'ollama' ? 'Ollama · Votre machine'
+            : localInferenceMode === 'webllm' ? 'WebGPU · Dans le navigateur'
+            : 'Simulé · qwen2.5:0.5b'
           }
           accentColor="var(--brand)"
           tokens={localTokens}
@@ -280,7 +280,7 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
           type="text"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Type a prompt and race again..."
+          placeholder="Écrivez un prompt et relancez la course…"
           disabled={isRacing}
           style={{
             flex: 1,
@@ -318,7 +318,7 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
             opacity: isRacing || !prompt.trim() ? 0.5 : 1,
           }}
         >
-          {isRacing ? 'Racing...' : 'Race'}
+          {isRacing ? 'Course en cours…' : 'Lancer la course'}
         </button>
       </form>
     </div>
@@ -416,9 +416,9 @@ function RaceColumn({ label, sublabel, accentColor, tokens, done, ttft, tps, err
             textAlign: isRacing ? undefined : 'center',
           }}>
             {isRacing ? (
-              <>Waiting...<span style={{ animation: 'pulse-dot 1.5s infinite' }}> ●</span></>
+              <>En attente…<span style={{ animation: 'pulse-dot 1.5s infinite' }}> ●</span></>
             ) : (
-              'Type a prompt and hit Race'
+              'Écrivez un prompt et lancez la course'
             )}
           </div>
         )}

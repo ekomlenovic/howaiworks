@@ -1,5 +1,5 @@
-// Leçon 3 : les embeddings (page /understand)
-// Les mots de la carte restent en anglais : ce sont les données du modèle d'embeddings.
+// Lesson 3: embeddings (/understand page)
+// Map words stay in English: they are the embedding model's data.
 import { Accent, PythonCode } from '../../../components/LessonBits'
 
 export default {
@@ -181,7 +181,7 @@ result = np.array(king) - np.array(man) + np.array(woman)
   </>,
   ctaNext: "Voir comment l’IA fait attention",
 
-  // Carte du sens (MeaningMap)
+  // Meaning map (MeaningMap)
   map: {
     categories: { animal: 'Animaux', emotion: 'Émotions', technology: 'Technologie', food: 'Nourriture', place: 'Lieux', person: 'Personnes' },
     fullscreen: "Plein écran",
@@ -190,15 +190,15 @@ result = np.array(king) - np.array(man) + np.array(woman)
     position: "Position :",
   },
 
-  // Arithmétique des mots (WordArithmetic).
-  // Dans experiments, ne traduisez que label et insight : a, b, c, result et
-  // arithmeticKey sont des mots de la carte (en anglais).
+  // Word arithmetic (WordArithmetic).
+  // In experiments, only translate label and insight: a, b, c, result and
+  // arithmeticKey are map words (in English).
   arithmetic: {
     title: "Arithmétique des mots",
     allExplored: "Tout exploré : vous comprenez maintenant l’espace du sens.",
     notInMap: "(mot absent de la carte : essayez des mots du nuage de points)",
     pickWord: "choisir un mot",
-    // Traduction affichée entre parenthèses à côté des mots anglais de la liste
+    // Translation shown in parentheses next to the English words in the list
     wordGloss: {
       king: 'roi', queen: 'reine', man: 'homme', woman: 'femme', doctor: 'médecin', nurse: 'infirmière',
       cat: 'chat', dog: 'chien', fish: 'poisson', bird: 'oiseau',

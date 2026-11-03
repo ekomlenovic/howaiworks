@@ -1,5 +1,5 @@
-// Leçon 4 : l'attention (page /attention)
-// La phrase d'exemple reste en anglais : les poids d'attention sont définis mot par mot.
+// Lesson 4: attention (/attention page)
+// The example sentence stays in English: attention weights are defined word by word.
 import { QKVDiagram } from '../../../components/LessonBits'
 
 export default {
@@ -10,7 +10,7 @@ export default {
     C’est le mécanisme qui a rendu possible l’IA moderne.
   </>,
 
-  // Les 4 cartes de la page (badge, titre, explication)
+  // The page's 4 cards (badge, title, explanation)
   cards: [
     {
       badge: "LE PROBLÈME",
@@ -34,8 +34,8 @@ export default {
     },
   ],
 
-  // Démo « avant / après l'attention ». Gardez 10 mots : les arcs relient
-  // le mot n°8 au n°2, le n°10 au n°6, etc. (voir RNNvsTransformerInner).
+  // "Before / after attention" demo. Keep 10 words: the arcs link
+  // word #8 to #2, #10 to #6, etc. (see RNNvsTransformerInner).
   rnnWords: ['Le', 'chat', 'dort', 'sur', 'le', 'tapis', 'car', 'il', 'est', 'doux'],
   rnn: {
     before: "Avant l’attention (RNN, réseaux récurrents) :",
@@ -45,11 +45,11 @@ export default {
     replay: "↻ rejouer",
   },
 
-  // Carte d'attention cliquable (la phrase reste en anglais)
+  // Clickable attention map (the sentence stays in English)
   heatmap: {
     watch: 'Regardez…',
     click: 'Cliquez sur un mot pour voir à quoi il fait attention',
-    // Explication affichée selon le mot cliqué
+    // Explanation shown for the clicked word
     insight: (selectedWord) => (
     selectedWord === 'it' ? (
         <>
@@ -80,7 +80,7 @@ export default {
     ),
   },
 
-  // Têtes d'attention. Ne changez pas `from` / `to` : ce sont les mots de la phrase anglaise.
+  // Attention heads. Don't change `from` / `to`: they are words of the English sentence.
   heads: [
     {
       name: 'Grammaire',
@@ -114,7 +114,7 @@ export default {
   ],
   toggleHeads: "Activez plusieurs têtes pour comparer",
 
-  // Bloc transformer
+  // Transformer block
   layers: [
     { name: 'Embeddings d’entrée', desc: 'Convertit les tokens en vecteurs (vu dans la leçon « Comprendre »)', color: '#6ec0e8' },
     { name: 'Auto-attention', desc: 'Chaque mot regarde tous les autres pour récupérer du contexte', color: '#f85f00' },
@@ -197,7 +197,7 @@ export default {
     },
   ],
 
-  // Panneau « L'informatique derrière tout ça »
+  // "Go deeper" panel (DepthPanel)
   depthSections: [
     {
       label: 'Le concept',

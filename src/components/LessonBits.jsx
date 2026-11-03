@@ -1,6 +1,6 @@
-// Petits composants de présentation partagés par les leçons ET par les
-// fichiers de langue (src/i18n/locales/*). Ce fichier ne doit pas importer
-// '../i18n' (pour éviter une dépendance circulaire).
+// Small presentational components shared by lessons AND by the
+// locale files (src/i18n/locales/*). This file must not import
+// '../i18n' (to avoid a circular import).
 import { useMemo } from 'react'
 
 export function Accent({ children }) {

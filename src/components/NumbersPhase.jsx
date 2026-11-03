@@ -15,17 +15,17 @@ export default function NumbersPhase({ visible, tokens, inputText, showIds, onTo
       style={{ padding: '40px 0' }}
     >
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, color: 'var(--brand)', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 8 }}>
-        Étape 02
+        Phase 02
       </div>
 
       <h2 style={{ fontSize: 24, fontWeight: 600, marginBottom: 8 }}>
-        Tout n’est que nombres
+        It's all just numbers
       </h2>
 
       <p style={{ color: 'var(--text-secondary)', fontSize: 15, marginBottom: 32, lineHeight: 1.6 }}>
-        Chaque token correspond à un identifiant numérique. Ces nombres sont la{' '}
-        <strong style={{ color: 'var(--text-primary)' }}>seule chose</strong>{' '}
-        que le modèle d’IA reçoit. Pas de lettres, pas de sens : juste des entiers.
+        Each token maps to a numeric ID. These numbers are the{' '}
+        <strong style={{ color: 'var(--text-primary)' }}>only thing</strong>{' '}
+        the AI model receives. Not letters, not meaning — just integers.
       </p>
 
       {/* Toggle button */}
@@ -51,7 +51,7 @@ export default function NumbersPhase({ visible, tokens, inputText, showIds, onTo
             borderRadius: '50%', top: 2, left: showIds ? 18 : 2, transition: 'all 0.3s',
           }} />
         </div>
-        Révéler les nombres cachés dessous
+        Reveal the numbers underneath
       </button>
 
       {/* AI view comparison */}
@@ -67,7 +67,7 @@ export default function NumbersPhase({ visible, tokens, inputText, showIds, onTo
         >
           <div style={{ marginBottom: 20 }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 12 }}>
-              Ce que vous voyez
+              What you see
             </div>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, lineHeight: 1.8 }}>
               {inputText}
@@ -75,7 +75,7 @@ export default function NumbersPhase({ visible, tokens, inputText, showIds, onTo
           </div>
           <div>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--brand)', marginBottom: 12 }}>
-              Ce que voit l’IA
+              What AI sees
             </div>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 15, lineHeight: 1.8, color: 'var(--brand)', wordBreak: 'break-all' }}>
               {tokenIds.length > 0 ? `[${tokenIds.join(', ')}]` : '...'}
@@ -86,11 +86,11 @@ export default function NumbersPhase({ visible, tokens, inputText, showIds, onTo
 
       {/* Surface insight */}
       <Insight visible={showIds}>
-        <strong style={{ color: 'var(--brand)', fontWeight: 600 }}>Réfléchissez-y :</strong>{' '}
-        quand vous posez une question à ChatGPT, il ne voit jamais vos mots. Il reçoit une suite
-        de nombres comme [{tokenIds.slice(0, 5).join(', ')}{tokenIds.length > 5 ? ', ...' : ''}] et
-        doit deviner ce que vous voulez dire uniquement à partir d’eux. Chacune de ses réponses commence elle aussi
-        sous forme de nombres, qui ne sont retraduits en texte qu’à la toute fin.
+        <strong style={{ color: 'var(--brand)', fontWeight: 600 }}>Think about this:</strong>{' '}
+        When you ask ChatGPT a question, it never sees your words. It receives a sequence
+        of numbers like [{tokenIds.slice(0, 5).join(', ')}{tokenIds.length > 5 ? ', ...' : ''}] and
+        has to figure out what you mean from those alone. Every response it gives starts as
+        numbers too — translated back into text only at the very end.
       </Insight>
 
       {/* University-depth panel */}
@@ -99,88 +99,88 @@ export default function NumbersPhase({ visible, tokens, inputText, showIds, onTo
         concept={
           <div>
             <p style={{ marginBottom: 12 }}>
-              Chaque identifiant de token est un numéro de ligne dans une <strong style={{ color: 'var(--text-primary)' }}>matrice d’embeddings</strong> :
-              un gigantesque tableau de correspondance où chaque ligne est un vecteur à très grand nombre de dimensions (en général de 768 à 12 288 selon
-              le modèle). Quand le modèle reçoit le token 496, il va lire la ligne 496 et récupère
-              un vecteur comme [0.023, -0.817, 0.445, ...].
+              Each token ID is an index into an <strong style={{ color: 'var(--text-primary)' }}>embedding matrix</strong> — 
+              a giant lookup table where each row is a high-dimensional vector (typically 768 to 12,288 dimensions
+              depending on the model). When the model receives token ID 496, it looks up row 496 and retrieves
+              a vector like [0.023, -0.817, 0.445, ...].
             </p>
             <p style={{ marginBottom: 12 }}>
-              Ce vecteur, C’EST le sens. Toute l’intelligence d’un modèle de langage travaille sur ces
-              vecteurs, en les transformant à travers des couches d’attention et des réseaux dits « feed-forward ». Le texte
-              d’origine a disparu. Il ne reste que les vecteurs.
+              This vector IS the meaning. The entire intelligence of a language model operates on these
+              vectors — transforming them through attention layers and feed-forward networks. The raw
+              text is gone. Only the vectors remain.
             </p>
             <p>
-              La matrice d’embeddings est <strong style={{ color: 'var(--text-primary)' }}>apprise pendant l’entraînement</strong>.
-              Les mots employés dans des contextes similaires finissent avec des vecteurs similaires : personne ne l’a programmé,
-              c’est l’objectif d’entraînement (prédire le token suivant) qui crée naturellement cette structure.
-              C’est la base de l’étape 03.
+              The embedding matrix is <strong style={{ color: 'var(--text-primary)' }}>learned during training</strong>.
+              Words used in similar contexts end up with similar vectors — not because anyone programmed that,
+              but because the training objective (predicting the next token) naturally creates this structure.
+              This is the foundation of Phase 03.
             </p>
           </div>
         }
-        code={`# Python : de l'identifiant de token au vecteur d'embedding
+        code={`# Python — from token ID to embedding vector
 import numpy as np
 
-# Modèle simplifié de ce qui se passe dans un transformer :
-vocab_size = 100256       # taille du vocabulaire cl100k_base
-embedding_dim = 1536      # dimension des embeddings de GPT-4
+# Conceptual model of what happens inside a transformer:
+vocab_size = 100256       # cl100k_base vocabulary
+embedding_dim = 1536      # GPT-4's embedding dimension
 
-# La matrice d'embeddings, apprise pendant l'entraînement
-# Forme : (100256, 1536), soit ~154 millions de paramètres rien que pour ce tableau !
+# The embedding matrix — learned during training
+# Shape: (100256, 1536) — ~154 million parameters just for this table!
 embedding_matrix = model.get_embedding_weights()
 
-# Quand le modèle reçoit des identifiants de tokens :
+# When the model receives token IDs:
 token_ids = [791, 1071, 64, 2294]  # "What does AI see"
 
-# Chaque identifiant devient un vecteur :
-vectors = embedding_matrix[token_ids]  # Forme : (4, 1536)
+# Each ID becomes a vector:
+vectors = embedding_matrix[token_ids]  # Shape: (4, 1536)
 
-# Ce sont ces vecteurs que le transformer traite réellement.
-# Le texte a disparu. Il ne reste que des nombres.
+# These vectors are what the transformer actually processes.
+# The text is gone. Only numbers remain.
 
-# Anecdote : cette matrice pèse à elle seule ~600 Mo pour GPT-4.
-# C'est le « dictionnaire » qui convertit les tokens en sens.
-print(f"Taille de la matrice : {vocab_size * embedding_dim * 4 / 1e6:.0f} Mo (float32)")`}
+# Fun fact: this embedding matrix alone is ~600MB for GPT-4.
+# It's the "dictionary" the model uses to convert tokens to meaning.
+print(f"Matrix size: {vocab_size * embedding_dim * 4 / 1e6:.0f} MB (float32)")`}
         challenge={
           <div>
             <p style={{ marginBottom: 8 }}>
-              <strong style={{ color: 'var(--text-primary)' }}>Réfléchissez-y :</strong> le vocabulaire cl100k_base
-              compte 100 256 tokens. La dimension des embeddings de GPT-4 est de 1 536. Combien de paramètres contient
-              la matrice d’embeddings à elle seule ?
+              <strong style={{ color: 'var(--text-primary)' }}>Think about this:</strong> The cl100k_base vocabulary
+              has 100,256 tokens. GPT-4's embedding dimension is 1,536. How many parameters are in the
+              embedding matrix alone?
             </p>
             <p style={{ marginBottom: 8 }}>
-              Maintenant, sachant que GPT-4 aurait environ 1 800 milliards de paramètres au total, quel pourcentage du
-              modèle représente « simplement » ce tableau d’embeddings ?
+              Now consider: GPT-4 reportedly has ~1.8 trillion total parameters. What percentage of the
+              model is "just" the embedding lookup table?
             </p>
             <p style={{ color: 'var(--text-dim)', fontStyle: 'italic' }}>
-              La matrice d’embeddings est le pont entre le langage humain et l’espace mathématique où
-              se déroule tout le raisonnement. C’est une petite fraction du modèle, mais sans elle, rien ne fonctionne.
+              The embedding matrix is the bridge between human language and the mathematical space where
+              all reasoning happens. It's a small fraction of the model, but without it, nothing works.
             </p>
           </div>
         }
         realWorld={
           <div>
             <p style={{ marginBottom: 12 }}>
-              <strong style={{ color: 'var(--text-primary)' }}>Chaque appel à une API d’IA est facturé au nombre de tokens.</strong>{' '}
-              Comprendre les tokens n’est pas qu’une question théorique : cela influe directement sur le coût de toute
-              application construite sur des LLM (grands modèles de langage).
+              <strong style={{ color: 'var(--text-primary)' }}>Every AI API call is billed by token count.</strong>{' '}
+              Understanding token IDs isn't just academic — it directly affects the cost of every
+              application built on LLMs.
             </p>
             <p style={{ marginBottom: 8, paddingLeft: 16 }}>
-              <strong style={{ color: '#e8d06e' }}>→ Entrée de GPT-4 Turbo :</strong> environ 0,01 $ pour 1 000 tokens.
-              Une page de texte en anglais (~500 mots) coûte environ 0,005 $ à traiter.
+              <strong style={{ color: '#e8d06e' }}>→ GPT-4 Turbo input:</strong> ~$0.01 per 1,000 tokens.
+              A single page of English text (~500 words) costs about $0.005 to process.
             </p>
             <p style={{ marginBottom: 8, paddingLeft: 16 }}>
-              <strong style={{ color: '#e8d06e' }}>→ Fenêtres de contexte :</strong> GPT-4 Turbo accepte 128 000 tokens,
-              soit à peu près un livre de 300 pages. Mais chaque token utilisé par le message est un token
-              qui ne peut pas servir à la réponse.
+              <strong style={{ color: '#e8d06e' }}>→ Context windows:</strong> GPT-4 Turbo supports 128K tokens.
+              That's roughly a 300-page book. But every token you spend on the prompt is a token you
+              can't use for the response.
             </p>
             <p style={{ marginBottom: 12, paddingLeft: 16 }}>
-              <strong style={{ color: '#e8d06e' }}>→ Bien écrire un prompt, c’est gérer ses tokens :</strong>{' '}
-              les prompts les plus efficaces sont économes en tokens. Comprendre comment le texte se découpe
-              aide à écrire des prompts qui laissent au modèle un maximum de place pour raisonner.
+              <strong style={{ color: '#e8d06e' }}>→ Prompt engineering is token engineering:</strong>{' '}
+              The most effective prompts are token-efficient. Understanding how text maps to tokens
+              helps you write prompts that maximize the model's available reasoning space.
             </p>
             <p style={{ fontStyle: 'italic', color: 'var(--text-dim)' }}>
-              Les entreprises qui construisent des produits d’IA sont obsédées par le nombre de tokens. Faire passer un prompt système de
-              500 à 300 tokens, sur des millions d’appels, fait économiser des dizaines de milliers de dollars.
+              Companies building AI products obsess over token counts. Reducing a system prompt from
+              500 tokens to 300 tokens across millions of API calls saves tens of thousands of dollars.
             </p>
           </div>
         }

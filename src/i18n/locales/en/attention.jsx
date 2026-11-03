@@ -9,7 +9,7 @@ export default {
     This is the mechanism that made modern AI possible.
   </>,
 
-  // Les 4 cartes de la page (badge, titre, explication)
+  // The page's 4 cards (badge, title, explanation)
   cards: [
     {
       badge: "THE PROBLEM",
@@ -33,8 +33,8 @@ export default {
     },
   ],
 
-  // Démo « avant / après l'attention ». Gardez 10 mots : les arcs relient
-  // le mot n°8 au n°2, le n°10 au n°6, etc. (voir RNNvsTransformerInner).
+  // "Before / after attention" demo. Keep 10 words: the arcs link
+  // word #8 to #2, #10 to #6, etc. (see RNNvsTransformerInner).
   rnnWords: ['The', 'cat', 'sat', 'on', 'the', 'mat', 'because', 'it', 'was', 'soft'],
   rnn: {
     before: "Before attention (RNNs):",
@@ -44,11 +44,11 @@ export default {
     replay: "↻ replay",
   },
 
-  // Carte d'attention cliquable (la phrase reste en anglais)
+  // Clickable attention map (the sentence stays in English)
   heatmap: {
     watch: 'Watch...',
     click: 'Click any word to see what it pays attention to',
-    // Explication affichée selon le mot cliqué
+    // Explanation shown for the clicked word
     insight: (selectedWord) => (
     selectedWord === 'it' ? (
         <>
@@ -79,7 +79,7 @@ export default {
     ),
   },
 
-  // Têtes d'attention. Ne changez pas `from` / `to` : ce sont les mots de la phrase anglaise.
+  // Attention heads. Don't change `from` / `to`: they are words of the English sentence.
   heads: [
     {
       name: 'Grammar',
@@ -113,7 +113,7 @@ export default {
   ],
   toggleHeads: "Toggle multiple heads to compare",
 
-  // Bloc transformer
+  // Transformer block
   layers: [
     { name: 'Input Embeddings', desc: 'Convert tokens to vectors (you learned this in Understand)', color: '#6ec0e8' },
     { name: 'Self-Attention', desc: 'Each word looks at every other word to gather context', color: '#f85f00' },
@@ -196,7 +196,7 @@ export default {
     },
   ],
 
-  // Panneau « L'informatique derrière tout ça »
+  // "Go deeper" panel (DepthPanel)
   depthSections: [
     {
       label: 'The Concept',

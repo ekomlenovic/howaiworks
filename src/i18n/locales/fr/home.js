@@ -1,4 +1,4 @@
-// Page d'accueil
+// Home page
 export default {
   titleStart: 'Voici comment l’IA',
   titleAccent: 'fonctionne.',
@@ -16,7 +16,7 @@ export default {
     { title: 'Déployer', desc: 'Le mettre en production' },
   ],
   cta: 'Commencer à apprendre',
-  // Phrases tapées en boucle par la démo de tokenisation en haut de page
+  // Sentences looped by the tokenization demo at the top of the page
   demoSentences: [
     'Comment fonctionne vraiment l’IA ?',
     'Le chat est assis sur le tapis',

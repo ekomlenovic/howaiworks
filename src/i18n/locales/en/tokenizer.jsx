@@ -8,7 +8,7 @@ export default {
     subtitle: "Before AI can do anything with your text, it has to break it into smaller pieces called tokens. Type below and see exactly how.",
   },
 
-  // Phrases tapées automatiquement dans la démo (la dernière est un clin d'œil)
+  // Phrases auto-typed in the demo (the last one is an easter egg)
   demoPhrases: [
     'How does AI work?',
     'Just keep swimming.',
@@ -26,7 +26,7 @@ export default {
   whatAISees: "What AI sees",
   idsPlaceholder: "Token IDs appear here...",
 
-  // Barre de statistiques sous la démo (infobulles au survol)
+  // Stats bar under the demo (tooltips on hover)
   stats: {
     tokens: { unit: "tokens", text: "AI can't read text. It splits your input into small pieces called tokens — often parts of words, not whole words. \"strawberry\" becomes 3 tokens: \"str\", \"aw\", \"berry\". Everything AI does starts from these fragments.", linkHref: "https://platform.openai.com/tokenizer", linkLabel: "Try OpenAI's Tokenizer" },
     characters: { unit: "characters", text: "The raw letters, spaces, and symbols you typed — what humans read. AI never sees these directly. It converts them into tokens first, which is why the token count is always different from the character count.", linkHref: "https://huggingface.co/learn/llm-course/en/chapter2/4", linkLabel: "How Tokenizers Work" },
@@ -40,7 +40,7 @@ export default {
     body: <>A tokenizer is the tool that decides where to split. The one running here is <span style={{ color: 'var(--text-primary)' }}>cl100k_base</span> — the same tokenizer used by ChatGPT and GPT-4. It has a vocabulary of ~100,000 tokens, and every piece of text you type gets mapped to entries in that vocabulary. This is the very first step a language model performs before it can understand anything.</>,
   },
 
-  // Encarts « Essayez… ». `text` est le texte tapé dans la démo quand on clique.
+  // "Try…" nudges. `text` is typed into the demo on click.
   nudges: [
   {
     key: 'strawberry',
@@ -98,7 +98,7 @@ export default {
 ],
   allExplored: "All explored — you now see what AI sees.",
 
-  // Panneau « L'informatique derrière tout ça »
+  // "Go deeper" panel (DepthPanel)
   depthSections: [
     {
       label: 'The Problem',

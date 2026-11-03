@@ -9,7 +9,7 @@ export default {
     <span style={{ color: 'var(--brand)' }}>Local</span>: your own computer. Watch them race.
   </>,
 
-  // Course de latence (LatencyRace)
+  // Latency race (LatencyRace)
   race: {
     cloudSublabel: "Simulated · data-center GPU cluster",
     localSublabel: { ollama: "Ollama · Your Machine", webllm: "WebGPU · In-Browser", simulated: "Simulated · qwen2.5:0.5b" },
@@ -18,9 +18,9 @@ export default {
     racing: "Racing...",
     waiting: "Waiting...",
     idle: "Type a prompt and hit Race",
-    // Réponses préenregistrées rejouées quand aucun modèle ne tourne.
-    // La course démarre automatiquement avec le premier prompt de `cloud`.
-    // Si un prompt tapé correspond exactement à un `prompt`, sa réponse est rejouée.
+    // Pre-recorded answers replayed when no model is running.
+    // The race starts automatically with the first `cloud` prompt.
+    // If a typed prompt exactly matches a `prompt`, its answer is replayed.
     demo: {
       cloud: [
         {
@@ -49,7 +49,7 @@ export default {
     },
   },
 
-  // Guide d'installation (SetupGuide)
+  // Setup guide (SetupGuide)
   setup: {
     heading: "Setup Guide",
     description: "The race below is simulated to show typical timing — the cloud lane replays data-center behavior (slower first token, faster streaming). Set up Ollama or WebGPU to run the local side for real.",
@@ -99,7 +99,7 @@ export default {
     ],
   },
 
-  // Carte « Ollama » (OllamaLocalCard)
+  // Ollama card (OllamaLocalCard)
   card: {
     title: "Run locally with Ollama",
     subtitle: 'Run AI on your own machine, no internet needed',
@@ -121,7 +121,7 @@ export default {
 
   progress: { loading: "Loading AI in your browser...", preparing: 'Preparing WebGPU...' },
 
-  // Fiches « compromis » (TradeoffCards)
+  // Tradeoff cards (TradeoffCards)
   tradeoffs: {
     title: "The Trade-offs",
     allExplored: "All explored — you understand the cloud vs. local landscape.",
@@ -202,7 +202,7 @@ export default {
     ],
   },
 
-  // Panneau « L'informatique derrière tout ça »
+  // "Go deeper" panel (DepthPanel)
   depthSections: [
     {
       label: 'The Concept',

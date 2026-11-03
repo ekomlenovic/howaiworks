@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage, useT } from '../i18n'
 
-// Les titres affichés viennent des fichiers de langue (common.lessonTitles / common.lockedTitles).
+// Displayed titles come from the locale files (common.lessonTitles / common.lockedTitles).
 const NAV_ITEMS = [
   { path: '/what-is-ai', completionKey: 'lesson-complete-what-is-ai' },
   { path: '/tokenize', completionKey: 'lesson-complete-tokenizer' },
@@ -19,7 +19,7 @@ const LOCKED_COUNT = LOCKED_ITEMS.length
 const DOT_SIZE = 10
 const LINE_WIDTH = 32
 
-// Sur petit écran, le lien « Accueil » est masqué (le logo y mène déjà).
+// On small screens the Home link is hidden (the logo already links home).
 function useIsNarrow(query = '(max-width: 480px)') {
   const [narrow, setNarrow] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
   useEffect(() => {

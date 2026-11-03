@@ -1,4 +1,4 @@
-// Leçon 2 : la tokenisation (page /tokenize)
+// Lesson 2: tokenization (/tokenize page)
 import { Accent, StepBox, PythonCode } from '../../../components/LessonBits'
 
 export default {
@@ -8,7 +8,7 @@ export default {
     subtitle: "Avant de pouvoir faire quoi que ce soit de votre texte, l’IA doit le découper en petits morceaux appelés tokens. Tapez ci-dessous et voyez exactement comment.",
   },
 
-  // Phrases tapées automatiquement dans la démo (la dernière est un clin d'œil)
+  // Phrases auto-typed in the demo (the last one is an easter egg)
   demoPhrases: [
     'Comment fonctionne l’IA ?',
     'Continue à nager.',
@@ -26,7 +26,7 @@ export default {
   whatAISees: "Ce que voit l’IA",
   idsPlaceholder: "Les identifiants des tokens apparaissent ici…",
 
-  // Barre de statistiques sous la démo (infobulles au survol)
+  // Stats bar under the demo (tooltips on hover)
   stats: {
     tokens: { unit: "tokens", text: "L’IA ne sait pas lire du texte. Elle découpe ce que vous écrivez en petits morceaux appelés tokens, souvent des bouts de mots plutôt que des mots entiers. « strawberry » devient 3 tokens : « str », « aw », « berry ». Tout ce que fait l’IA part de ces fragments.", linkHref: "https://platform.openai.com/tokenizer", linkLabel: "Essayer le tokeniseur d’OpenAI" },
     characters: { unit: "caractères", text: "Les lettres, espaces et symboles bruts que vous avez tapés : ce que lisent les humains. L’IA ne les voit jamais directement. Elle les convertit d’abord en tokens, c’est pourquoi le nombre de tokens est toujours différent du nombre de caractères.", linkHref: "https://huggingface.co/learn/llm-course/en/chapter2/4", linkLabel: "Comment fonctionnent les tokeniseurs (en anglais)" },
@@ -40,7 +40,7 @@ export default {
     body: <>Le tokeniseur est l’outil qui décide où couper. Celui qui tourne ici est <span style={{ color: 'var(--text-primary)' }}>cl100k_base</span>, le même que celui de ChatGPT et GPT-4. Il possède un vocabulaire d’environ 100 000 tokens, et chaque morceau de texte que vous tapez est associé à des entrées de ce vocabulaire. C’est la toute première étape qu’effectue un modèle de langage avant de pouvoir comprendre quoi que ce soit.</>,
   },
 
-  // Encarts « Essayez… ». `text` est le texte tapé dans la démo quand on clique.
+  // "Try…" nudges. `text` is typed into the demo on click.
   nudges: [
   {
     key: 'strawberry',
@@ -99,7 +99,7 @@ export default {
 ],
   allExplored: "Tout exploré : vous voyez maintenant ce que voit l’IA.",
 
-  // Panneau « L'informatique derrière tout ça »
+  // "Go deeper" panel (DepthPanel)
   depthSections: [
     {
       label: 'Le problème',

@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { LANGUAGES, DEFAULT_LANG } from './languages'
 
-// Chaque dossier src/i18n/locales/<code>/ est chargé automatiquement.
+// Every src/i18n/locales/<code>/ folder is loaded automatically.
 const modules = import.meta.glob('./locales/*/index.js', { eager: true })
 const LOCALES = Object.fromEntries(
   Object.entries(modules).map(([path, mod]) => [path.split('/')[2], mod.default]),
@@ -16,12 +16,12 @@ function initialLanguage() {
     if (fromUrl && isSupported(fromUrl)) return fromUrl
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored && isSupported(stored)) return stored
-  } catch { /* stockage indisponible : on garde la langue par défaut */ }
+  } catch { /* storage unavailable: keep the default language */ }
   return DEFAULT_LANG
 }
 
-// Fusion « traduction par-dessus la langue par défaut » : une clé absente
-// d'une traduction affiche le texte de la langue par défaut au lieu de planter.
+// Merge "translation over the default language": a key missing
+// from a translation shows the default-language text instead of crashing.
 const isPlainObject = (v) =>
   v !== null && typeof v === 'object' && !Array.isArray(v) && !v.$$typeof &&
   Object.getPrototypeOf(v) === Object.prototype
@@ -42,7 +42,7 @@ export function LanguageProvider({ children }) {
   const setLang = useCallback((code) => {
     if (!isSupported(code)) return
     setLangState(code)
-    try { localStorage.setItem(STORAGE_KEY, code) } catch { /* ignoré */ }
+    try { localStorage.setItem(STORAGE_KEY, code) } catch { /* ignored */ }
   }, [])
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export function useLanguage() {
   return useContext(LanguageContext)
 }
 
-// Renvoie les textes d'une partie du site, par ex. useT('tokenizer').
+// Returns the strings for one part of the site, e.g. useT('tokenizer').
 export function useT(namespace) {
   const { messages } = useContext(LanguageContext)
   return namespace ? messages[namespace] : messages

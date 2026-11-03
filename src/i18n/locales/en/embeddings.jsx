@@ -181,7 +181,7 @@ result = np.array(king) - np.array(man) + np.array(woman)
   </>,
   ctaNext: "See how AI pays attention",
 
-  // Carte du sens (MeaningMap)
+  // Meaning map (MeaningMap)
   map: {
     categories: { animal: 'Animals', emotion: 'Emotions', technology: 'Technology', food: 'Food', place: 'Places', person: 'People' },
     fullscreen: "Fullscreen",
@@ -190,15 +190,15 @@ result = np.array(king) - np.array(man) + np.array(woman)
     position: "Position:",
   },
 
-  // Arithmétique des mots (WordArithmetic).
-  // Dans experiments, ne traduisez que label et insight : a, b, c, result et
-  // arithmeticKey sont des mots de la carte (en anglais).
+  // Word arithmetic (WordArithmetic).
+  // In experiments, only translate label and insight: a, b, c, result and
+  // arithmeticKey are map words (in English).
   arithmetic: {
     title: "Word Arithmetic",
     allExplored: "All explored — you now understand meaning-space.",
     notInMap: "(word not in map — try words from the scatter plot)",
     pickWord: "pick a word",
-    // Traduction affichée entre parenthèses à côté des mots anglais de la liste
+    // Translation shown in parentheses next to the English words in the list
     wordGloss: {},
     experiments: [
       {

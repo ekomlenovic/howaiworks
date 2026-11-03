@@ -1,4 +1,4 @@
-// Page « Ressources »
+// Resources page
 export default {
   title: 'Ressources',
   subtitle: 'Quelques ressources supplémentaires pour aller plus loin.',

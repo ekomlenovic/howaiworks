@@ -40,7 +40,7 @@ export default function ChatMessage({ role, content, tokens, isStreaming }) {
           color: isUser ? 'var(--brand)' : 'var(--text-dim)',
           marginBottom: 6,
         }}>
-          {isUser ? 'Vous' : 'IA'}
+          {isUser ? 'You' : 'AI'}
         </div>
 
         {/* Content: colorized tokens for AI, plain text for user */}

@@ -1,4 +1,4 @@
-// Textes partagés : navigation, pied de page, libellés communs.
+// Shared strings: navigation, footer, common labels.
 export default {
   nav: { home: 'Accueil', resources: 'Ressources', about: 'À propos' },
   languageLabel: 'Langue',
@@ -17,6 +17,6 @@ export default {
   },
   deeperDive: 'POUR ALLER PLUS LOIN',
   depthPanelTitle: 'L’informatique derrière tout ça',
-  // Compteur d'exploration des encarts : (exploré, total)
+  // Nudge exploration counter: (explored, total)
   explored: (n, total) => `${n}/${total} explorés`,
 }

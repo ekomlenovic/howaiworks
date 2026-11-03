@@ -1,6 +1,6 @@
-// Données SEO indépendantes de la langue. Les textes traduits (titres,
-// descriptions, prose) sont dans src/i18n/locales/<langue>/seo.js.
-// Lu par le site et par scripts/prerender.mjs : JavaScript simple uniquement.
+// Language-independent SEO data. Translated strings (titles,
+// descriptions, prose) live in src/i18n/locales/<lang>/seo.js.
+// Read by the site and by scripts/prerender.mjs: plain JavaScript only.
 
 export const SITE = {
   // Vercel's production domain is www; the apex 307-redirects to it.

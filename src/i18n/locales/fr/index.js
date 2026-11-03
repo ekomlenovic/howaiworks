@@ -1,5 +1,5 @@
-// Regroupe tous les textes de cette langue. Chaque fichier correspond à une
-// partie du site ; le nom à gauche est utilisé dans le code via useT('<nom>').
+// Gathers every string for this language. Each file maps to one
+// part of the site; the key on the left is what code passes to useT('<name>').
 import common from './common'
 import seo from './seo'
 import home from './home'

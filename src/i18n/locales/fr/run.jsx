@@ -1,4 +1,4 @@
-// Leçon 5 : cloud ou local (page /run)
+// Lesson 5: cloud vs. local (/run page)
 import { Accent, StepBox, InlineCode, ExternalLink } from '../../../components/LessonBits'
 
 export default {
@@ -9,7 +9,7 @@ export default {
     <span style={{ color: 'var(--brand)' }}>Local</span> : votre propre ordinateur. Regardez-les faire la course.
   </>,
 
-  // Course de latence (LatencyRace)
+  // Latency race (LatencyRace)
   race: {
     cloudSublabel: "Simulé · grappe de GPU en centre de données",
     localSublabel: { ollama: "Ollama · Votre machine", webllm: "WebGPU · Dans le navigateur", simulated: "Simulé · qwen2.5:0.5b" },
@@ -18,9 +18,9 @@ export default {
     racing: "Course en cours…",
     waiting: "En attente…",
     idle: "Écrivez un prompt et lancez la course",
-    // Réponses préenregistrées rejouées quand aucun modèle ne tourne.
-    // La course démarre automatiquement avec le premier prompt de `cloud`.
-    // Si un prompt tapé correspond exactement à un `prompt`, sa réponse est rejouée.
+    // Pre-recorded answers replayed when no model is running.
+    // The race starts automatically with the first `cloud` prompt.
+    // If a typed prompt exactly matches a `prompt`, its answer is replayed.
     demo: {
       cloud: [
         {
@@ -49,7 +49,7 @@ export default {
     },
   },
 
-  // Guide d'installation (SetupGuide)
+  // Setup guide (SetupGuide)
   setup: {
     heading: "Guide d’installation",
     description: "La course ci-dessous est simulée pour montrer des temps typiques : la piste cloud rejoue le comportement d’un centre de données (premier token plus lent, flux plus rapide ensuite). Installez Ollama ou utilisez WebGPU pour faire tourner le côté local pour de vrai.",
@@ -99,7 +99,7 @@ export default {
     ],
   },
 
-  // Carte « Ollama » (OllamaLocalCard)
+  // Ollama card (OllamaLocalCard)
   card: {
     title: "Faire tourner en local avec Ollama",
     subtitle: 'Faites tourner l’IA sur votre machine, sans internet',
@@ -121,7 +121,7 @@ export default {
 
   progress: { loading: "Chargement de l’IA dans votre navigateur…", preparing: 'Préparation de WebGPU…' },
 
-  // Fiches « compromis » (TradeoffCards)
+  // Tradeoff cards (TradeoffCards)
   tradeoffs: {
     title: "Les compromis",
     allExplored: "Tout exploré : vous avez une vue claire du match cloud contre local.",
@@ -202,7 +202,7 @@ export default {
     ],
   },
 
-  // Panneau « L'informatique derrière tout ça »
+  // "Go deeper" panel (DepthPanel)
   depthSections: [
     {
       label: 'Le concept',

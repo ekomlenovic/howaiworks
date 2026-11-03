@@ -1,4 +1,4 @@
-// Leçon 1 : « C'est quoi l'IA ? »
+// Lesson 1: "What is AI?"
 export default {
   titleStart: 'C’est quoi',
   titleAccent: 'l’IA ?',
@@ -26,13 +26,13 @@ export default {
       explanation: 'On l’entraîne sur des milliards de phrases venues d’internet, pour apprendre quel mot vient ensuite, encore et encore. C’est ça, ChatGPT : la meilleure saisie semi-automatique du monde.',
     },
   ],
-  // Animation de l'ère 1 (arbre de décision)
+  // Era 1 animation (decision tree)
   flowchart: { q1: 'C’est rond ?', q2: 'C’est orange ?', q3: 'Ça s’épluche ?', yes: 'oui', answer: 'C’est une orange !' },
-  // Animation de l'ère 2 (filtre anti-spam)
+  // Era 2 animation (spam filter)
   scatter: { collecting: 'collecte des e-mails…', classifying: 'classement…', found: 'régularité trouvée !', spam: 'spam', notSpam: 'pas du spam' },
-  // Animation de l'ère 3 (réseau de neurones)
+  // Era 3 animation (neural network)
   network: { input: 'entrée', output: 'sortie' },
-  // Animation de l'ère 4 : la phrase est tapée mot par mot, puis le mot prédit apparaît
+  // Era 4 animation: the sentence is typed word by word, then the predicted word appears
   nextWord: { words: ['Le', 'chat', 'dort', 'sur', 'le'], prediction: 'canapé', probability: 'probabilité de 85 %' },
   bridge: {
     before: 'L’IA d’aujourd’hui lit le texte sous forme de nombres, y repère des régularités et prédit la suite. Mais avant tout cela, elle doit ',

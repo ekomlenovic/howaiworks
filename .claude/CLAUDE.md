@@ -49,7 +49,7 @@ No tests or linting configured.
 
 ### i18n
 
-All user-facing text lives in `src/i18n/locales/<code>/` (one file per page; `.jsx` when a string needs markup). Components read it with `useT('<namespace>')` from `src/i18n`. Locale folders are discovered with `import.meta.glob`; languages are declared in `src/i18n/languages.js` (`DEFAULT_LANG = 'fr'`). Missing keys fall back to the default language. Shared markup helpers for locale files are in `components/LessonBits.jsx`, which must not import `src/i18n` (circular import). See `docs/AJOUTER_UNE_LANGUE.md`.
+All user-facing text lives in `src/i18n/locales/<code>/` (one file per page; `.jsx` when a string needs markup). Components read it with `useT('<namespace>')` from `src/i18n`. Locale folders are discovered with `import.meta.glob`; languages are declared in `src/i18n/languages.js` (`DEFAULT_LANG = 'en'`; French is an additional language). Missing keys fall back to the default language. Shared markup helpers for locale files are in `components/LessonBits.jsx`, which must not import `src/i18n` (circular import). See `docs/add_a_language.md`.
 
 ### The Tokenizer Pipeline
 

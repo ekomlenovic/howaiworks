@@ -1,6 +1,6 @@
-// Textes SEO (en) : titres, descriptions, texte « Pour aller plus loin »
-// et appels à l'action de fin de leçon. Lu par le site ET par scripts/prerender.mjs :
-// gardez ce fichier en JavaScript simple (pas de JSX).
+// SEO strings: titles, descriptions, "Deeper dive" prose
+// and end-of-lesson calls to action. Read by the site AND by scripts/prerender.mjs:
+// keep this file plain JavaScript (no JSX).
 
 const ROUTES = {
   '/': {
@@ -167,7 +167,7 @@ const ROUTES = {
   },
 }
 
-// Appels à l'action affichés à la fin de chaque leçon.
+// Calls to action shown at the end of each lesson.
 const utm = (path) => `utm_source=howaiworks.io&utm_medium=lesson-cta&utm_campaign=${path.slice(1)}`
 
 const FUNNEL_CTAS = {
@@ -224,7 +224,7 @@ const NAV_LABELS = {
   '/resources': 'Resources',
 }
 
-// Phrase de bas de page du HTML pré-rendu (pour les robots) ; {name}, {github} et {author} sont remplacés.
+// Footer line of the prerendered HTML (for crawlers); {name}, {github} and {author} are replaced.
 const STATIC_FOOTER = '{name} is free and open source ({github}), built by {author}.'
 
 export default { ROUTES, FUNNEL_CTAS, NAV_LABELS, STATIC_FOOTER }

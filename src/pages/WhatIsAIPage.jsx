@@ -469,7 +469,7 @@ function NextWordAnimation() {
 }
 
 // ─── Main page ──────────────────────────────────────────────────────────
-// Les libellés et explications viennent des fichiers de langue (whatIsAI.nudges).
+// Labels and explanations come from the locale files (whatIsAI.nudges).
 const NUDGE_ITEMS = [
   { key: 'images', icon: '🖼' },
   { key: 'thinking', icon: '🧠' },

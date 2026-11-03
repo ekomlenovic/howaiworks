@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url'
 import { SITE, ROUTE_ORDER, LESSON_ROUTES } from '../src/seo/seoData.js'
 import { LANGUAGES, DEFAULT_LANG } from '../src/i18n/languages.js'
 
-// Le HTML statique est généré dans la langue par défaut (src/i18n/languages.js).
+// Static HTML is generated in the default language (src/i18n/languages.js).
 const LANG = LANGUAGES.find((l) => l.code === DEFAULT_LANG)
 const { ROUTES, FUNNEL_CTAS, NAV_LABELS, STATIC_FOOTER } = (await import(`../src/i18n/locales/${DEFAULT_LANG}/seo.js`)).default
 

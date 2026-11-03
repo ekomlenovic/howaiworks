@@ -10,7 +10,12 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { SITE, ROUTES, ROUTE_ORDER, LESSON_ROUTES, FUNNEL_CTAS } from '../src/seo/seoData.js'
+import { SITE, ROUTE_ORDER, LESSON_ROUTES } from '../src/seo/seoData.js'
+import { LANGUAGES, DEFAULT_LANG } from '../src/i18n/languages.js'
+
+// Le HTML statique est généré dans la langue par défaut (src/i18n/languages.js).
+const LANG = LANGUAGES.find((l) => l.code === DEFAULT_LANG)
+const { ROUTES, FUNNEL_CTAS, NAV_LABELS, STATIC_FOOTER } = (await import(`../src/i18n/locales/${DEFAULT_LANG}/seo.js`)).default
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
@@ -18,17 +23,6 @@ const template = readFileSync(join(dist, 'index.html'), 'utf8')
 
 const esc = (s) =>
   s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
-
-const NAV_LABELS = {
-  '/': 'Accueil',
-  '/what-is-ai': 'C’est quoi l’IA ?',
-  '/tokenize': 'Tokeniser',
-  '/understand': 'Comprendre',
-  '/attention': 'Attention',
-  '/run': 'Exécuter',
-  '/about': 'À propos',
-  '/resources': 'Ressources',
-}
 
 function jsonLd(path, meta) {
   const url = SITE.origin + path
@@ -43,7 +37,7 @@ function jsonLd(path, meta) {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: SITE.name,
-      alternateName: 'Comment fonctionne l’IA',
+      alternateName: 'How AI Works',
       url: SITE.origin,
       description: meta.description,
       author,
@@ -58,9 +52,9 @@ function jsonLd(path, meta) {
       description: meta.description,
       url,
       isAccessibleForFree: true,
-      educationalLevel: 'débutant',
-      learningResourceType: 'simulation interactive',
-      inLanguage: 'fr',
+      educationalLevel: 'beginner',
+      learningResourceType: 'interactive simulation',
+      inLanguage: LANG.code,
       author,
       isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.origin },
     }
@@ -72,7 +66,7 @@ function jsonLd(path, meta) {
     name: meta.title.split(' | ')[0],
     description: meta.description,
     url,
-    inLanguage: 'fr',
+    inLanguage: LANG.code,
     author,
   }
 }
@@ -107,8 +101,11 @@ function staticBody(path, meta) {
     sections +
     ctaHtml +
     `<p style="margin-top:32px;font-size:13px;color:#6b7078">` +
-    `${SITE.name} est gratuit et open source (<a href="${SITE.github}" style="color:#f85f00">GitHub</a>), ` +
-    `créé par <a href="${SITE.author.url}" style="color:#f85f00">${esc(SITE.author.name)}</a>.</p>` +
+    STATIC_FOOTER
+      .replace('{name}', SITE.name)
+      .replace('{github}', `<a href="${SITE.github}" style="color:#f85f00">GitHub</a>`)
+      .replace('{author}', `<a href="${SITE.author.url}" style="color:#f85f00">${esc(SITE.author.name)}</a>`) +
+    `</p>` +
     `</div>`
   )
 }
@@ -116,7 +113,7 @@ function staticBody(path, meta) {
 function renderRoute(path) {
   const meta = ROUTES[path]
   const url = SITE.origin + path
-  let html = template
+  let html = template.replace(/<html lang="[^"]*">/, `<html lang="${LANG.code}">`)
 
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(meta.title)}</title>`)
 
@@ -133,6 +130,7 @@ function renderRoute(path) {
   const extras = [
     `<link rel="canonical" href="${url}" />`,
     `<meta property="og:site_name" content="${SITE.name}" />`,
+    `<meta property="og:locale" content="${LANG.ogLocale}" />`,
     `<meta property="og:image" content="${SITE.origin}${SITE.ogImage}" />`,
     `<meta name="twitter:image" content="${SITE.origin}${SITE.ogImage}" />`,
     `<meta name="author" content="${esc(SITE.author.name)}" />`,

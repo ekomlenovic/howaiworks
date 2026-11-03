@@ -1,64 +1,11 @@
 import { motion } from 'framer-motion'
 import Footer from '../components/Footer'
 import DeeperDive from '../components/DeeperDive'
-
-const TRUSTED_VOICES = [
-  {
-    name: 'Andrew Ng',
-    role: 'Cofondateur de Coursera, fondateur de DeepLearning.AI',
-    photo: '/andrew-ng.jpg',
-    desc: 'Professeur à Stanford et ancien directeur de Google Brain. Ses cours gratuits sur l’apprentissage automatique et l’apprentissage profond sont la référence pour débuter (en anglais, sous-titres disponibles).',
-    links: [
-      { label: 'DeepLearning.AI', href: 'https://www.deeplearning.ai/' },
-      { label: 'Cours de ML sur Coursera', href: 'https://www.coursera.org/learn/machine-learning' },
-    ],
-  },
-  {
-    name: 'Andrej Karpathy',
-    role: 'Ancien directeur de l’IA chez Tesla, ex-OpenAI',
-    photo: 'https://pbs.twimg.com/profile_images/1296667294148382721/9Pr6XrPB_400x400.jpg',
-    desc: 'Sa série YouTube « Neural Networks: Zero to Hero » construit des transformers à partir de zéro : le meilleur moyen de vraiment comprendre ce qu’il y a sous le capot (en anglais).',
-    links: [
-      { label: 'YouTube', href: 'https://www.youtube.com/@AndrejKarpathy' },
-      { label: 'Zero to Hero', href: 'https://karpathy.ai/zero-to-hero.html' },
-    ],
-  },
-  {
-    name: 'Jeremy Howard',
-    role: 'Cofondateur de fast.ai',
-    photo: 'https://pbs.twimg.com/profile_images/1550854978044698624/Rj2vTOiR_400x400.jpg',
-    desc: 'Une approche pratique de l’apprentissage profond, qui part du concret. Les cours fast.ai sont gratuits et pensés pour celles et ceux qui veulent construire des choses, pas seulement étudier la théorie (en anglais).',
-    links: [
-      { label: 'fast.ai', href: 'https://www.fast.ai/' },
-      { label: 'Le cours', href: 'https://course.fast.ai/' },
-    ],
-  },
-]
-
-const RESOURCES = [
-  {
-    href: 'https://bbycroft.net/llm',
-    title: 'Visualisation de LLM (Brendan Bycroft)',
-    desc: 'Une visite interactive en 3D d’un transformer complet : suivez les tokens à travers les embeddings, l’attention et la prédiction, étape par étape.',
-  },
-  {
-    href: 'https://arxiv.org/abs/1508.07909',
-    title: 'L’article sur le BPE (Sennrich et al., 2016)',
-    desc: 'L’article original qui a introduit l’encodage par paires d’octets (Byte Pair Encoding) pour la traduction automatique neuronale.',
-  },
-  {
-    href: 'https://github.com/dqbd/tiktoken',
-    title: 'js-tiktoken',
-    desc: 'La bibliothèque de tokenisation qui fait tourner cette démo, entièrement dans votre navigateur.',
-  },
-  {
-    href: 'https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them',
-    title: 'Qu’est-ce qu’un token ? (OpenAI)',
-    desc: 'L’explication officielle d’OpenAI sur les tokens, la façon de les compter et leur effet sur les prix (en anglais).',
-  },
-]
+import { useT } from '../i18n'
 
 export default function ResourcesPage() {
+  const t = useT('resources')
+  const { TRUSTED_VOICES, RESOURCES } = t
   return (
     <div style={{ maxWidth: 640, margin: '0 auto', padding: '0 24px' }}>
       {/* Hero */}
@@ -75,7 +22,7 @@ export default function ResourcesPage() {
           marginBottom: 12,
           letterSpacing: -0.5,
         }}>
-          Ressources
+          {t.title}
         </h1>
         <p style={{
           fontSize: 17,
@@ -84,7 +31,7 @@ export default function ResourcesPage() {
           margin: '0 auto',
           lineHeight: 1.5,
         }}>
-          Quelques ressources supplémentaires pour aller plus loin.
+          {t.subtitle}
         </p>
       </motion.div>
 
@@ -150,7 +97,7 @@ export default function ResourcesPage() {
           marginBottom: 6,
           letterSpacing: -0.3,
         }}>
-          Des voix de confiance en IA
+          {t.voicesTitle}
         </h2>
         <p style={{
           fontSize: 14,
@@ -158,7 +105,7 @@ export default function ResourcesPage() {
           lineHeight: 1.5,
           marginBottom: 20,
         }}>
-          Des personnes à suivre : chercheurs et pédagogues qui expliquent l’IA avec profondeur et honnêteté.
+          {t.voicesSubtitle}
         </p>
 
         <div style={{

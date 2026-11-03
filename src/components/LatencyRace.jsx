@@ -1,15 +1,19 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { CLOUD_DEMO_RESPONSES, simulateCloudStream } from './CloudDemoReplay'
-import { DEMO_CONVERSATIONS, simulateTokenStream } from './DemoReplay'
+import { simulateCloudStream } from './CloudDemoReplay'
+import { simulateTokenStream } from './DemoReplay'
+import { useT } from '../i18n'
 
 const TOKEN_COLORS = [
   '#a8d86e', '#6ec0e8', '#e8956e', '#c58ee8', '#e8d06e', '#6ee8cc',
   '#e87a96', '#94a0e8', '#e8a0d6', '#b0d87a', '#e8a07a', '#7ac0e8',
 ]
 
-const DEFAULT_PROMPT = 'Qu\'est-ce que l\'intelligence artificielle ?'
-
 export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, localInferenceMode }) {
+  const t = useT('run').race
+  // Pre-recorded replays come from the language files (run.race.demo). Kept in a
+  // ref so startRace (memoized) always uses the current language.
+  const demoRef = useRef(t.demo)
+  demoRef.current = t.demo
   const [prompt, setPrompt] = useState('')
   const [isRacing, setIsRacing] = useState(false)
   const [hasRaced, setHasRaced] = useState(false)
@@ -41,7 +45,7 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
   // Auto-race on mount — the cloud lane is always simulated, so the race
   // always has something to show
   useEffect(() => {
-    const timer = setTimeout(() => startRace(DEFAULT_PROMPT), 800)
+    const timer = setTimeout(() => startRace(demoRef.current.cloud[0].prompt), 800)
     return () => clearTimeout(timer)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -77,6 +81,7 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
     // timing: longer time-to-first-token (network hop) but faster streaming ──
     setCloudStartTime(now)
     {
+      const CLOUD_DEMO_RESPONSES = demoRef.current.cloud
       const match = CLOUD_DEMO_RESPONSES.find(
         (r) => r.prompt.toLowerCase() === racePrompt.toLowerCase(),
       )
@@ -185,6 +190,7 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
     } else {
       // Simulated local: near-instant first token (no network), slower streaming
       setLocalStartTime(now)
+      const DEMO_CONVERSATIONS = demoRef.current.local
       const match = DEMO_CONVERSATIONS.find(
         (c) => c.prompt.toLowerCase() === racePrompt.toLowerCase(),
       )
@@ -247,7 +253,7 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
         {/* Cloud column */}
         <RaceColumn
           label="CLOUD"
-          sublabel="Simulé · grappe de GPU en centre de données"
+          sublabel={t.cloudSublabel}
           accentColor="#6ec0e8"
           tokens={cloudTokens}
           done={cloudDone}
@@ -255,15 +261,17 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
           tps={cloudTPS}
           error={cloudError}
           isRacing={isRacing}
+          waitingText={t.waiting}
+          idleText={t.idle}
         />
 
         {/* Local column */}
         <RaceColumn
           label="LOCAL"
           sublabel={
-            localInferenceMode === 'ollama' ? 'Ollama · Votre machine'
-            : localInferenceMode === 'webllm' ? 'WebGPU · Dans le navigateur'
-            : 'Simulé · qwen2.5:0.5b'
+            localInferenceMode === 'ollama' ? t.localSublabel.ollama
+            : localInferenceMode === 'webllm' ? t.localSublabel.webllm
+            : t.localSublabel.simulated
           }
           accentColor="var(--brand)"
           tokens={localTokens}
@@ -271,6 +279,8 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
           ttft={localTTFT}
           tps={localTPS}
           isRacing={isRacing}
+          waitingText={t.waiting}
+          idleText={t.idle}
         />
       </div>
 
@@ -280,7 +290,7 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
           type="text"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Écrivez un prompt et relancez la course…"
+          placeholder={t.placeholder}
           disabled={isRacing}
           style={{
             flex: 1,
@@ -318,14 +328,14 @@ export default function LatencyRace({ ollamaConnected, onRaceComplete, webllm, l
             opacity: isRacing || !prompt.trim() ? 0.5 : 1,
           }}
         >
-          {isRacing ? 'Course en cours…' : 'Lancer la course'}
+          {isRacing ? t.racing : t.race}
         </button>
       </form>
     </div>
   )
 }
 
-function RaceColumn({ label, sublabel, accentColor, tokens, done, ttft, tps, error, isRacing, placeholder }) {
+function RaceColumn({ label, sublabel, accentColor, tokens, done, ttft, tps, error, isRacing, placeholder, waitingText, idleText }) {
   const contentRef = useRef(null)
 
   // Auto-scroll to bottom as tokens stream
@@ -416,9 +426,9 @@ function RaceColumn({ label, sublabel, accentColor, tokens, done, ttft, tps, err
             textAlign: isRacing ? undefined : 'center',
           }}>
             {isRacing ? (
-              <>En attente…<span style={{ animation: 'pulse-dot 1.5s infinite' }}> ●</span></>
+              <>{waitingText}<span style={{ animation: 'pulse-dot 1.5s infinite' }}> ●</span></>
             ) : (
-              'Écrivez un prompt et lancez la course'
+              idleText
             )}
           </div>
         )}

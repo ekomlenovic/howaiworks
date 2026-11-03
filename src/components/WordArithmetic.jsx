@@ -2,71 +2,15 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Nudge from './Nudge'
 import confetti from 'canvas-confetti'
+import { useT } from '../i18n'
 
-const EXPERIMENTS = [
-  {
-    key: 'king_woman',
-    icon: '👑',
-    label: <><Accent>King</Accent> (roi) − <Accent>Man</Accent> (homme) + <Accent>Woman</Accent> (femme) = ?</>,
-    a: 'king',
-    b: 'man',
-    c: 'woman',
-    result: 'queen',
-    arithmeticKey: 'king_man_woman',
-    insight: {
-      headline: 'L’IA a appris la notion de genre à partir du seul texte.',
-      body: <>
-        Personne n’a dit au modèle que « king » (roi) et « queen » (reine) étaient liés. En lisant des milliards de phrases,
-        il a découvert que la <strong style={{ color: 'var(--text-primary)' }}>différence entre les vecteurs</strong> de
-        « king » et de « man » (homme) est presque identique à celle entre « queen » et « woman » (femme).
-        Le modèle encode des relations abstraites sous forme de directions dans l’espace du sens.
-      </>,
-      nextHint: 'Essayez la suivante : l’IA a appris la géographie sans jamais voir de carte →',
-    },
-  },
-  {
-    key: 'paris_japan',
-    icon: '🗼',
-    label: <><Accent>Paris</Accent> − <Accent>France</Accent> + <Accent>Japan</Accent> (Japon) = ?</>,
-    a: 'Paris',
-    b: 'France',
-    c: 'Japan',
-    result: 'Tokyo',
-    arithmeticKey: 'paris_france_japan',
-    insight: {
-      headline: 'L’IA a appris la géographie sans jamais voir de carte.',
-      body: <>
-        La direction qui va de « France » à « Paris » encode la notion de <strong style={{ color: 'var(--text-primary)' }}>« capitale de »</strong>.{' '}
-        Appliquez cette même direction en partant de « Japan » (Japon) et vous arrivez près de « Tokyo ».
-        Le modèle a construit une carte géométrique des pays et de leurs capitales uniquement en lisant du texte :
-        pas d’atlas, pas de coordonnées GPS, aucun enseignement explicite.
-      </>,
-      nextHint: 'Maintenant, essayez votre propre équation et découvrez quelles autres relations l’IA a apprises →',
-    },
-  },
-  {
-    key: 'custom',
-    icon: '🧪',
-    label: <>Créez votre propre équation de mots</>,
-    isCustom: true,
-    insight: {
-      headline: 'Ces relations émergent toutes seules à force de lire des milliards de phrases.',
-      body: <>
-        Personne ne programme ces relations à la main. Pendant l’entraînement, le modèle apprend à prédire le mot suivant
-        d’une phrase. Pour bien y arriver, il <em>doit</em> comprendre que « king » est à « queen » ce que
-        « man » est à « woman ». La géométrie de l’espace du sens est un
-        <strong style={{ color: 'var(--text-primary)' }}> effet secondaire de l’apprentissage de la prédiction de texte.</strong>
-      </>,
-      nextHint: null,
-    },
-  },
-]
 
-function Accent({ children }) {
-  return <em style={{ color: 'var(--brand)', fontStyle: 'normal', fontWeight: 500 }}>{children}</em>
-}
 
 export default function WordArithmetic({ embeddingData, onShowArithmetic, onAllExplored }) {
+  // Experiments (labels, explanations) come from the language files: embeddings.experiments
+  const t = useT('embeddings').arithmetic
+  const { explored } = useT('common')
+  const EXPERIMENTS = t.experiments
   const [activeExperiment, setActiveExperiment] = useState(null)
   const [exploredExperiments, setExploredExperiments] = useState(new Set())
   const [customInputs, setCustomInputs] = useState({ a: '', b: '', c: '' })
@@ -166,7 +110,7 @@ export default function WordArithmetic({ embeddingData, onShowArithmetic, onAllE
         result: closest ? { word: closest.word, x: closest.x, y: closest.y } : { word: '?', x: rx, y: ry },
       })
     } else {
-      setCustomResult('(mot absent de la carte : essayez des mots du nuage de points)')
+      setCustomResult(t.notInMap)
     }
   }
 
@@ -181,7 +125,7 @@ export default function WordArithmetic({ embeddingData, onShowArithmetic, onAllE
         color: 'var(--text-dim)',
         marginBottom: 4,
       }}>
-        Arithmétique des mots
+        {t.title}
       </div>
 
       {EXPERIMENTS.map((exp) => (
@@ -235,16 +179,22 @@ export default function WordArithmetic({ embeddingData, onShowArithmetic, onAllE
                     marginBottom: 12,
                   }}>
                     <WordSelect
+                      placeholder={t.pickWord}
+                      gloss={t.wordGloss}
                       value={customInputs.a}
                       onChange={(v) => setCustomInputs(p => ({ ...p, a: v }))}
                     />
                     <span style={{ color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', fontSize: 18 }}>−</span>
                     <WordSelect
+                      placeholder={t.pickWord}
+                      gloss={t.wordGloss}
                       value={customInputs.b}
                       onChange={(v) => setCustomInputs(p => ({ ...p, b: v }))}
                     />
                     <span style={{ color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', fontSize: 18 }}>+</span>
                     <WordSelect
+                      placeholder={t.pickWord}
+                      gloss={t.wordGloss}
                       value={customInputs.c}
                       onChange={(v) => setCustomInputs(p => ({ ...p, c: v }))}
                     />
@@ -326,8 +276,8 @@ export default function WordArithmetic({ embeddingData, onShowArithmetic, onAllE
           }}
         >
           {exploredExperiments.size === EXPERIMENTS.length
-            ? 'Tout exploré : vous comprenez maintenant l’espace du sens.'
-            : `${exploredExperiments.size}/${EXPERIMENTS.length} explorées`
+            ? t.allExplored
+            : explored(exploredExperiments.size, EXPERIMENTS.length)
           }
         </motion.div>
       )}
@@ -343,16 +293,8 @@ const WORD_OPTIONS = [
   'computer', 'pizza', 'coffee', 'ocean',
 ]
 
-// Traductions affichées à côté des mots anglais (les embeddings sont calculés sur des mots anglais)
-const WORD_FR = {
-  king: 'roi', queen: 'reine', man: 'homme', woman: 'femme', doctor: 'médecin', nurse: 'infirmière',
-  cat: 'chat', dog: 'chien', fish: 'poisson', bird: 'oiseau',
-  Paris: 'Paris', France: 'France', Japan: 'Japon', Tokyo: 'Tokyo',
-  happy: 'heureux', sad: 'triste', love: 'amour', fear: 'peur',
-  computer: 'ordinateur', pizza: 'pizza', coffee: 'café', ocean: 'océan',
-}
 
-function WordSelect({ value, onChange }) {
+function WordSelect({ value, onChange, placeholder, gloss = {} }) {
   return (
     <select
       value={value}
@@ -384,9 +326,9 @@ function WordSelect({ value, onChange }) {
         e.target.style.boxShadow = 'none'
       }}
     >
-      <option value="" disabled>choisir un mot</option>
+      <option value="" disabled>{placeholder}</option>
       {WORD_OPTIONS.map(w => (
-        <option key={w} value={w}>{WORD_FR[w] && WORD_FR[w] !== w ? `${w} (${WORD_FR[w]})` : w}</option>
+        <option key={w} value={w}>{gloss[w] && gloss[w] !== w ? `${w} (${gloss[w]})` : w}</option>
       ))}
     </select>
   )

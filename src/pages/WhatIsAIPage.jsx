@@ -7,6 +7,7 @@ import Footer from '../components/Footer'
 import DeeperDive from '../components/DeeperDive'
 import FunnelCTA from '../components/FunnelCTA'
 import { markLessonComplete } from '../components/Navbar'
+import { useT } from '../i18n'
 
 // ─── Era card wrapper ───────────────────────────────────────────────────
 function EraCard({ yearRange, title, explanation, children, index, paper }) {
@@ -116,6 +117,7 @@ function EraCard({ yearRange, title, explanation, children, index, paper }) {
 
 // ─── Era 1: Animated flowchart ──────────────────────────────────────────
 function FlowchartAnimation() {
+  const t = useT('whatIsAI')
   const [step, setStep] = useState(-1)
 
   useEffect(() => {
@@ -160,19 +162,19 @@ function FlowchartAnimation() {
       border: '1px solid var(--border)',
     }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-        <div style={nodeStyle(step >= 0)}>C’est rond ?</div>
-        <div style={arrowStyle(step >= 1)}>↓ oui</div>
-        <div style={nodeStyle(step >= 1)}>C’est orange ?</div>
-        <div style={arrowStyle(step >= 2)}>↓ oui</div>
-        <div style={nodeStyle(step >= 2)}>Ça s’épluche ?</div>
-        <div style={arrowStyle(step >= 3)}>↓ oui</div>
+        <div style={nodeStyle(step >= 0)}>{t.flowchart.q1}</div>
+        <div style={arrowStyle(step >= 1)}>↓ {t.flowchart.yes}</div>
+        <div style={nodeStyle(step >= 1)}>{t.flowchart.q2}</div>
+        <div style={arrowStyle(step >= 2)}>↓ {t.flowchart.yes}</div>
+        <div style={nodeStyle(step >= 2)}>{t.flowchart.q3}</div>
+        <div style={arrowStyle(step >= 3)}>↓ {t.flowchart.yes}</div>
         <div style={{
           ...nodeStyle(step >= 4),
           background: step >= 4 ? 'var(--brand)' : 'var(--bg-elevated)',
           color: step >= 4 ? '#0a0a0b' : 'var(--text-secondary)',
           fontWeight: step >= 4 ? 700 : 500,
         }}>
-          C’est une orange !
+          {t.flowchart.answer}
         </div>
       </div>
     </div>
@@ -181,6 +183,7 @@ function FlowchartAnimation() {
 
 // ─── Era 2: Animated scatter plot ───────────────────────────────────────
 function ScatterPlotAnimation() {
+  const t = useT('whatIsAI')
   // 0=empty, 1=dots appear (scattered/mixed), 2=classify (move + color), 3=dividing line
   const [phase, setPhase] = useState(0)
 
@@ -239,9 +242,9 @@ function ScatterPlotAnimation() {
         transition: 'opacity 0.3s ease',
         opacity: phase >= 1 ? 1 : 0,
       }}>
-        {phase === 1 && 'collecte des e-mails…'}
-        {phase === 2 && 'classement…'}
-        {phase >= 3 && 'régularité trouvée !'}
+        {phase === 1 && t.scatter.collecting}
+        {phase === 2 && t.scatter.classifying}
+        {phase >= 3 && t.scatter.found}
       </div>
       <svg viewBox="0 0 100 80" style={{ width: '100%', height: 'auto' }}>
         {allDots.map((d, i) => {
@@ -277,11 +280,11 @@ function ScatterPlotAnimation() {
         {/* Labels */}
         <text x={20} y={75} fill="#e05252" fontSize={7} textAnchor="middle"
           opacity={phase >= 3 ? 0.7 : 0} style={{ transition: 'opacity 0.4s ease 0.3s', fontFamily: 'var(--font-mono)' }}>
-          spam
+          {t.scatter.spam}
         </text>
         <text x={75} y={75} fill="var(--brand)" fontSize={7} textAnchor="middle"
           opacity={phase >= 3 ? 0.7 : 0} style={{ transition: 'opacity 0.4s ease 0.3s', fontFamily: 'var(--font-mono)' }}>
-          pas du spam
+          {t.scatter.notSpam}
         </text>
       </svg>
     </div>
@@ -290,6 +293,7 @@ function ScatterPlotAnimation() {
 
 // ─── Era 3: Animated neural net layers ──────────────────────────────────
 function NeuralNetAnimation() {
+  const t = useT('whatIsAI')
   const [activeLayer, setActiveLayer] = useState(-1)
 
   useEffect(() => {
@@ -305,11 +309,11 @@ function NeuralNetAnimation() {
   }, [])
 
   const layers = [
-    { nodes: 4, label: 'entrée' },
+    { nodes: 4, label: t.network.input },
     { nodes: 5, label: '' },
     { nodes: 5, label: '' },
     { nodes: 3, label: '' },
-    { nodes: 2, label: 'sortie' },
+    { nodes: 2, label: t.network.output },
   ]
 
   const layerX = (i) => 15 + i * 18
@@ -361,9 +365,9 @@ function NeuralNetAnimation() {
         )}
         {/* Labels */}
         <text x={layerX(0)} y={78} fill="var(--text-dim)" fontSize={5.5} textAnchor="middle"
-          style={{ fontFamily: 'var(--font-mono)' }}>entrée</text>
+          style={{ fontFamily: 'var(--font-mono)' }}>{t.network.input}</text>
         <text x={layerX(4)} y={78} fill="var(--text-dim)" fontSize={5.5} textAnchor="middle"
-          style={{ fontFamily: 'var(--font-mono)' }}>sortie</text>
+          style={{ fontFamily: 'var(--font-mono)' }}>{t.network.output}</text>
       </svg>
     </div>
   )
@@ -371,9 +375,10 @@ function NeuralNetAnimation() {
 
 // ─── Era 4: Next-word prediction ────────────────────────────────────────
 function NextWordAnimation() {
+  const t = useT('whatIsAI')
   const [wordIndex, setWordIndex] = useState(-1)
-  const words = ['Le', 'chat', 'dort', 'sur', 'le']
-  const prediction = 'canapé'
+  const words = t.nextWord.words
+  const prediction = t.nextWord.prediction
 
   useEffect(() => {
     let i = 0
@@ -456,7 +461,7 @@ function NextWordAnimation() {
           fontSize: 11,
           fontWeight: 600,
         }}>
-          probabilité de 85 %
+          {t.nextWord.probability}
         </span>
       </div>
     </div>
@@ -464,28 +469,15 @@ function NextWordAnimation() {
 }
 
 // ─── Main page ──────────────────────────────────────────────────────────
+// Les libellés et explications viennent des fichiers de langue (whatIsAI.nudges).
 const NUDGE_ITEMS = [
-  {
-    key: 'images',
-    icon: '🖼',
-    label: 'Et pour les images ?',
-    insight: 'Même idée, autres données. L’IA voit une image comme une grille de nombres : la luminosité et la couleur de chaque pixel. Elle y repère des régularités de la même façon que dans un texte. Contours → formes → objets → scènes. Des nombres en entrée, des régularités en sortie.',
-  },
-  {
-    key: 'thinking',
-    icon: '🧠',
-    label: 'L’IA pense-t-elle vraiment ?',
-    insight: "C’est la question de la « chambre chinoise ». Imaginez une personne enfermée dans une pièce, qui ne parle pas chinois mais dispose d’un énorme manuel de règles. On lui glisse des caractères chinois sous la porte ; elle cherche la bonne réponse dans le manuel et la renvoie. Vu de l’extérieur, on croirait qu’elle parle chinois. L’IA, c’est un peu pareil : elle associe des régularités de façon brillante, mais savoir si cela compte comme de la « compréhension » fait toujours débat.",
-  },
-  {
-    key: 'learning',
-    icon: '🔄',
-    label: 'Comment apprend-elle ?',
-    insight: 'La boucle d’entraînement : lire une phrase → prédire le mot suivant → vérifier si c’était juste → ajuster légèrement ses poids → recommencer. Répétez cela des milliards de fois sur des téraoctets de texte, et le modèle apprend peu à peu la grammaire, des connaissances, des façons de raisonner, et bien plus. Chaque petit ajustement le rend un tout petit peu meilleur.',
-  },
+  { key: 'images', icon: '🖼' },
+  { key: 'thinking', icon: '🧠' },
+  { key: 'learning', icon: '🔄' },
 ]
 
 export default function WhatIsAIPage() {
+  const t = useT('whatIsAI')
   const [activeNudge, setActiveNudge] = useState(null)
   const [exploredNudges, setExploredNudges] = useState(() => new Set())
 
@@ -528,8 +520,8 @@ export default function WhatIsAIPage() {
           marginBottom: 12,
           letterSpacing: -0.5,
         }}>
-          C’est quoi{' '}
-          <span style={{ color: 'var(--brand)' }}>l’IA ?</span>
+          {t.titleStart}{' '}
+          <span style={{ color: 'var(--brand)' }}>{t.titleAccent}</span>
         </h1>
         <p style={{
           fontSize: 17,
@@ -539,18 +531,16 @@ export default function WhatIsAIPage() {
           margin: '0 auto',
           lineHeight: 1.6,
         }}>
-          Des règles écrites à la main aux machines qui écrivent des poèmes.
+          {t.subtitle1}
           <br />
-          Quatre ères en quatre minutes.
+          {t.subtitle2}
         </p>
       </motion.div>
 
       {/* Era 1: Rules */}
       <EraCard
         index={0}
-        yearRange="Années 1950 – 1980"
-        title="Les humains écrivaient les règles"
-        explanation="Les premières IA n’étaient que de la logique « si… alors… ». Les programmeurs disaient à l’ordinateur exactement quoi faire dans chaque situation."
+        {...t.eras[0]}
         paper={{ title: 'Computing Machinery and Intelligence', year: 1950, url: 'https://doi.org/10.1093/mind/LIX.236.433' }}
       >
         <FlowchartAnimation />
@@ -559,9 +549,7 @@ export default function WhatIsAIPage() {
       {/* Era 2: Learning from Data */}
       <EraCard
         index={1}
-        yearRange="Années 1990 – 2000"
-        title="Les machines trouvaient les régularités"
-        explanation="Au lieu d’écrire des règles, on a donné aux ordinateurs des milliers d’exemples en les laissant trouver eux-mêmes les régularités."
+        {...t.eras[1]}
         paper={{ title: 'A Training Algorithm for Optimal Margin Classifiers', year: 1992, url: 'https://doi.org/10.1145/130385.130401' }}
       >
         <ScatterPlotAnimation />
@@ -570,9 +558,7 @@ export default function WhatIsAIPage() {
       {/* Era 3: Deep Learning */}
       <EraCard
         index={2}
-        yearRange="Années 2010"
-        title="Des couches de compréhension"
-        explanation="On empile de nombreux détecteurs de régularités en couches. La première couche voit des contours, la suivante des formes, la suivante des visages. C’est ainsi que l’IA a appris à voir, entendre et parler."
+        {...t.eras[2]}
         paper={{ title: 'ImageNet Classification with Deep Convolutional Neural Networks', year: 2012, url: 'https://doi.org/10.1145/3065386' }}
       >
         <NeuralNetAnimation />
@@ -581,9 +567,7 @@ export default function WhatIsAIPage() {
       {/* Era 4: Language Models */}
       <EraCard
         index={3}
-        yearRange="Années 2020"
-        title="Prédire le mot suivant"
-        explanation="On l’entraîne sur des milliards de phrases venues d’internet, pour apprendre quel mot vient ensuite, encore et encore. C’est ça, ChatGPT : la meilleure saisie semi-automatique du monde."
+        {...t.eras[3]}
         paper={{ title: 'Attention Is All You Need', year: 2017, url: 'https://doi.org/10.48550/arXiv.1706.03762' }}
       >
         <NextWordAnimation />
@@ -611,8 +595,7 @@ export default function WhatIsAIPage() {
           maxWidth: 460,
           margin: '0 auto 24px',
         }}>
-          L’IA d’aujourd’hui lit le texte sous forme de nombres, y repère des régularités et prédit la suite.
-          Mais avant tout cela, elle doit <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>découper vos mots en morceaux</span> qu’elle sait traiter.
+          {t.bridge.before}<span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{t.bridge.highlight}</span>{t.bridge.after}
         </p>
         <Link
           to="/tokenize"
@@ -640,7 +623,7 @@ export default function WhatIsAIPage() {
             e.currentTarget.style.boxShadow = '0 0 20px rgba(248, 95, 0, 0.3)'
           }}
         >
-          Voir comment l’IA lit un texte
+          {t.bridge.cta}
           <span style={{ fontSize: 18 }}>→</span>
         </Link>
       </motion.div>
@@ -660,7 +643,7 @@ export default function WhatIsAIPage() {
           marginBottom: 12,
           textAlign: 'center',
         }}>
-          Creusez un peu : explorez les trois pour terminer cette leçon
+          {t.digDeeper}
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {NUDGE_ITEMS.map((item) => (
@@ -670,9 +653,9 @@ export default function WhatIsAIPage() {
               explored={exploredNudges.has(item.key)}
               active={activeNudge === item.key}
               onClick={() => handleNudge(item.key)}
-              insightContent={item.insight}
+              insightContent={t.nudges[item.key].insight}
             >
-              {item.label}
+              {t.nudges[item.key].label}
             </Nudge>
           ))}
         </div>

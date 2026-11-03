@@ -1,13 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTokenizer } from '../hooks/useTokenizer'
-
-const SENTENCES = [
-  'Comment fonctionne vraiment l’IA ?',
-  'Le chat est assis sur le tapis',
-  'anticonstitutionnellement',
-  'مرحبا كيف حالك',
-]
+import { useT } from '../i18n'
 
 const TYPE_SPEED = 70
 const HOLD_TIME = 2000
@@ -39,6 +33,10 @@ export default function HeroTokenDemo() {
   const [typing, setTyping] = useState(false)
   const sentenceIdx = useRef(0)
   const cancelled = useRef(false)
+  const t = useT('home')
+  // Ref so the running animation loop always picks up the current language
+  const sentencesRef = useRef(t.demoSentences)
+  sentencesRef.current = t.demoSentences
 
   useEffect(() => {
     initialize()
@@ -49,7 +47,8 @@ export default function HeroTokenDemo() {
     cancelled.current = false
 
     while (!cancelled.current) {
-      const sentence = SENTENCES[sentenceIdx.current % SENTENCES.length]
+      const sentences = sentencesRef.current
+      const sentence = sentences[sentenceIdx.current % sentences.length]
       setVisible(true)
       setTyping(true)
 
@@ -210,7 +209,7 @@ export default function HeroTokenDemo() {
           fontSize: 13,
           fontFamily: 'var(--font-mono)',
         }}>
-          Chargement du tokeniseur…
+          {t.loadingTokenizer}
         </div>
       )}
     </div>

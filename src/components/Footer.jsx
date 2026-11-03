@@ -1,4 +1,7 @@
+import { useT } from '../i18n'
+
 export default function Footer() {
+  const t = useT('common').footer
   const linkStyle = {
     color: 'var(--brand)',
     textDecoration: 'none',
@@ -25,12 +28,12 @@ export default function Footer() {
         </a>
         <span>·</span>
         <a href="https://matthewferoz.com" target="_blank" rel="noopener noreferrer" style={linkStyle}>
-          Créé par Matt Feroz
+          {t.builtBy}
         </a>
       </div>
 
       <div style={{ fontSize: 12 }}>
-        Ce projet est open source : il a été conçu pour rendre l’apprentissage de l’IA accessible à tous.
+        {t.note}
       </div>
     </footer>
   )

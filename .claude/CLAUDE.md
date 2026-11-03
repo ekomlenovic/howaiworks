@@ -47,6 +47,10 @@ No tests or linting configured.
 
 `App.jsx` initializes `useWebLLM({ autoLoad: true })` when on `/run` and passes it to `CloudVsLocalPage`.
 
+### i18n
+
+All user-facing text lives in `src/i18n/locales/<code>/` (one file per page; `.jsx` when a string needs markup). Components read it with `useT('<namespace>')` from `src/i18n`. Locale folders are discovered with `import.meta.glob`; languages are declared in `src/i18n/languages.js` (`DEFAULT_LANG = 'fr'`). Missing keys fall back to the default language. Shared markup helpers for locale files are in `components/LessonBits.jsx`, which must not import `src/i18n` (circular import). See `docs/AJOUTER_UNE_LANGUE.md`.
+
 ### The Tokenizer Pipeline
 
 `useTokenizer.js` hook wraps `js-tiktoken` with lazy-loaded `cl100k_base` encoder (GPT-4's actual tokenizer). Exposes `tokenize(text)` returning `[{ id, text, display, index }]` and `decode(ids)`. Encoder is ~3MB, loaded once, then synchronous.

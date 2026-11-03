@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
+import { useT } from '../i18n'
 
 export default function Hero() {
+  const t = useT('tokenizer').hero
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -18,7 +20,7 @@ export default function Hero() {
         marginBottom: 12,
         letterSpacing: -0.5,
       }}>
-        L’IA ne lit pas des mots. Elle lit des <span style={{ color: 'var(--brand)' }}>nombres.</span>
+        {t.titleStart} <span style={{ color: 'var(--brand)' }}>{t.titleAccent}</span>
       </h1>
 
       <p style={{
@@ -29,8 +31,7 @@ export default function Hero() {
         margin: '0 auto',
         lineHeight: 1.5,
       }}>
-        Avant de pouvoir faire quoi que ce soit de votre texte, l’IA doit le découper en petits morceaux appelés tokens.
-        Tapez ci-dessous et voyez exactement comment.
+        {t.subtitle}
       </p>
     </motion.div>
   )

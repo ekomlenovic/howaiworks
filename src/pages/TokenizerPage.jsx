@@ -7,8 +7,10 @@ import Footer from '../components/Footer'
 import DeeperDive from '../components/DeeperDive'
 import FunnelCTA from '../components/FunnelCTA'
 import { useTokenizer } from '../hooks/useTokenizer'
+import { useT } from '../i18n'
 
 export default function TokenizerPage() {
+  const t = useT('tokenizer')
   const { tokens, tokenize, decode, initialize, isLoading, isReady } = useTokenizer()
   const [inputText, setInputText] = useState('')
   const [userHasTyped, setUserHasTyped] = useState(false)
@@ -78,7 +80,7 @@ export default function TokenizerPage() {
             e.currentTarget.style.boxShadow = '0 0 20px rgba(248, 95, 0, 0.3)'
           }}
         >
-          Découvrir comment l’IA comprend
+          {t.ctaNext}
           <span style={{ fontSize: 18 }}>→</span>
         </Link>
       </motion.div>

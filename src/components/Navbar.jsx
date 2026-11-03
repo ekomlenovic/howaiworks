@@ -1,55 +1,35 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLanguage, useT } from '../i18n'
 
+// Les titres affichés viennent des fichiers de langue (common.lessonTitles / common.lockedTitles).
 const NAV_ITEMS = [
-  {
-    path: '/what-is-ai',
-    label: 'C’est quoi l’IA',
-    title: 'C’est quoi l’IA',
-    preview: 'Les bases',
-    completionKey: 'lesson-complete-what-is-ai',
-  },
-  {
-    path: '/tokenize',
-    label: 'Tokeniseur',
-    title: 'Tokeniser',
-    preview: 'Découper les mots',
-    completionKey: 'lesson-complete-tokenizer',
-  },
-  {
-    path: '/understand',
-    label: 'Comprendre',
-    title: 'Comprendre',
-    preview: 'Cartes du sens',
-    completionKey: 'lesson-complete-understand',
-  },
-  {
-    path: '/attention',
-    label: 'Attention',
-    title: 'Attention',
-    preview: 'Où l’IA se concentre',
-    completionKey: 'lesson-complete-attention',
-  },
-  {
-    path: '/run',
-    label: 'En local',
-    title: 'Exécuter',
-    preview: 'Inférence en direct',
-    completionKey: 'lesson-complete-run',
-  },
+  { path: '/what-is-ai', completionKey: 'lesson-complete-what-is-ai' },
+  { path: '/tokenize', completionKey: 'lesson-complete-tokenizer' },
+  { path: '/understand', completionKey: 'lesson-complete-understand' },
+  { path: '/attention', completionKey: 'lesson-complete-attention' },
+  { path: '/run', completionKey: 'lesson-complete-run' },
 ]
 
-const LOCKED_ITEMS = [
-  { title: 'Affiner', preview: 'Données perso' },
-  { title: 'Évaluer', preview: 'Qualité du modèle' },
-  { title: 'Déployer', preview: 'Mise en ligne' },
-]
+const LOCKED_ITEMS = [{}, {}, {}]
 
 const LOCKED_COUNT = LOCKED_ITEMS.length
 
 const DOT_SIZE = 10
 const LINE_WIDTH = 32
+
+// Sur petit écran, le lien « Accueil » est masqué (le logo y mène déjà).
+function useIsNarrow(query = '(max-width: 480px)') {
+  const [narrow, setNarrow] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
+  useEffect(() => {
+    const mq = window.matchMedia(query)
+    const onChange = () => setNarrow(mq.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [query])
+  return narrow
+}
 
 function getCompletionState() {
   const state = {}
@@ -59,7 +39,7 @@ function getCompletionState() {
   return state
 }
 
-function TooltipCard({ stepNumber, title, completed, locked }) {
+function TooltipCard({ stepNumber, title, completed, locked, status }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 4 }}
@@ -99,7 +79,7 @@ function TooltipCard({ stepNumber, title, completed, locked }) {
         fontStyle: 'italic',
         color: locked ? '#3a3a42' : (completed ? '#f85f00' : '#55555f'),
       }}>
-        {locked ? 'verrouillé' : (completed ? 'terminé' : 'en cours')}
+        {locked ? status.locked : (completed ? status.completed : status.inProgress)}
       </span>
     </motion.div>
   )
@@ -107,8 +87,10 @@ function TooltipCard({ stepNumber, title, completed, locked }) {
 
 export default function Navbar() {
   const { pathname } = useLocation()
+  const t = useT('common')
   const totalDots = NAV_ITEMS.length + LOCKED_COUNT
   const [hoveredDot, setHoveredDot] = useState(null)
+  const narrow = useIsNarrow()
   const [completionState, setCompletionState] = useState(getCompletionState)
 
   // Listen for completion events from lesson pages
@@ -140,15 +122,15 @@ export default function Navbar() {
         borderBottom: '1px solid #2a2a30',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '0 24px',
-        position: 'relative',
+        justifyContent: 'space-between',
+        gap: 12,
+        padding: narrow ? '0 16px' : '0 24px',
       }}>
         {/* Left: Logo */}
+        <div style={{ flex: 1, minWidth: 0 }}>
         <Link to="/" style={{
-          position: 'absolute',
-          left: 24,
           textDecoration: 'none',
+          whiteSpace: 'nowrap',
           fontFamily: 'var(--font-body)',
           fontWeight: 600,
           fontSize: 15,
@@ -156,10 +138,11 @@ export default function Navbar() {
         }}>
           howaiworks<span style={{ color: '#f85f00' }}>.io</span>
         </Link>
+        </div>
 
         {/* Center: Nav links */}
-        <div style={{ display: 'flex', gap: 32 }}>
-          {[{ path: '/', label: 'Accueil' }, { path: '/resources', label: 'Ressources' }, { path: '/about', label: 'À propos' }].map(({ path, label }) => {
+        <div style={{ display: 'flex', gap: narrow ? 14 : 24, flexShrink: 0 }}>
+          {[...(narrow ? [] : [{ path: '/', label: t.nav.home }]), { path: '/resources', label: t.nav.resources }, { path: '/about', label: t.nav.about }].map(({ path, label }) => {
             const active = pathname === path
             return (
               <Link
@@ -169,6 +152,7 @@ export default function Navbar() {
                   textDecoration: 'none',
                   fontFamily: 'var(--font-body)',
                   fontSize: 13,
+                  whiteSpace: 'nowrap',
                   fontWeight: active ? 600 : 400,
                   color: active ? '#e8e8ed' : '#8a8a96',
                   transition: 'color 0.2s',
@@ -180,6 +164,11 @@ export default function Navbar() {
               </Link>
             )
           })}
+        </div>
+
+        {/* Right: language switcher */}
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <LanguageSwitcher label={t.languageLabel} />
         </div>
       </div>
 
@@ -257,7 +246,8 @@ export default function Navbar() {
                 {isHovered && (
                   <TooltipCard
                     stepNumber={i + 1}
-                    title={navItem?.title || lockedItem?.title}
+                    title={navItem ? t.lessonTitles[navItem.path] : t.lockedTitles[i - NAV_ITEMS.length]}
+                    status={t.status}
                     completed={!!isCompleted}
                     locked={isLocked}
                   />
@@ -304,6 +294,36 @@ export default function Navbar() {
       </motion.div>}
       </AnimatePresence>
     </nav>
+  )
+}
+
+function LanguageSwitcher({ label }) {
+  const { lang, setLang, languages } = useLanguage()
+  if (languages.length < 2) return null
+  return (
+    <select
+      aria-label={label}
+      title={label}
+      value={lang}
+      onChange={(e) => setLang(e.target.value)}
+      style={{
+        background: 'transparent',
+        color: '#8a8a96',
+        border: '1px solid #2a2a30',
+        borderRadius: 999,
+        padding: '3px 8px',
+        fontFamily: 'var(--font-body)',
+        fontSize: 12,
+        cursor: 'pointer',
+        outline: 'none',
+      }}
+    >
+      {languages.map((l) => (
+        <option key={l.code} value={l.code} style={{ background: '#1c1c20', color: '#e8e8ed' }}>
+          {l.short}
+        </option>
+      ))}
+    </select>
   )
 }
 

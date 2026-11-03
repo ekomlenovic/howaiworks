@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion'
-import { FUNNEL_CTAS } from '../seo/seoData'
+import { useT } from '../i18n'
 
 // Contextual end-of-lesson CTA into the wider ecosystem (roadmap quiz,
 // community, coaching). Copy and destination live in seoData.js.
 export default function FunnelCTA({ path }) {
+  const { FUNNEL_CTAS } = useT('seo')
   const cta = FUNNEL_CTAS[path]
   if (!cta) return null
 

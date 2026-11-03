@@ -3,52 +3,21 @@ import { motion } from 'framer-motion'
 import Footer from '../components/Footer'
 import DeeperDive from '../components/DeeperDive'
 import HeroTokenDemo from '../components/HeroTokenDemo'
+import { useT } from '../i18n'
 
+// Les titres et descriptions viennent des fichiers de langue (home.lessons / home.locked).
 const LESSONS = [
-  {
-    num: 1,
-    title: 'C’est quoi l’IA',
-    desc: 'Voyez comment l’IA est passée des règles au langage',
-    path: '/what-is-ai',
-    completionKey: 'lesson-complete-what-is-ai',
-  },
-  {
-    num: 2,
-    title: 'Tokeniser',
-    desc: 'Voyez comment l’IA découpe vos mots en morceaux',
-    path: '/tokenize',
-    completionKey: 'lesson-complete-tokenizer',
-  },
-  {
-    num: 3,
-    title: 'Comprendre',
-    desc: 'Regardez l’IA ranger les mots selon leur sens',
-    path: '/understand',
-    completionKey: 'lesson-complete-understand',
-  },
-  {
-    num: 4,
-    title: 'Attention',
-    desc: 'Voyez comment les transformers se concentrent sur l’essentiel',
-    path: '/attention',
-    completionKey: 'lesson-complete-attention',
-  },
-  {
-    num: 5,
-    title: 'Exécuter',
-    desc: 'Faites s’affronter le cloud et le local',
-    path: '/run',
-    completionKey: 'lesson-complete-run',
-  },
+  { num: 1, path: '/what-is-ai', completionKey: 'lesson-complete-what-is-ai' },
+  { num: 2, path: '/tokenize', completionKey: 'lesson-complete-tokenizer' },
+  { num: 3, path: '/understand', completionKey: 'lesson-complete-understand' },
+  { num: 4, path: '/attention', completionKey: 'lesson-complete-attention' },
+  { num: 5, path: '/run', completionKey: 'lesson-complete-run' },
 ]
 
-const LOCKED = [
-  { num: 6, title: 'Affiner', desc: 'Entraîner sur vos propres données' },
-  { num: 7, title: 'Évaluer', desc: 'Mesurer la qualité d’un modèle' },
-  { num: 8, title: 'Déployer', desc: 'Le mettre en production' },
-]
+const LOCKED = [{ num: 6 }, { num: 7 }, { num: 8 }]
 
 export default function HomePage() {
+  const t = useT('home')
   return (
     <div>
       {/* Hero */}
@@ -66,8 +35,8 @@ export default function HomePage() {
               letterSpacing: -1,
             }}
           >
-            Voici comment l’IA{' '}
-            <span style={{ color: 'var(--brand)' }}>fonctionne.</span>
+            {t.titleStart}{' '}
+            <span style={{ color: 'var(--brand)' }}>{t.titleAccent}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -82,8 +51,7 @@ export default function HomePage() {
               lineHeight: 1.6,
             }}
           >
-            Ne vous contentez pas de lire sur l’IA : expérimentez-la. Tapez, observez et comprenez
-            ce qui se passe à l’intérieur de la machine.
+            {t.subtitle}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -128,7 +96,8 @@ export default function HomePage() {
         </motion.div>
 
         {/* Active lessons */}
-        {LESSONS.map((lesson, i) => {
+        {LESSONS.map((item, i) => {
+          const lesson = { ...item, ...t.lessons[item.path] }
           const completed = localStorage.getItem(lesson.completionKey) === 'true'
           return (
             <motion.div
@@ -212,7 +181,7 @@ export default function HomePage() {
         })}
 
         {/* Locked lessons */}
-        {LOCKED.map((lesson, i) => (
+        {LOCKED.map((item, i) => ({ ...item, ...t.locked[i] })).map((lesson, i) => (
           <motion.div
             key={lesson.title}
             initial={{ opacity: 0, y: 20 }}
@@ -305,7 +274,7 @@ export default function HomePage() {
             e.currentTarget.style.boxShadow = '0 0 20px rgba(248, 95, 0, 0.3)'
           }}
         >
-          Commencer à apprendre
+          {t.cta}
           <span style={{ fontSize: 18 }}>→</span>
         </Link>
       </motion.div>

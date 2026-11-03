@@ -2,6 +2,7 @@ import { useRef, useEffect, useState, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import * as d3 from 'd3'
 import embeddingData from '../data/embeddingMap.json'
+import { useT } from '../i18n'
 
 const CATEGORY_COLORS = {
   animal: '#a8d86e',
@@ -12,14 +13,6 @@ const CATEGORY_COLORS = {
   person: '#c58ee8',
 }
 
-const CATEGORY_LABELS = {
-  animal: 'Animaux',
-  emotion: 'Émotions',
-  technology: 'Technologie',
-  food: 'Nourriture',
-  place: 'Lieux',
-  person: 'Personnes',
-}
 
 const REPRESENTATIVE_WORDS = embeddingData.representativeWords || {
   animal: ['cat', 'eagle', 'whale', 'butterfly'],
@@ -110,6 +103,8 @@ function distanceToSimilarity(dist) {
 }
 
 export default function MeaningMap({ words, onWordClick, selectedWord, neighborLines, liveWord, onPhaseChange }) {
+  const t = useT('embeddings').map
+  const CATEGORY_LABELS = t.categories
   const svgRef = useRef(null)
   const containerRef = useRef(null)
   const panelRef = useRef(null)
@@ -353,7 +348,7 @@ export default function MeaningMap({ words, onWordClick, selectedWord, neighborL
           {/* Fullscreen toggle */}
           <button
             onClick={toggleFullscreen}
-            title={isFullscreen ? 'Quitter le plein écran' : 'Plein écran'}
+            title={isFullscreen ? t.exitFullscreen : t.fullscreen}
             style={{
               marginLeft: 'auto',
               background: 'none',
@@ -594,7 +589,7 @@ export default function MeaningMap({ words, onWordClick, selectedWord, neighborL
             fontFamily="var(--font-mono)"
             opacity={0.5}
           >
-            molette pour zoomer · glisser pour se déplacer
+            {t.zoomHint}
           </text>
         </svg>
 
@@ -637,7 +632,7 @@ export default function MeaningMap({ words, onWordClick, selectedWord, neighborL
                   padding: '2px 8px',
                   borderRadius: 4,
                 }}>
-                  Position: ({tooltip.x.toFixed(2)}, {tooltip.y.toFixed(2)})
+                  {t.position} ({tooltip.x.toFixed(2)}, {tooltip.y.toFixed(2)})
                 </span>
               </div>
 

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import Footer from '../components/Footer'
 import DeeperDive from '../components/DeeperDive'
+import { useT } from '../i18n'
 
 const sectionStyle = {
   background: 'var(--bg-surface)',
@@ -24,6 +25,7 @@ const bodyStyle = {
 }
 
 export default function AboutPage() {
+  const t = useT('about')
   return (
     <div style={{ maxWidth: 640, margin: '0 auto', padding: '0 24px' }}>
       {/* Hero */}
@@ -40,7 +42,7 @@ export default function AboutPage() {
           marginBottom: 12,
           letterSpacing: -0.5,
         }}>
-          À propos de{' '}
+          {t.titleStart}{' '}
           howaiworks<span style={{ color: 'var(--brand)' }}>.io</span>
         </h1>
         <p style={{
@@ -50,7 +52,7 @@ export default function AboutPage() {
           margin: '0 auto',
           lineHeight: 1.5,
         }}>
-          Apprendre l’IA en la touchant du doigt, de façon interactive.
+          {t.subtitle}
         </p>
       </motion.div>
 
@@ -61,10 +63,10 @@ export default function AboutPage() {
         transition={{ duration: 0.4, delay: 0.1 }}
         style={sectionStyle}
       >
-        <div style={headingStyle}>L’histoire</div>
+        <div style={headingStyle}>{t.storyTitle}</div>
         <div style={bodyStyle}>
           <p style={{ marginBottom: 12 }}>
-            howaiworks.io est né d’un constat simple :
+            {t.storyIntro}
           </p>
           <div style={{
             padding: '12px 16px',
@@ -75,19 +77,14 @@ export default function AboutPage() {
             fontStyle: 'italic',
             color: 'var(--text-primary)',
           }}>
-            « La plupart des gens utilisent l’IA tous les jours, mais presque personne ne sait ce qui
-            se passe réellement à l’intérieur. »
+            {t.quote}
           </div>
           <p style={{ marginBottom: 12 }}>
-            Lire des articles n’y change rien. Les diapositives et les cours magistraux non plus.
-            L’expérimenter, si.
+            {t.storyMiddle}
           </p>
           <p>
-            <strong style={{ color: 'var(--brand)' }}>howaiworks.io</strong> is
-            repose sur cette idée. Au lieu de lire des explications sur la tokenisation, les embeddings et
-            l’inférence, vous les vivez. Tapez du texte et regardez-le devenir des tokens.
-            Voyez les mots se ranger selon leur sens. Faites s’affronter l’inférence dans le cloud et en local. Pas de diapositives,
-            pas de cours magistral. Juste la machine, rendue visible.
+            <strong style={{ color: 'var(--brand)' }}>howaiworks.io</strong>{' '}
+            {t.storyEnd}
           </p>
         </div>
       </motion.div>

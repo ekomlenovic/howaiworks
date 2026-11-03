@@ -1,12 +1,15 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ROUTES, SITE } from '../seo/seoData'
+import { SITE } from '../seo/seoData'
+import { useT } from '../i18n'
 
 // Renders the per-route SEO prose from seoData.js as a visible "deeper dive"
 // section, and keeps document.title / meta description / canonical in sync on
 // client-side navigation. The prerender script embeds the same prose in the
 // static HTML, so crawlers and users always see identical content.
 export default function DeeperDive({ path }) {
+  const { ROUTES } = useT('seo')
+  const { deeperDive } = useT('common')
   const meta = ROUTES[path]
 
   useEffect(() => {
@@ -53,7 +56,7 @@ export default function DeeperDive({ path }) {
         letterSpacing: 0.5,
         marginBottom: 14,
       }}>
-        POUR ALLER PLUS LOIN
+        {deeperDive}
       </span>
 
       <h2 style={{

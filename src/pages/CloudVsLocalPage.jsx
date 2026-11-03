@@ -8,8 +8,10 @@ import Footer from '../components/Footer'
 import DeeperDive from '../components/DeeperDive'
 import FunnelCTA from '../components/FunnelCTA'
 import { markLessonComplete } from '../components/Navbar'
+import { useT } from '../i18n'
 
 export default function CloudVsLocalPage({ webllm }) {
+  const t = useT('run')
   const [ollamaConnected, setOllamaConnected] = useState(false)
   const [allTradeoffsExplored, setAllTradeoffsExplored] = useState(false)
 
@@ -40,8 +42,8 @@ export default function CloudVsLocalPage({ webllm }) {
           marginBottom: 12,
           letterSpacing: -0.5,
         }}>
-          La même IA.{' '}
-          <span style={{ color: 'var(--brand)' }}>Deux machines très différentes.</span>
+          {t.titleStart}{' '}
+          <span style={{ color: 'var(--brand)' }}>{t.titleAccent}</span>
         </h1>
         <p style={{
           fontSize: 17,
@@ -51,8 +53,7 @@ export default function CloudVsLocalPage({ webllm }) {
           margin: '0 auto',
           lineHeight: 1.5,
         }}>
-          <span style={{ color: '#6ec0e8' }}>Cloud</span> : une grappe de GPU dans un centre de données.{' '}
-          <span style={{ color: 'var(--brand)' }}>Local</span> : votre propre ordinateur. Regardez-les faire la course.
+          {t.subtitle}
         </p>
       </motion.div>
 
@@ -109,179 +110,7 @@ export default function CloudVsLocalPage({ webllm }) {
         visible={true}
         delay={0.55}
         onOpen={() => markLessonComplete('lesson-complete-run')}
-        sections={[
-          {
-            label: 'Le concept',
-            color: 'var(--brand)',
-            defaultOpen: true,
-            content: (
-              <div>
-                <p style={{ marginBottom: 16 }}>
-                  <strong style={{ color: 'var(--brand)', fontSize: 15 }}>La chaîne d’inférence</strong>
-                </p>
-                <p style={{ marginBottom: 12 }}>
-                  Quand vous envoyez un prompt à un modèle d’IA, voici ce qui se passe dans le GPU (la carte graphique) :
-                </p>
-                <div style={{ display: 'grid', gap: 10, marginBottom: 20 }}>
-                  <InferenceStep step={1} title="Tokeniser">
-                    Votre texte est découpé en tokens (vous l’avez vu dans la leçon sur la tokenisation). Cela se passe sur le processeur (CPU) : rapide, pas besoin de GPU.
-                  </InferenceStep>
-                  <InferenceStep step={2} title="Plonger (embedding)">
-                    Les identifiants des tokens sont convertis en vecteurs d’embedding (leçon « Comprendre »). La table des embeddings est stockée dans la mémoire du GPU.
-                  </InferenceStep>
-                  <InferenceStep step={3} title="Propagation avant">
-                    Les embeddings traversent des dizaines de couches de transformer. Chaque couche contient des têtes d’attention et des réseaux
-                    « feed-forward » : des milliards de multiplications de matrices. C’est là que le GPU mérite son salaire.
-                  </InferenceStep>
-                  <InferenceStep step={4} title="Tirer le token suivant">
-                    Le modèle produit une distribution de probabilités sur les quelque 100 000 tokens possibles. On tire au sort dedans pour choisir le token suivant.
-                    Puis on recommence à l’étape 2 en ajoutant ce nouveau token.
-                  </InferenceStep>
-                </div>
-
-                <p style={{ marginBottom: 16 }}>
-                  <strong style={{ color: 'var(--brand)', fontSize: 15 }}>La mémoire du GPU, c’est le goulot d’étranglement</strong>
-                </p>
-                <p style={{ marginBottom: 12 }}>
-                  Tous les paramètres d’un modèle doivent tenir dans la mémoire vidéo (VRAM) du GPU. En FP16 (2 octets par paramètre) :
-                </p>
-                <div style={{
-                  padding: '12px 16px',
-                  background: 'rgba(248, 95, 0,0.06)',
-                  border: '1px solid rgba(248, 95, 0,0.25)',
-                  borderRadius: 8,
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 13,
-                  marginBottom: 12,
-                }}>
-                  <div>0,5 Md de paramètres × 2 octets = <strong style={{ color: 'var(--brand)' }}>1 Go</strong> (tourne sur un Chromebook)</div>
-                  <div>8 Md de paramètres × 2 octets = <strong style={{ color: '#6ec0e8' }}>16 Go</strong> (il faut une carte graphique de joueur)</div>
-                  <div>70 Md de paramètres × 2 octets = <strong style={{ color: '#e8956e' }}>140 Go</strong> (il faut 2 A100 de 80 Go)</div>
-                </div>
-                <p>
-                  <strong style={{ color: 'var(--text-primary)' }}>La quantification</strong> réduit ce besoin : en quantification 4 bits,
-                  chaque paramètre occupe 0,5 octet au lieu de 2. Un modèle de 70 milliards de paramètres passe de 140 Go à environ 35 Go, et tient
-                  sur une seule A100 ou une carte grand public très haut de gamme. La contrepartie : une légère perte de précision.
-                </p>
-              </div>
-            ),
-          },
-          {
-            label: 'Le code',
-            color: '#6ec0e8',
-            defaultOpen: false,
-            content: (
-              <pre style={{
-                background: 'var(--bg-deep)',
-                border: '1px solid var(--border)',
-                borderRadius: 8,
-                padding: '16px',
-                fontFamily: 'var(--font-mono)',
-                fontSize: 12,
-                lineHeight: 1.6,
-                overflowX: 'auto',
-                whiteSpace: 'pre',
-                color: 'var(--text-secondary)',
-              }}>
-{`# Inférence dans le cloud (n'importe quelle API compatible OpenAI)
-import openai
-
-client = openai.OpenAI(
-    api_key="sk-votre-cle-ici"
-)
-
-response = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[{"role": "user", "content": "C'est quoi l'IA ?"}],
-    stream=True
-)
-
-for chunk in response:
-    token = chunk.choices[0].delta.content
-    if token:
-        print(token, end="", flush=True)
-
-# ── Même interface, autre infrastructure ──────────
-# Inférence locale (Ollama, tourne sur votre machine)
-client = openai.OpenAI(
-    base_url="http://localhost:11434/v1",
-    api_key="ollama"  # Ollama n'a pas besoin d'une vraie clé
-)
-
-response = client.chat.completions.create(
-    model="qwen2.5:0.5b",
-    messages=[{"role": "user", "content": "C'est quoi l'IA ?"}],
-    stream=True
-)
-
-for chunk in response:
-    token = chunk.choices[0].delta.content
-    if token:
-        print(token, end="", flush=True)`}
-              </pre>
-            ),
-          },
-          {
-            label: 'Défi',
-            color: '#e8d06e',
-            defaultOpen: false,
-            content: (
-              <div>
-                <p style={{ marginBottom: 10 }}>
-                  <strong style={{ color: 'var(--text-primary)' }}>Réfléchissez :</strong>
-                </p>
-                <p style={{ marginBottom: 8, paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>1.</strong> Si une A100 a 80 Go de VRAM et que chaque paramètre
-                  en FP16 occupe 2 octets, quel est le plus gros modèle qu’elle peut contenir ? Et en quantification 4 bits ?
-                </p>
-                <p style={{ marginBottom: 8, paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>2.</strong> Certaines stations de travail sont désormais livrées avec 128 Go de
-                  mémoire unifiée, partagée entre le CPU et le GPU. Qu’est-ce que cela change pour les modèles qu’on peut faire tourner en local ?
-                </p>
-                <p style={{ paddingLeft: 16 }}>
-                  <strong style={{ color: '#e8d06e' }}>3.</strong> Pourquoi le cloud met-il plus de temps à produire le premier token,
-                  mais génère-t-il ensuite plus de tokens par seconde ? Qu’est-ce qui changerait si vous étiez sur le même réseau que la grappe de GPU ?
-                </p>
-              </div>
-            ),
-          },
-          {
-            label: 'Dans la vraie vie',
-            color: '#e87a96',
-            defaultOpen: false,
-            content: (
-              <div>
-                <p style={{ marginBottom: 14 }}>
-                  Choisir entre cloud et local n’est pas qu’une question technique : cela façonne des secteurs entiers.
-                </p>
-                <div style={{ display: 'grid', gap: 10 }}>
-                  <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #e87a96' }}>
-                    <strong style={{ color: '#e87a96' }}>Santé (le local l’emporte)</strong>
-                    <div style={{ marginTop: 4, fontSize: 13 }}>
-                      Les hôpitaux utilisent une IA locale pour analyser les dossiers des patients. La réglementation (HIPAA aux États-Unis, RGPD et hébergement de données de santé en France) encadre strictement ces données.
-                      L’historique médical d’un patient ne devrait jamais traverser internet pour atteindre un GPU dans le cloud.
-                    </div>
-                  </div>
-                  <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #6ec0e8' }}>
-                    <strong style={{ color: '#6ec0e8' }}>Startups (le cloud l’emporte)</strong>
-                    <div style={{ marginTop: 4, fontSize: 13 }}>
-                      Une startup qui sert un million d’utilisateurs ne peut pas acheter 100 A100 dès le premier jour. Le cloud lui permet d’augmenter
-                      ou de réduire sa consommation de GPU selon la demande, en ne payant que ce qu’elle utilise.
-                    </div>
-                  </div>
-                  <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid var(--brand)' }}>
-                    <strong style={{ color: 'var(--brand)' }}>IA embarquée (combler l’écart)</strong>
-                    <div style={{ marginTop: 4, fontSize: 13 }}>
-                      Les téléphones et ordinateurs portables embarquent désormais des processeurs neuronaux et de la mémoire unifiée pensés pour les modèles
-                      locaux, et des stations de travail dédiées à l’IA font tourner des modèles de plus de 100 milliards de paramètres sur votre bureau. Le matériel
-                      réduit peu à peu le dilemme entre puissance et confidentialité.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ),
-          },
-        ]}
+        sections={t.depthSections}
       />
 
       {/* Divider */}
@@ -309,6 +138,7 @@ for chunk in response:
 }
 
 function CopyableCommand({ command }) {
+  const t = useT('run')
   const [copied, setCopied] = useState(false)
   const [hovered, setHovered] = useState(false)
   const handleCopy = () => {
@@ -364,7 +194,7 @@ function CopyableCommand({ command }) {
           fontSize: 10,
           color: 'var(--brand)',
         }}>
-          Copié !
+          {t.card.copied}
         </span>
       )}
     </div>
@@ -372,6 +202,7 @@ function CopyableCommand({ command }) {
 }
 
 function OllamaLocalCard({ connected, webllm }) {
+  const t = useT('run')
 
   return (
     <div style={{
@@ -396,15 +227,15 @@ function OllamaLocalCard({ connected, webllm }) {
               color: 'var(--text-primary)',
               marginBottom: 2,
             }}>
-              Faire tourner en local avec Ollama
+              {t.card.title}
             </div>
             <div style={{
               fontSize: 13,
               color: 'var(--text-secondary)',
             }}>
               {connected
-                ? 'Ollama est lancé : inférence locale active'
-                : 'Faites tourner l’IA sur votre machine, sans internet'}
+                ? t.card.subtitleConnected
+                : t.card.subtitle}
             </div>
           </div>
           {connected && (
@@ -422,7 +253,7 @@ function OllamaLocalCard({ connected, webllm }) {
               flexShrink: 0,
             }}>
               <span style={{ fontSize: 8 }}>●</span>
-              Connecté
+              {t.card.connected}
             </div>
           )}
         </div>
@@ -438,10 +269,7 @@ function OllamaLocalCard({ connected, webllm }) {
           lineHeight: 1.6,
           color: 'var(--text-secondary)',
         }}>
-          <strong style={{ color: 'var(--brand)' }}>L’inférence locale</strong> fait tourner le modèle d’IA directement
-          sur votre ordinateur : pas d’internet, pas de clé d’API, aucune donnée qui quitte votre machine. La contrepartie : votre matériel
-          limite les modèles que vous pouvez utiliser. Le modèle de 0,5 milliard de paramètres utilisé ici tient dans environ 1 Go de RAM, mais il est bien plus petit
-          que les modèles du cloud.
+          {t.card.intro}
         </div>
 
         {/* Quick-start commands */}
@@ -456,7 +284,7 @@ function OllamaLocalCard({ connected, webllm }) {
               color: 'var(--text-dim)',
               marginBottom: 8,
             }}>
-              Démarrage rapide
+              {t.card.quickStart}
             </div>
             <CopyableCommand command="ollama pull qwen2.5:0.5b" />
             <CopyableCommand command="ollama run qwen2.5:0.5b" />
@@ -489,7 +317,7 @@ function OllamaLocalCard({ connected, webllm }) {
                   e.currentTarget.style.boxShadow = 'none'
                 }}
               >
-                Télécharger Ollama
+                {t.card.getOllama}
                 <span style={{ fontSize: 12 }}>↗</span>
               </a>
               {webllm && (
@@ -514,10 +342,10 @@ function OllamaLocalCard({ connected, webllm }) {
                   }}
                 >
                   {webllm.isReady
-                    ? 'Modèle WebGPU chargé'
+                    ? t.card.webgpuLoaded
                     : webllm.status === 'loading'
-                    ? 'Chargement du modèle WebGPU…'
-                    : "Impossible d’installer ? Essayez WebGPU"}
+                    ? t.card.webgpuLoading
+                    : t.card.webgpuTry}
                 </button>
               )}
             </div>
@@ -529,6 +357,7 @@ function OllamaLocalCard({ connected, webllm }) {
 }
 
 function WebLLMProgressBar({ progress }) {
+  const t = useT('run')
   const pct = Math.round((progress.progress || 0) * 100)
   return (
     <motion.div
@@ -557,7 +386,7 @@ function WebLLMProgressBar({ progress }) {
             color: 'var(--brand)',
             fontWeight: 600,
           }}>
-            Chargement de l’IA dans votre navigateur…
+            {t.progress.loading}
           </span>
           <span style={{
             fontFamily: 'var(--font-mono)',
@@ -593,46 +422,9 @@ function WebLLMProgressBar({ progress }) {
           overflow: 'hidden',
           textOverflow: 'ellipsis',
         }}>
-          {progress.text || 'Préparation de WebGPU…'}
+          {progress.text || t.progress.preparing}
         </div>
       </div>
     </motion.div>
-  )
-}
-
-function InferenceStep({ step, title, children }) {
-  return (
-    <div style={{
-      display: 'flex',
-      gap: 14,
-      padding: '12px 16px',
-      background: 'rgba(255,255,255,0.02)',
-      border: '1px solid var(--border)',
-      borderRadius: 8,
-    }}>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 28,
-        height: 28,
-        borderRadius: '50%',
-        background: 'var(--brand-dim)',
-        color: 'var(--brand)',
-        fontFamily: 'var(--font-mono)',
-        fontSize: 13,
-        fontWeight: 700,
-        flexShrink: 0,
-        marginTop: 2,
-      }}>
-        {step}
-      </div>
-      <div style={{ flex: 1 }}>
-        <strong style={{ color: 'var(--text-primary)', fontSize: 14 }}>{title}</strong>
-        <div style={{ marginTop: 4, fontSize: 13, lineHeight: 1.6 }}>
-          {children}
-        </div>
-      </div>
-    </div>
   )
 }
